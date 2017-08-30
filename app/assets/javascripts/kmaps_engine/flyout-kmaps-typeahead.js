@@ -20,7 +20,7 @@
       domain: 'places',
       filters_domain: 'subjects',
       root_kmap_path: null,
-      features_path: '/features/',
+      features_path: '/features/%%ID%%',
       menu: ".listview > .view-wrap",
       filters_class: ".kmap-search-filter",
       goto_fid_input: "#goto-fid input",
@@ -278,7 +278,7 @@
             match: $(plugin.options.match_filter_selector+":checked").val(),
             page: $(plugin.options.menu).find("input.pager-input").val()
           }));
-          window.location.href = plugin.options.features_path+sel.id;
+          window.location.href = plugin.options.features_path.replace("%%ID%%",sel.id);
           $typeaheadExplorer.typeahead('val', search_key); // revert back to search key
         }
       );
@@ -429,7 +429,7 @@
       };
       var callBack = function(data){
         if((data.response !== undefined) && (data.response.numFound !== undefined) && data.response.numFound > 0) {
-          window.location.href = plugin.options.features_path+fid;
+          window.location.href = plugin.options.features_path.replace("%%ID%%",fid);
         } else {
           var msg = 'No results for <span class="kmaps-tt-query">' + fid + '</span>. ';
           $('.listview > .view-wrap .kmaps-tt-dataset').html('<div class="kmaps-tt-message kmaps-tt-no-results">' + msg + '</div>');
