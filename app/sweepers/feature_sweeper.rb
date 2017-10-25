@@ -15,6 +15,10 @@ class FeatureSweeper < ActionController::Caching::Sweeper
     expire_cache(record) #if record.is_a?(Feature)
   end
   
+  def default_static_extension
+    #Rails.configuration.default_static_extension
+  end
+
   def expire_cache(record)
     if record.instance_of? Feature
       feature = record

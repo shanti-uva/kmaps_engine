@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
   
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  s.add_dependency 'rails', '4.2.5'
+  s.add_dependency 'rails', '4.1.16'
 
   # Use postgresql as the database for Active Record
   s.add_dependency 'pg', '~> 0.15'
