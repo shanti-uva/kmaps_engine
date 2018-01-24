@@ -391,7 +391,7 @@
                     console.log("loadChildren...");
                   }
 
-                  //ctx.node.sortChildren(null, true);
+                  ctx.node.sortChildren(null, true);
 
                 }
               }).on('fancytreeinit', function (x, y) {

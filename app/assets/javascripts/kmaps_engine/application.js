@@ -19,3 +19,4 @@
 //= require kmaps_engine/kmaps_typeahead
 //= require kmaps_engine/flyout-kmaps-typeahead
 //= require kmaps_engine/jquery.kmaps-popup
+//= require kmaps_engine/solr-utils

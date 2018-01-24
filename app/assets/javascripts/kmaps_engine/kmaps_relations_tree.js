@@ -22,7 +22,7 @@
   // minified (especially when both are regularly referenced in your plugin).
 
   // Create the defaults once
-  var pluginName = 'kmapsFancytree',
+  var pluginName = 'kmapsRelationsTree',
     defaults = {
       termIndex: "http://localhost/solr/kmterms_dev",
       assetIndex: "http://localhost/solr/kmassets_dev",

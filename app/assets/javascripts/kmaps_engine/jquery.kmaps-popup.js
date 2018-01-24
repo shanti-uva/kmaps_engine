@@ -24,19 +24,11 @@
   // Create the defaults once
   var pluginName = 'kmapsPopup',
     defaults = {
-      termIndex: "http://localhost/solr/kmterms_dev",
-      assetIndex: "http://localhost/solr/kmassets_dev",
-      tree: "places",
       featuresPath: "/features/%%ID%%",
       domain: "places",
       featureId: 1,
-      perspective: "pol.admin.hier",
-      seedTree: {
-        descendants: false,
-        directAncestors: true
-      },
-      displayPopup: false,
-      mandalaURL: "https://mandala.shanti.virginia.edu/%%APP%%/%%ID%%/%%REL%%/nojs"
+      mandalaURL: "https://mandala.shanti.virginia.edu/%%APP%%/%%ID%%/%%REL%%/nojs",
+      solrUtils: {} //requires solr-utils.js library
     };
 
   // The actual plugin constructor
@@ -67,44 +59,6 @@
         plugin.options.featureId = jQuery(plugin.element).data('id').replace(plugin.options.domain+"-","");
       }
       decorateElementWithPopover(plugin.element, plugin.options.domain+'-'+plugin.options.featureId, title, stringPath, plugin.options.caption);
-
-      function getNodeInfo() {
-        const dfd = $.Deferred();
-        var nodeInfo = [];
-        nodeInfo['always']='present';
-        var url = plugin.options.termIndex + '/select?q=id:' + plugin.options.domain+'-'+plugin.options.featureId + '&fl=header,ancestor*&wt=json&json.wrf=?';
-        $.ajax({
-          type: "GET",
-          url: url,
-          dataType: "jsonp",
-          timeout: 90000,
-          error: function (e) {
-            console.error(e);
-            dfd.resolve([]);
-            // countsElem.html("<i class='glyphicon glyphicon-warning-sign' title='" + e.statusText);
-          },
-          beforeSend: function () {
-          },
-
-          success: function (data) {
-            var doc = data.response.docs[0];
-            var ancestorsKey  = "ancestor_ids_" + plugin.options.perspective;
-            var ancestorsNameKey  = "ancestors_" + plugin.options.perspective;
-            if( doc[ancestorsKey] === undefined ) {
-              ancestorsKey  = "ancestor_ids_closest_" + plugin.options.perspective;
-              ancestorsNameKey  = "ancestors_closest_" + plugin.options.perspective;
-            }
-            nodeInfo['ancestors'] = doc[ancestorsKey] === undefined ? "" : doc[ancestorsKey].reduce(function(acc,val,index){
-              var currAncestor = "<a href='"+plugin.options.featuresPath.replace("%%ID%%",val)+"'>"+doc[ancestorsNameKey][index]+"</a>"
-              acc += "/"+currAncestor;
-              return acc;
-            }, "");
-            nodeInfo['title'] = "<strong>" + doc["header"] + "</strong>";
-            dfd.resolve(nodeInfo);
-          }
-        });
-        return dfd.promise();
-      }
 
       function decorateElementWithPopover(elem, key, title, path, caption) {
         //if (DEBUG) console.log("decorateElementWithPopover: "  + elem);
@@ -156,7 +110,7 @@
             $("body > .popover").addClass("search-popover"); // target css styles on search tree popups
 
             var popOverContent = $("#popover-content-"+key);
-            var nodeInfoAsync = getNodeInfo();
+            var nodeInfoAsync = plugin.options.solrUtils.getNodeInfo(plugin.options.featuresPath);
             nodeInfoAsync.then(function(nodeInfo){
               var ancestorsPath = nodeInfo['ancestors'] === undefined ? "" : nodeInfo['ancestors'];
               var title = nodeInfo['title'] === undefined ? "" : nodeInfo['title'];
@@ -186,115 +140,24 @@
             var fq = plugin.options.solr_filter_query;
 
             var project_filter = (fq) ? ("&" + fq) : "";
-            var kmidxBase = plugin.options.assetIndex;
-            if (!kmidxBase) {
-              console.error("plugin.option.assetIndex not set!");
-            }
-
-            var termidxBase = plugin.options.termIndex;
-            if (!termidxBase) {
-              console.error("plugin.options.termIndex not set!");
-            }
 
             // Update counts from asset index
-            var assetCountsUrl =
-              kmidxBase + '/select?q=kmapid:' + key + project_filter + '&start=0&facets=on&group=true&group.field=asset_type&group.facet=true&group.ngroups=true&group.limit=0&wt=json&json.wrf=?';
-            $.ajax({
-              type: "GET",
-              url: assetCountsUrl,
-              dataType: "jsonp",
-              timeout: 90000,
-              error: function (e) {
-                console.error(e);
-                // countsElem.html("<i class='glyphicon glyphicon-warning-sign' title='" + e.statusText);
-              },
-              beforeSend: function () {
-              },
-
-              success: function (data) {
-                if (DEBUG) console.log("shown.bs.popover handler: data = " + JSON.stringify(data, undefined, 1));
-                var updates = {};
-
-                // extract the group counts -- index by groupValue
-                $.each(data.grouped.asset_type.groups, function (x, y) {
-                  var asset_type = y.groupValue;
-                  var asset_count = y.doclist.numFound;
-                  if (DEBUG) console.log(asset_type + " = " + asset_count);
-                  updates[asset_type] = asset_count;
-                });
-
-                if (DEBUG) console.log("shown.bs.popover handler: " + key + "(" + title + ") : " + JSON.stringify(updates));
-                update_counts(countsElem, updates)
-              }
+            var  asyncAssetCount = plugin.options.solrUtils.getNodeAssetCount(key,project_filter,title);
+            asyncAssetCount.then(function(assetCount){
+              update_counts(countsElem, assetCount);
             });
-
             // Update related place and subjects counts from term index
 
-
-            // {!child of=block_type:parent}id:places-22675&wt=json&indent=true&group=true&group.field=block_child_type&group.limit=0
-            var relatedCountsUrl =
-              termidxBase + '/select?q={!child of=block_type:parent}id:' + key + project_filter + '&wt=json&indent=true&group=true&group.field=block_child_type&group.limit=0&wt=json&json.wrf=?';
-            if (DEBUG) console.error("relatedCountsUrl = " + relatedCountsUrl);
-            $.ajax({
-              type: "GET",
-              url: relatedCountsUrl,
-              dataType: "jsonp",
-              timeout: 90000,
-              error: function (e) {
-                console.error(e);
-                // countsElem.html("<i class='glyphicon glyphicon-warning-sign' title='" + e.statusText);
-              },
-              beforeSend: function () {
-              },
-
-              success: function (data) {
-                if (DEBUG) console.log("shown.bs.popover handler: data = " + JSON.stringify(data, undefined, 1));
-                var updates = {};
-
-                // extract the group counts -- index by groupValue
-                $.each(data.grouped.block_child_type.groups, function (x, y) {
-                  var block_child_type = y.groupValue;
-                  var rel_count = y.doclist.numFound;
-                  if (DEBUG) console.log(block_child_type + " = " + rel_count);
-                  updates[block_child_type] = rel_count;
-                });
-
-                if (DEBUG) console.log("shown.bs.popover handler: " + key + "(" + title + ") : " + JSON.stringify(updates));
-                update_counts(countsElem, updates)
-              }
+            var  asyncRelatedCount = plugin.options.solrUtils.getNodeRelatedCount(key,project_filter,title);
+            asyncRelatedCount.then(function(relatedCount){
+              update_counts(countsElem, relatedCount);
             });
 
             // Another (parallel) query
-
-            var subjectsRelatedPlacesCountQuery = termidxBase + "/select?indent=on&q={!parent%20which=block_type:parent}related_subject_uid_s:" + key + "&wt=json&json.wrf=?&group=true&group.field=tree&group.limit=0";
-
-            $.ajax({
-              type: "GET",
-              url: subjectsRelatedPlacesCountQuery,
-              dataType: "jsonp",
-              timeout: 90000,
-              error: function (e) {
-                console.error(e);
-                // countsElem.html("<i class='glyphicon glyphicon-warning-sign' title='" + e.statusText);
-              },
-              beforeSend: function () {
-              },
-
-              success: function (data) {
-                if (DEBUG) console.log("shown.bs.popover handler: data = " + JSON.stringify(data, undefined, 1));
-                var updates = {};
-                // extract the group counts -- index by groupValue
-                $.each(data.grouped.tree.groups, function (x, y) {
-                  var tree = y.groupValue;
-                  var rel_count = y.doclist.numFound;
-                  if (DEBUG) console.error(tree + " = " + rel_count);
-                  updates["related_" + tree] = rel_count;
-                });
-
-                update_counts(countsElem, updates)
-              }
+            var  asyncSubjectsRelatedPlacesCount = plugin.options.solrUtils.getNodeSubjectsRelatedPlacesCount(key,title);
+            asyncSubjectsRelatedPlacesCount.then(function(subjectRelatedPlacesCount){
+              update_counts(countsElem, subjectRelatedPlacesCount);
             });
-
 
           });
         }

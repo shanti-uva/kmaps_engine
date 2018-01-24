@@ -64,7 +64,7 @@
       var ancestor_field = 'ancestor_ids_generic'; //(settings.domain == 'subjects') ? 'ancestor_ids_default' : 'ancestor_ids_pol.admin.hier';
 
       //Previously all the queries have teh following filter, I removed it as a default to work with subjects and sources
-      //plugin.fq.push('tree:' + settings.domain);
+      plugin.fq.push('tree:' + settings.domain);
       if (settings.filters) {
         plugin.fq.push(settings.filters);
       }
