@@ -19,10 +19,10 @@ class Note < ActiveRecord::Base
   # a better approach to this?
   include ApplicationHelper
   
-  belongs_to :notable, :polymorphic=>true
+  belongs_to :notable, polymorphic: true
   belongs_to :note_title, optional: true
-  has_and_belongs_to_many :authors, :class_name => 'AuthenticatedSystem::Person', :join_table => 'authors_notes', :association_foreign_key => 'author_id'
-  has_many :imports, :as => 'item', :dependent => :destroy
+  has_and_belongs_to_many :authors, class_name: 'AuthenticatedSystem::Person', join_table: 'authors_notes', association_foreign_key: 'author_id'
+  has_many :imports, as: 'item', dependent: :destroy
 
   validates_presence_of :content
   
