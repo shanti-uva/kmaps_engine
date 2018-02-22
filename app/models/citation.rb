@@ -33,7 +33,6 @@ class Citation < ActiveRecord::Base
   # Validation
   #
   #
-  validates :info_source_id, :citable_id, :citable_type, :info_source_type, presence: true
   validates :info_source_id, presence: true
   validate :presence_of_external_info_source
   
