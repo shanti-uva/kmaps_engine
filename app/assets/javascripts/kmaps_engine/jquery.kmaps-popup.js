@@ -58,9 +58,10 @@
       if(!plugin.options.featureId){
         plugin.options.featureId = jQuery(plugin.element).data('id').replace(plugin.options.domain+"-","");
       }
-      decorateElementWithPopover(plugin.element, plugin.options.domain+'-'+plugin.options.featureId, title, stringPath, plugin.options.caption);
+      decorateElementWithPopover(plugin.options.domain+'-'+plugin.options.featureId, title, stringPath, plugin.options.caption);
 
-      function decorateElementWithPopover(elem, key, title, path, caption) {
+      function decorateElementWithPopover( key, title, path, caption ) {
+        var elem = plugin.element;
         //if (DEBUG) console.log("decorateElementWithPopover: "  + elem);
 
         if (jQuery(elem).popover) {
@@ -126,7 +127,7 @@
             popOverFooter.append("<div style='display: none' class='popover-footer-button'><a href='"+plugin.options.featuresPath.replace("%%ID%%",key.replace(plugin.options.domain+'-',""))+"#show_relationship=documents' class='icon shanticon-texts' target='_blank'>Related texts (<span class='badge-count' >?</span>)</a></div>");
             popOverFooter.append("<div style='display: none' class='popover-footer-button'><a href='"+plugin.options.mandalaURL.replace("%%ID%%",key.replace(plugin.options.domain+'-',"")).replace("%%APP%%",plugin.options.domain).replace("%%REL%%","visuals")+"' class='icon shanticon-visuals' target='_blank'>Related visuals (<span class='badge-count' >?</span>)</a></div>");
             popOverFooter.append("<div style='display: none' class='popover-footer-button'><a href='"+plugin.options.featuresPath.replace("%%ID%%",key.replace(plugin.options.domain+'-',""))+"#show_relationship=places' class='icon shanticon-places' target='_blank'>Related places (<span class='badge-count' >?</span>)</a></div>");
-            popOverFooter.append("<div style='display: none' class='popover-footer-button'><a href='"+plugin.options.featuresPath.replace("%%ID%%",key.replace(plugin.options.domain+'-',""))+"#show_relationship=subjects' class='icon shanticon-subjects' target='_blank'>Related subjets (<span class='badge-count' >?</span>)</a></div>");
+            popOverFooter.append("<div style='display: none' class='popover-footer-button'><a href='"+plugin.options.featuresPath.replace("%%ID%%",key.replace(plugin.options.domain+'-',""))+"#show_relationship=subjects' class='icon shanticon-subjects' target='_blank'>Related subjects (<span class='badge-count' >?</span>)</a></div>");
             popOverContent.append(popOverFooter);
             //var countsElem = $("#popover-content-" + key + " .counts-display");
             //countsElem.html("<span class='assoc-resources-loading'>loading...</span>\n");
