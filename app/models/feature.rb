@@ -439,9 +439,8 @@ class Feature < ActiveRecord::Base
   end
 
   def get_related_features_count
-    response = Flare.search_by("{!child of=block_type:parent}id:#{self.uid}",
-                               {'group' => true, 'group.field' =>  'block_child_type', 'group.limit' => 0},
-                               true)['grouped']['block_child_type']
+    response = Flare.search_by("{!child of=block_type:parent}id:#{self.uid}", 'group' => true,
+      'group.field' =>  'block_child_type', 'group.limit' => 0)['grouped']['block_child_type']
     response['matches'] > 0 ? response['groups'].select{|group| group['groupValue'] == "related_#{Feature.uid_prefix}"}.first['doclist']['numFound'] : 0
   end
   
