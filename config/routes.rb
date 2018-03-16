@@ -63,6 +63,9 @@ Rails.application.routes.draw do
     resources :time_units do
       resources :notes, concerns: :add_author
     end
+    resources :captions, :summaries do
+      resources :citations
+    end
   end
   resources :features do
     resources :captions, only: [:index, :show]

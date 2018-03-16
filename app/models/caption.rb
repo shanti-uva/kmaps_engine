@@ -12,6 +12,8 @@
 #
 
 class Caption < ActiveRecord::Base  
+  include KmapsEngine::IsCitable
+
   belongs_to :feature
   belongs_to :language
   belongs_to :author, :class_name => 'AuthenticatedSystem::Person'
