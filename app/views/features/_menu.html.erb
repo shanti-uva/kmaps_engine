@@ -64,7 +64,7 @@
     domain: '<%= Feature.uid_prefix %>',
     filters_domain: '<%= Feature.uid_prefix %>',
     root_kmap_path: null,
-    features_path: "<%= (defined?(admin) && admin) ? admin_features_path : features_path %>/"
+    features_path: "<%= (defined?(admin) && admin) ? admin_features_path : features_path %>/%%ID%%"
   });
 <% end %>
   </section>
