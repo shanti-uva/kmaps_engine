@@ -170,21 +170,37 @@ module ApplicationHelper
     unless options[:association_type].blank?
       if object.respond_to?(:association_notes_for) && object.association_notes_for(options[:association_type]).length > 0
         notes = object.association_notes_for(options[:association_type])
-        link_url = polymorphic_url([object, :association_notes], :association_type => options[:association_type])
+        link_url = polymorphic_path([object, :association_notes], :association_type => options[:association_type])
       end
     else
       if object.respond_to?(:notes) && object.public_notes.length > 0
         notes = object.public_notes
-        link_url = polymorphic_url([object, :notes])
+        link_url = polymorphic_path([object, :notes])
       end
     end
     unless notes.nil?
       link_title = notes.collect{|n| (n.title.nil? ? 'Note' : n.title) + (" by #{n.authors.collect(&:fullname).join(", ").s}" if n.authors.length > 0).to_s}.join(', ')
       link_classes = "draggable-pop no-view-alone overflow-y-auto height-350"
-      ("<span class='has-draggable-popups note-popup-link'>(" +
-        link_to("", link_url, :class => "note-popup-link-icon "+link_classes, :title => h(link_title)) +
-        link_to("See Note", link_url, :class => "note-popup-link-text "+link_classes, :title => h(link_title)) +
-      ")</span>").html_safe
+      ("<span class='has-draggable-popups note-popup-link'>" +
+        link_to("", link_url, :class => "popup-link-icon note-popup-link-icon shanticon-stack "+link_classes, :title => Note.model_name.human(count: notes.count).titleize,  data: {:"js-kmaps-popup" => link_url }) +
+        #link_to("See Note", link_url, :class => "note-popup-link-text "+link_classes, :title => Note.model_name.human(count: notes.count).titleize, data: {:"js-kmaps-popup" => link_url }) +
+      "</span>").html_safe
+    else
+      ""
+    end
+  end
+  def citation_popup_link_for(object, options={})
+    if object.respond_to?(:citations) && !object.citations.empty?
+      citations = object.citations
+      link_url = polymorphic_path([object, :citations])
+    end
+    unless citations.nil?
+      link_title = citations.collect{|c| (c.citable_type.nil? ? 'Citation' : c.citable_type) + (" source type: #{c.info_source_type}").to_s}.join(', ')
+      link_classes = "draggable-pop no-view-alone overflow-y-auto height-350"
+      ("<span class='has-draggable-popups citation-popup-link'>" +
+        link_to("", link_url, :class => "popup-link-icon citation-popup-link-icon shanticon-sources "+link_classes, :title => Citation.model_name.human(count: citations.count).titleize, data: {:"js-kmaps-popup" => link_url }) +
+        #link_to("See Citation", link_url, :class => "citation-popup-link-text "+link_classes, :title => Citation.model_name.human(count: citations.count).titleize, data: {:"js-kmaps-popup" => link_url }) +
+      "</span>").html_safe
     else
       ""
     end
@@ -201,7 +217,7 @@ module ApplicationHelper
     else
       if object.respond_to?(:notes) && object.public_notes.length > 0
         notes = object.public_notes
-        link_url = polymorphic_url([object, :notes])
+        link_url = polymorphic_path([object, :notes])
       end
     end
     if !notes.nil? && notes.length > 0 
@@ -214,6 +230,24 @@ module ApplicationHelper
       '</ul>').html_safe
     end
   end
+
+  def citation_popup_link_list_for(object, options={})
+    if object.respond_to?(:citations) && !object.citations.empty?
+      citations = object.citations
+      link_url = polymorphic_path([object, :citations])
+    else
+      citations = nil
+    end
+    unless citations.nil?
+      # Wrapping this in a <p /> makes its font size incorrect, so for now, we'll achieve the top margin with
+      # a <br />.
+      ('<br />
+      <strong>Citations:</strong>
+      <ul class="citation-popup-link-list">' +
+        citations.collect{|n| "<li>#{citation_popup_link(n)}</li>" }.join() +
+      '</ul>').html_safe
+    end
+  end
   
   #
   #
@@ -223,10 +257,21 @@ module ApplicationHelper
     note_authors = " by #{note.authors.collect(&:fullname).join(", ").s}" if note.authors.length > 0
     note_date = " (#{formatted_date(note.updated_at)})"
     link_title = "#{note_title}#{note_authors}#{note_date}"
-    link_url = polymorphic_url([note.notable, note])
+    link_url = polymorphic_path([note.notable, note])
     link_classes = "draggable-pop no-view-alone overflow-y-auto height-350"
     "<span class='has-draggable-popups'>
-      #{link_to(link_title, link_url, :class => link_classes, :title => h(note_title))}
+      #{link_to(link_title, link_url, class: link_classes, title: h(note_title))}
+    </span>".html_safe
+  end
+  def citation_popup_link(citation)
+    citation_citable_type = citation.citable_type.nil? ? "Citation" : citation.citable_type
+    citation_info_source_type = citation.info_source_type
+    citation_date = " (#{formatted_date(citation.updated_at)})"
+    link_title = "#{citation_citable_type}-#{citation_info_source_type}#{citation_date}"
+    link_url = polymorphic_path([citation.citable, citation])
+    link_classes = "draggable-pop no-view-alone overflow-y-auto height-350"
+    "<span class='has-draggable-popups'>
+      #{link_to(link_title, link_url, class: link_classes, title: h(citation_citable_type))}
     </span>".html_safe
   end
   

@@ -95,9 +95,10 @@ module FeaturesHelper
   def feature_name_display(name, options={})
     if options[:show_association_links]
       name_notes_link = note_popup_link_for(name)
+      name_citations_link = citation_popup_link_for(name)
       name_time_units_link = time_units_for(name)
     end
-    "#{name.detailed_name.s}#{name_notes_link}#{name_time_units_link}"
+    "#{name.detailed_name.s}#{name_notes_link}#{name_citations_link}#{name_time_units_link}"
   end
   
   def feature_name_header(feature)

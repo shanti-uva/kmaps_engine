@@ -74,6 +74,7 @@
 <%      end %>
         </dl>
 <%=     note_popup_link_list_for(feature, {association_type: FeatureName.name}) %>
+<%=     citation_popup_link_list_for(feature) %>
       </div>
     </div>
   </section>
@@ -93,6 +94,7 @@
         <p>
 <%=       geo_code %>: <%= geo_code.geo_code_value %>
 <%=       note_popup_link_for(geo_code) %>
+<%=       citation_popup_link_for(geo_code) %>
 <%=       time_units_for(geo_code) %>
         </p>
 <%      end %>
