@@ -1,13 +1,6 @@
 <div class="thl-popup-padded-content">
-<% if false %>
-  <h2><%= ts :for, :what => Citation.model_name.human(:count => citations.size).titleize, :whom => parent_object %></h2>
-<% end %>
 <% citations.each do |citation| %>
-  <%  bibliographic_reference = citation.bibliographic_reference %>
-  <p>
-  <span><%= bibliographic_reference[:title] %></span>
-  </p>
-  <div class="citation-reference"><%= bibliographic_reference[:reerence] %></div>
-  <div class="note-content"><%= "#{citation.notes}".s %></div>
+     <div class="citation-reference"><%= citation.bibliographic_reference.html_safe %></div>
+     <div class="note-content"><%= "#{citation.notes}".s %></div>
 <% end %>
 </div>

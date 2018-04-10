@@ -13,4 +13,7 @@
 #
 
 class OralSource < SimpleProp
+  def bibliographic_reference
+    self.name
+  end
 end

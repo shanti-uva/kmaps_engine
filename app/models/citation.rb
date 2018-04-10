@@ -60,43 +60,19 @@ class Citation < ActiveRecord::Base
   end
   
   def bibliographic_reference
-    reference = {}
-    if self.info_source_type.start_with?('MmsIntegration')
-      # maybe use something like the helper method  def_if_blank self, :info_source, :prioritized_title
-      reference[:title] = self.info_source.prioritized_title
-    elsif self.info_source_type == 'ShantiIntegration::Source'
-      reference[:title] = source.title.first
-    else
-      # maybe use soemthing like the helper method def_if_blank self, :info_source, :name
-      reference[:title] =  self.info_source.name
-    end
-    case self.info_source_type
-      when 'ShantiIntegration::Source'
-       uri = URI.parse("https://sources-dev.shanti.virginia.edu/sources-api/ajax/#{self.citable_id}/cite/chicago")
-      conn = Net::HTTP.new(uri.host,uri.port)
-      conn.use_ssl = true
-      conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-      request = Net::HTTP::Get.new(uri.request_uri)
-      result = conn.request(request)
-      reference[:reference] = result.body.html_safe
-    else
-     if self.info_source_type.start_with?('MmsIntegration')
-      m = self.info_source
-      if m.type == 'OnlineResource'
-        pages = self.web_pages
-        if pages.count==1
-          reference[:reference] = pages.first.full_path
-        else
-          pages_a = pages.to_a
-          e = pages_a.shift
-          reference[:reference] = ([e.full_path] + a.collect(&:path)).join(', ')
-        end
+    source = self.info_source
+    if self.info_source_type.start_with?('MmsIntegration') && source.type == 'OnlineResource'
+      pages = self.web_pages
+      if pages.count==1
+        source_str = pages.first.full_path
       else
-        reference[:reference] = ([m.bibliographic_reference] + self.pages.collect(&:to_s)).join(', ')
+        pages_a = pages.to_a
+        e = pages_a.shift
+        source_str = ([e.full_path] + a.collect(&:path)).join(', ')
       end
-     end
+    else
+      source_str = ([source.bibliographic_reference] + self.pages.collect(&:to_s)).join(', ') + '.'
     end
-    return reference
+    return source_str
   end
 end
