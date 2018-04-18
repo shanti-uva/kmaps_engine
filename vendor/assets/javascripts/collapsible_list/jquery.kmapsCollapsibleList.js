@@ -31,8 +31,21 @@
 			this.settings = $.extend( {}, defaults, options );
 			this._defaults = defaults;
 			this._name = pluginName;
+      this.currentListId = makeid(5);
 			this.init();
-		}
+    }
+
+  function makeid(len) {
+    len = len || 7;
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < len; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  }
+
 
 		// Avoid Plugin.prototype conflicts
 		$.extend( kmapsCollapsibleListPlugin.prototype, {
@@ -41,21 +54,36 @@
         $(plugin.element).children('li').each(function(){
             var li = this;
             $(li).click(plugin.handleClick);
-            $(li).addClass('collapsibleListClosed');
-            $(li).children('ul').addClass('collapsibleListClosed').each(function(){
+            $(li).addClass('collapsibleListOpen');
+            $(li).children('ul').addClass('collapsibleListOpen').each(function(){
               var ul = this;
-              $(ul).css('display', 'none');
+              plugin.getCurrentId(true);
+              $(ul).addClass('js-collapsible-id-'+plugin.getCurrentId());
+              $(ul).data('js-collapsible-id',plugin.getCurrentId());
+              $(ul).css('display', 'block');
             });
         });
 			},
+      getCurrentId: function getCurrentId(generate){
+        var plugin = this;
+        if(generate){
+          plugin.currentListId = makeid(5);
+        }
+        return plugin.currentListId;
+      },
       handleClick: function(e){
         var li = e.target;
         if(!$(li).is("li")){
           li = $(li).closest("li")[0];
         }
         var ul = li.getElementsByTagName('ul');
+        var ulId = $(ul).data('js-collapsible-id');
         const open = $(ul).hasClass('collapsibleListClosed');
-        $(ul).css('display',(open ? 'block' : 'none'));
+        if(open){
+          $(".js-collapsible-id-"+ulId).show();
+        } else {
+          $(".js-collapsible-id-"+ulId).hide();
+        }
         $(ul).removeClass('collapsibleListOpen');
         $(ul).removeClass('collapsibleListClosed');
         $(ul).addClass('collapsibleList' + (open ? 'Open' : 'Closed'));
@@ -69,25 +97,29 @@
         var altStatus = (open ? 'Open' : 'Closed');
         $(li).each(function(){
           var li = this;
-          var ul = li.getElementsByTagName('ul.collapsibleList'+status);
           $(li).removeClass('collapsibleList'+status);
           $(li).addClass('collapsibleList'+altStatus);
-          $(li).children('ul').removeClass('collapsibleList'+status).addClass('collapsibleList'+altStatus).each(function(){
-            var ul = this;
-            $(ul).css('display',(open ? 'block' : 'none'));
+          $(li).children('ul.collapsibleList'+status).removeClass('collapsibleList'+status).addClass('collapsibleList'+altStatus).each(function(){
+            var ul = $(this);
+            var ulId = $(ul).data('js-collapsible-id');
+            if(open){
+              $(".js-collapsible-id-"+ulId).show();
+            } else {
+              $(".js-collapsible-id-"+ulId).hide();
+            }
           });
         });
       },
-      expandAll: function(){
+      expandAll: function(context){
         var plugin = this;
-        $(plugin.element).children('li.collapsibleListClosed').each(function(){
+        $(context).children('li.collapsibleListClosed').each(function(){
           var li = this;
-          plugin.toggleTo(li,true);
+          plugin.toggleTo($(li),true);
         });
       },
-      collapseAll: function(){
+      collapseAll: function(context){
         var plugin = this;
-        $(plugin.element).children('li.collapsibleListOpen').each(function(){
+        $(context).children('li.collapsibleListOpen').each(function(){
           var li = this;
           plugin.toggleTo(li,false);
         });
