@@ -73,7 +73,7 @@
       var relation_subjects_ordered = Object.keys(data[group_key][key]).sort();
       for(var relation_subject in relation_subjects_ordered){
         relation_subject = relation_subjects_ordered[relation_subject];
-        var relation = jQuery('<li></li>');
+        var relation = jQuery('<li class="dontend"></li>');
         var feature_list = jQuery('<ul></ul>');
         var feature_count = 0;
         var sortedFeatures = data[group_key][key][relation_subject];
@@ -267,7 +267,7 @@
           ancestorsnamekey  = "ancestors_closest_" + plugin.settings.perspective;
         }
         nodeinfo['ancestors'] = doc[ancestorskey] === undefined ? "" : doc[ancestorskey].reduce(function(acc,val,index){
-          var currancestor = "<a href='"+featuresPath.replace("%%id%%",val)+"'>"+doc[ancestorsnamekey][index]+"</a>"
+          var currancestor = "<a href='"+featuresPath.replace("%%ID%%",val)+"'>"+doc[ancestorsnamekey][index]+"</a>"
           acc += "/"+currancestor;
           return acc;
         }, "");
