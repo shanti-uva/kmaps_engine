@@ -1,2 +1,2 @@
-<%= render :partial => 'admin/default/breadcrumbs' %>
-<% add_breadcrumb_item link_to(Citation.model_name.human(:count => :many).titleize.s, collection_path) %>
+<% add_breadcrumb_base
+   add_breadcrumb_item link_to(Citation.model_name.human(:count => :many).titleize.s, collection_path) %>

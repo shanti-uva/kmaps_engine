@@ -1,5 +1,5 @@
 <% object = @time_unit %>
-<%= render :partial => 'admin/default/breadcrumbs' %>
+<%= render :partial => 'breadcrumbs' %>
 <% add_breadcrumb_item link_to(ts('date.this', :count => :many), collection_path)
    case params[:action]
    when 'edit'

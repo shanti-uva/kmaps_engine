@@ -216,6 +216,37 @@ module AdminHelper
   def add_breadcrumb_items(*items)
     items.each {|item| add_breadcrumb_item item}
   end
+
+  def add_breadcrumb_base
+    # Notes are polymorphic,
+    # so we've gotta support
+    # breadcrumbs for each of the parent types!
+    add_breadcrumb_item feature_link(contextual_feature)
+    case parent_type
+    when :description
+      add_breadcrumb_item feature_descriptions_link(parent_object.feature)
+      add_breadcrumb_item link_to(parent_object.id, admin_feature_description_path(parent_object.feature, parent_object))
+    when :feature
+    when :feature_name
+      add_breadcrumb_item feature_names_link(parent_object.feature)
+      add_breadcrumb_item link_to(parent_object.id, admin_feature_name_path(parent_object))
+    when :feature_name_relation
+      add_breadcrumb_item feature_names_link(parent_object.child_node.feature)
+      add_breadcrumb_item link_to(parent_object.child_node.name, admin_feature_name_path(parent_object.child_node))
+      add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_name_feature_name_relations_path(parent_object.child_node))
+      add_breadcrumb_item link_to(parent_object, admin_feature_name_feature_name_relation_path(parent_object.child_node, parent_object))
+    when :feature_geo_code
+      # parent_object is FeatureGeoCode
+      add_breadcrumb_item link_to(FeatureGeoCode.model_name.human(:count => :many).s, admin_feature_feature_geo_codes_path(parent_object.feature))
+      add_breadcrumb_item link_to(parent_object, admin_feature_geo_code_path(parent_object))
+    when :feature_relation
+      add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_feature_relations_path(parent_object.child_node))
+      add_breadcrumb_item feature_relation_role_label(parent_object.child_node, parent_object, :use_first=>false)
+    when :time_unit
+      add_breadcrumb_item link_to(ts('date.this', :count => :many), admin_time_units_path)
+      add_breadcrumb_item link_to(parent_object.to_s, polymorphic_path([:admin, parent_object]))
+    end
+  end
     
   #
   # Pass in a set of root FeatureNames (having the same parent)
