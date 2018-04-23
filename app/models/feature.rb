@@ -438,13 +438,13 @@ class Feature < ActiveRecord::Base
     "#{Feature.uid_prefix}-#{self.fid}"
   end
 
-  def get_related_features_count
+  def related_features_count
     response = Feature.search_by("{!child of=block_type:parent}id:#{self.uid}", group: true,
       'group.field': 'block_child_type', 'group.limit': 0)['grouped']['block_child_type']
     response['matches'] > 0 ? response['groups'].select{|group| group['groupValue'] == "related_#{Feature.uid_prefix}"}.first['doclist']['numFound'] : 0
   end
   
-  def get_related_features_counts
+  def related_features_counts
     full_response = Feature.search_by("{!child of=block_type:parent}id:#{self.uid}", group: true,
                                  'group.field': 'block_child_type', 'group.limit': 0,
                                  facet: true, 'facet.field': 'related_kmaps_node_type')
