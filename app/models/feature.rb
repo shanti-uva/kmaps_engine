@@ -450,12 +450,10 @@ class Feature < ActiveRecord::Base
                                  facet: true, 'facet.field': 'related_kmaps_node_type')
     response = full_response['grouped']['block_child_type']
     facet_response = full_response['facet_counts']['facet_fields']['related_kmaps_node_type']
-    counts = {}
-    counts[:related_features] = response['matches'] > 0 ? response['groups'].select{|group| group['groupValue'] == "related_#{Feature.uid_prefix}"}.first['doclist']['numFound'] : 0
     facet_hash = facet_response.each_slice(2).to_a.to_h
-    counts[:parents] = facet_hash['parent']
-    counts[:children] = facet_hash['child']
-    return counts
+    { related_features: response['matches'] > 0 ? response['groups'].select{|group| group['groupValue'] == "related_#{Feature.uid_prefix}"}.first['doclist']['numFound'] : 0,
+      parents:          facet_hash['parent'],
+      children:         facet_hash['child'] }
   end
 
   private
