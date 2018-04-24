@@ -36,11 +36,12 @@ module ApplicationHelper
   #
   # Creates a breadcrumb trail to the feature
   #
-  def f_breadcrumb
-    if @feature.nil?
+  def f_breadcrumb(ancestors_list = nil)
+    if ancestors_list.nil? && @feature.nil?
       content_tag :ol, "<li>#{link_to(ts('home.this'), root_path)}</li>".html_safe, class: 'breadcrumb'
     else
-      list = @feature.closest_ancestors_by_perspective(current_perspective).collect do |r|
+      ancestors_list ||= @feature.closest_ancestors_by_perspective(current_perspective)
+      list = ancestors_list.collect do |r|
         name = r.prioritized_name(current_view)
         name = name.nil? ? r.pid : name.name
         link_to(name, feature_path(r.fid))
