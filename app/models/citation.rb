@@ -65,10 +65,12 @@ class Citation < ActiveRecord::Base
       pages = self.web_pages
       if pages.count==1
         source_str = pages.first.full_path
-      else
+      elsif pages.count > 1
         pages_a = pages.to_a
         e = pages_a.shift
         source_str = ([e.full_path] + a.collect(&:path)).join(', ')
+      else
+        source_str = "#{source.titles.first.title} #{(source.web_address.url)}"
       end
     else
       source_str = ([source.bibliographic_reference] + self.pages.collect(&:to_s)).join(', ') + '.'
