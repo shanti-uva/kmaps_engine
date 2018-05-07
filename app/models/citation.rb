@@ -70,8 +70,9 @@ class Citation < ActiveRecord::Base
         e = pages_a.shift
         source_str = ([e.full_path] + a.collect(&:path)).join(', ')
       else
-        source_str = "#{source.titles.first.title} #{(source.web_address.url)}"
+        source_str = source.web_address.url
       end
+      source_str = "#{source.prioritized_title} (#{source_str})"
     else
       source_str = ([source.bibliographic_reference] + self.pages.collect(&:to_s)).join(', ') + '.'
     end
