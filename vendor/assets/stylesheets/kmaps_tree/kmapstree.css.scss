@@ -5,9 +5,12 @@
 
 /*******************************************************************************
  * Tree container
+
  Lion colors:
-  gray highlight bar: #D4D4D4
-  blue highlight-bar and -border #3875D7
+	gray highlight bar: #D4D4D4
+	blue highlight-bar and -border #3875D7
+
+
  */
 .ui-helper-hidden {
     display: none;
@@ -50,7 +53,6 @@ ul.fancytree-container li
     background-position: 0 0;
     background-repeat: repeat-y;
     background-image: none;  /* no v-lines */
-
     margin:0;
     padding:0 0 0 0;
 }
@@ -69,7 +71,7 @@ ul.fancytree-no-connector > li
 .ui-fancytree-disabled ul.fancytree-container
 {
     opacity: 0.5;
-    /*  filter: alpha(opacity=50); /* Yields a css warning */
+    /*	filter: alpha(opacity=50); /* Yields a css warning */
     background-color: silver;
 }
 
@@ -113,13 +115,13 @@ span.fancytree-drag-helper-img,
  */
 /* span.fancytree-connector
 {
-  background-image: none;
+	background-image: none;
 }
  */
 /*******************************************************************************
  * Expander icon
  * Note: IE6 doesn't correctly evaluate multiples class names,
- *     so we create combined class names that can be used in the CSS.
+ *		 so we create combined class names that can be used in the CSS.
  *
  * Prefix: fancytree-exp-
  * 1st character: 'e': expanded, 'c': collapsed, 'n': no children
@@ -132,7 +134,7 @@ span.fancytree-expander
     background-position: 0px -80px;
     cursor: pointer;
 }
-span.fancytree-expander:hover {   background-position: -16px -80px; }
+span.fancytree-expander:hover { 	background-position: -16px -80px; }
 .fancytree-exp-n span.fancytree-expander:hover /* Collapsed, not delayed, not last sibling */
 {
     background-position: -16px -80px;
@@ -203,7 +205,7 @@ span.fancytree-checkbox:hover { background-position: -16px -32px; }
 /*******************************************************************************
  * Node type icon
  * Note: IE6 doesn't correctly evaluate multiples class names,
- *     so we create combined class names that can be used in the CSS.
+ *		 so we create combined class names that can be used in the CSS.
  *
  * Prefix: fancytree-ico-
  * 1st character: 'e': expanded, 'c': collapsed
@@ -238,16 +240,16 @@ span.fancytree-icon /* Default icon */
 a.fancytree-title:focus,
 span.fancytree-focused a:link, /* @IE */
 span.fancytree-focused .fancytree-title {
-    outline: 1px dotted black;
-    color: whhite;
+    /*outline: 1px dotted black;
+    color: white;*/
 }
 span.fancytree-selected .fancytree-title {
     background-color: #D4D4D4; /*gray*/
     font-style: italic;
 }
 span.fancytree-active .fancytree-title {
-    color: white;
-    background-color: #3875D7; /*blue*/
+    /*color: white;
+    background-color: #3875D7;*/ /*blue*/
 }
 
 /*******************************************************************************
@@ -256,14 +258,14 @@ span.fancytree-active .fancytree-title {
 
 /*
 table.fancytree-ext-table {
-  border-collapse: collapse;
-  width: 100%;
+	border-collapse: collapse;
+	width: 100%;
 }
 table.fancytree-ext-table tbody tr:nth-child(even){
-  background-color: #f4f4f8;
+	background-color: #f4f4f8;
 }
 table.fancytree-ext-table tbody tr td {
-  border: 1px solid lightgray;
+	border: 1px solid lightgray;
 }
 */
 table.fancytree-ext-table tbody tr.fancytree-focused {
@@ -282,8 +284,8 @@ table.fancytree-ext-table tbody tr.fancytree-selected {
 
 /*
 table.fancytree-ext-columnview {
-  border-collapse: collapse;
-  width: 100%;
+	border-collapse: collapse;
+	width: 100%;
 }
 */
 table.fancytree-ext-columnview td >ul
@@ -309,7 +311,7 @@ table.fancytree-ext-columnview td >ul li
 }
 /*
 table.fancytree-ext-columnview tbody tr[0] {
-  height: 200px;
+	height: 200px;
 }
 */
 table.fancytree-ext-columnview tbody tr td {
@@ -456,203 +458,3 @@ span.fancytree-drop-target.fancytree-drop-reject
 span.fancytree-drop-target.fancytree-drop-after a
 {
 }
-
-/* Extract from shanti_sarvaka_theme/css/shanti-search.css */
-/**
-* --------------------------
-* START / Search Tree-Nav
-* --------------------------
-*/
-.fancytree-container {
-  margin: 0;
-  background: transparent;
-  border: none;
-  background-color: transparent !important;
-  border: none !important;
-  font-family: 'droidserif',georgia,palatino,'Palatino Linotype',serif !important;
-}
-
-.fancytree-container ul {
-  padding: 0 0 0 1rem !important;
-  margin: 0;
-}
-
-.fancytree-container li {
-  padding: 0;
-  line-height: 1.68em;
-  overflow: hidden;
-  position: relative;
-}
-
-.fancytree-icon {
-  margin: 0;
-  padding: 0;
-  width: 0;
-  height: 0;
-  line-height: 0;
-  /* remove checkbox */
-  display: none;
-}
-
-.fancytree-node {
-  border: 1px solid transparent !important;
-  display: block;
-}
-
-.fancytree-node:hover,
-.fancytree-node:active,
-.fancytree-node.fancytree-active,
-.fancytree-node.fancytree-selected,
-.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active {
-  background: white !important;
-  border-color: #eee !important;
-}
-
-.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active,
-.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active{
-  border-color: #ccc !important;
-}
-
-.fancytree-node .ajax-progress{ position:absolute; right:0.6rem; background:transparent; /*padding-right:1rem;*/}
-.fancytree-node.fancytree-has-children .ajax-progress{ right:0.1rem;}
-/*
-.fancytree-container li > .ajax-progress {
-  position: absolute;
-  left: 0;
-  /----- top: 0.15rem;
-  right: 0.1rem; ---------/
-  background: transparent;
-  padding: 0.1rem 0.5rem;
-}
-*/
-.fancytree-title a {
-  color: #444;
-}
-
-.fancytree-title a:hover,
-.fancytree-title a:active {
-  color: #111;
-}
-
-.fancytree-title {
-  line-height: 1.68em;
-  margin-left: 3px;
-  height: 1.62em;
-  /*box-sizing: content-box;*/
-}
-
-.fancytree-node .fancytree-expander{
-  background-image: none !important;
-}
-
-.fancytree-exp-nl .fancytree-icon,
-.fancytree-exp-nl .fancytree-expander,
-.fancytree-exp-n .fancytree-icon,
-.fancytree-exp-n .fancytree-expander{
-  display:none;
-}
-/*
-.fancytree-title:hover,
-.fancytree-title:active {
-  color: #111;
-}
-*/
-.fancytree-title::before {
-  background: #fff;
-  color: transparent;
-  font-family: 'shanticon';
-  content: '\e625';
-  font-size: 1em;
-  float: left;
-  position: relative;
-  top: 0.6rem;
-  right: 0.25rem;
-  border-radius: 50%;
-  background-clip: padding-box;
-  width: 9px;
-  height: 9px;
-  display: block;
-  margin-right: 7px;
-  box-shadow: 0 0 2px 1px #aaa;
-  border-collapse: separate;
-}
-
-.fancytree-title:hover::before {
-  background: #777;
-  box-shadow: none;
-}
-
-.fancytree-statusnode-wait .fancytree-title::before,
-.fancytree-statusnode-error .fancytree-title::before {
-  width: 0;
-  height: 0;
-  display: none;
-  color: transparent;
-  box-shadow: none;
-  background: transparent;
-}
-
-.fancytree-has-children>span.fancytree-title {
-  padding-left: 0px;
-  margin-left: -25px;
-}
-
-.fancytree-has-children span.fancytree-title::before {
-  content: none;
-  position: relative;
-  top: 0;
-}
-
-span.fancytree-active .fancytree-title,
-.fancytree-selected .fancytree-title {
-  color: #000;
-  background-color: transparent;
-}
-
-.fancytree-active.fancytree-has-children .fancytree-title::before,
-.fancytree-selected.fancytree-has-children .fancytree-title::before {
-  content: none;
-  text-shadow: none;
-  display: none;
-}
-
-.fancytree-active .fancytree-title::before,
-.fancytree-selected .fancytree-title::before {
-  background: #888;
-  box-shadow: none;
-}
-
-.fancytree-container .glyphicon {
-  color: #666;
-  font-family: 'Glyphicons Halflings';
-  font-size: 15px;
-  margin-right: 12px;
-  position: relative;
-  top: 4px;
-}
-
-.fancytree-node:hover > .glyphicon {
-  color: #888;
-}
-
-.fancytree-node.fancytree-active:active > .glyphicon,
-.fancytree-node.fancytree-active .glyphicon,
-.fancytree-node.fancytree-selected:active > .glyphicon,
-.fancytree-node.fancytree-selected .glyphicon {
-  color: #666;
-  background: transparent;
-}
-/*--- hihglight search text ---*/
-/*.view-section span.fancytree-title > em,
-.view-section mark {
-    color: #ff0;
-    font-style: normal;
-    padding: 0;
-    background: transparent;
-}
-*/
-.fancytree-container .glyphicon{
-  color: #4ca6fb !important;
-}
-/**
-*** END treeview */

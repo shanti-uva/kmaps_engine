@@ -16,13 +16,11 @@
 .page-places .nav-tabs.nav-justified>li.active>a,
 .page-places .nav-tabs.nav-justified>li.active>a:focus,
 .page-places .nav-tabs.nav-justified>li.active>a:hover,
-.page-places .shanti-thumbnail-image .icon,
 .page-places .ui-resizable-handle.ui-resizable-nw.active,
 .page-places .ui-resizable-handle.ui-resizable-nw:active {
-  background: #4ca6fb !important;
+  background: #3297f7 !important;
 }
 
-.page-places .navbar-brand:hover .site-slogan,
 .page-places .view-section .fancytree-container .glyphicon,
 .page-places .view-section .fancytree-container .fancytree-node:hover > .glyphicon,
 .page-places .view-section .fancytree-container .fancytree-node:active > .glyphicon,
@@ -30,8 +28,9 @@
 .page-places .view-section .fancytree-node.fancytree-selected > .glyphicon,
 .page-places .carousel-feature-slides li.active div a::before,
 .page-places .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a .check-mark,
-.page-places .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a:active .check-mark {
-  color: #4ca6fb !important;
+.page-places .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a:active .check-mark,
+.page-places .kmaps-sources-summary ul.summary-list > li span.icon.shanticon-essays {
+  color: #3297f7 !important;
 }
 
 .page-places .carousel-feature-slides li div a:hover,
@@ -39,7 +38,7 @@
 .page-places .carousel-feature-slides li.active div a,
 .page-places #tab-main .each-photo a.thumbnail:hover,
 .page-places #tab-main .each-text a.thumbnail:hover {
-  border-color: #479beb !important;
+  border-color: #3297f7 !important;
 }
 
 .page-places .input-section .toggle-link,
@@ -50,7 +49,7 @@
 .page-places .view-section .nav-tabs>li.active>a,
 .page-places .view-section .nav-tabs>li.active>a:hover,
 .page-places .view-section .nav-tabs>li.active>a:active {
-  color: #4ca6fb !important;
+  color: #3297f7 !important;
 }
 
 .page-places .kmaps-tt-menu .kmaps-tt-suggestion:hover::before,
@@ -58,18 +57,18 @@
 .page-places .carousel-indicators li:hover, 
 .page-places .carousel-indicators li.active,
 .page-places .kmaps-tt-menu .kmaps-tt-suggestion:hover::before{
-    border-color: #4ca6fb !important; /* set subtheme color */
-    background: #4ca6fb !important;
+    border-color: #3297f7 !important; /* set subtheme color */
+    background: #3297f7 !important;
 }
 
 .page-places #sidebar-first .nav-pills li.active {
-  border-color: #4ca6fb !important;
+  border-color: #3297f7 !important; /* Darker shade of red for shadow blend */
 }
 
 .page-places .view-section .nav-tabs>li.active>a,
 .page-places .nav-tabs.nav-justified>li.active{
   /*border-top-color: #4ca6fb !important;*/
-  border-top-color: #4ca6fb !important;
+  border-top-color: #3297f7 !important;
 }
 
 .page-places .texts-list li:hover::before{
@@ -78,18 +77,20 @@
 
 .page-places .ui-resizable-handle.ui-resizable-w,
 .page-places .ui-resizable-handle.ui-resizable-w:hover,
-.page-places .ui-resizable-handle.ui-resizable-w:active { border-color: #4ca6fb transparent transparent transparent; }
+.page-places .ui-resizable-handle.ui-resizable-w:active { border-color: #3297f7 transparent transparent transparent; }
 
-@media screen and (min-width: 768px) {
-
-  .nav-tabs.nav-justified>li.active::before{
-    /*color: #4ca6fb !important;*/
-    color: #4ca6fb !important;
-  }
+@media screen and (min-width: 500px) {
+  .page-places .navbar-header .site-slogan{ color:#3676b2 !important; } /* Darker shade for banner site-slogan text */
+  .page-places .navbar-brand:hover .site-slogan{ color: #555 !important; } 
+  .page-places .navbar-header:active .site-slogan{ color:#3676b2 !important; } 
 }
 
-.page-places ::-moz-selection {background: #FFB13F !important;}
-.page-places ::selection{background: #FFB13F !important;}
+@media screen and (min-width: 768px) {
+  .nav-tabs.nav-justified>li.active::before{color: #3297f7 !important; }
+}
+
+.page-places ::-moz-selection {background: #B35904 !important;}
+.page-places ::selection{background: #B35904 !important;}
 
 
 
@@ -105,13 +106,11 @@
 .page-subjects .nav-tabs.nav-justified>li.active>a,
 .page-subjects .nav-tabs.nav-justified>li.active>a:focus,
 .page-subjects .nav-tabs.nav-justified>li.active>a:hover,
-.page-subjects .shanti-thumbnail-image .icon,
 .page-subjects .ui-resizable-handle.ui-resizable-nw.active,
 .page-subjects .ui-resizable-handle.ui-resizable-nw:active {
   background: #cc4c39 !important;
 }
 
-.page-subjects .navbar-brand:hover .site-slogan,
 .page-subjects .view-section .fancytree-container .glyphicon,
 .page-subjects .view-section .fancytree-container .fancytree-node:hover > .glyphicon,
 .page-subjects .view-section .fancytree-container .fancytree-node:active > .glyphicon,
@@ -127,7 +126,8 @@
 .page-subjects .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a:active .check-mark,
 .page-subjects .view-section .nav-tabs>li.active>a,
 .page-subjects .view-section .nav-tabs>li.active>a:hover,
-.page-subjects .view-section .nav-tabs>li.active>a:active {
+.page-subjects .view-section .nav-tabs>li.active>a:active,
+.page-subjects .kmaps-sources-summary ul.summary-list > li span.icon.shanticon-essays {
   color: #cc4c39 !important;
 }
 
@@ -149,7 +149,7 @@
 }
 
 .page-subjects #sidebar-first .nav-pills li.active {
-  border-color: #cc4c39 !important;
+  border-color: #b24232 !important; /* Darker shade of red for shadow blend */
 }
 
 .page-subjects .view-section .nav-tabs>li.active>a,
@@ -165,9 +165,15 @@
 .page-subjects .ui-resizable-handle.ui-resizable-w:hover,
 .page-subjects .ui-resizable-handle.ui-resizable-w:active { border-color: #cc4c39 transparent transparent transparent; }
 
+@media screen and (min-width: 500px) {
+  .page-subjects .navbar-header .site-slogan{ color:#b24231 !important; } /* Darker shade for banner site-slogan text */
+  .page-subjects .navbar-brand:hover .site-slogan{ color: #555 !important; } 
+  .page-subjects .navbar-header:active .site-slogan{ color:#b24231 !important; } 
+}
+
 @media screen and (min-width: 768px) {
 
-  .nav-tabs.nav-justified>li.active::before{
+  .page-subjects .nav-tabs.nav-justified>li.active::before{
     color: #cc4c39 !important;
   }
 }
@@ -175,10 +181,78 @@
 .page-subjects ::-moz-selection { background: #2A974B !important;}
 .page-subjects ::selection { background: #2A974B !important;}
 
-
+.page-places .shanti-thumbnail-image .icon,
+.page-subjects .shanti-thumbnail-image .icon{
+  background-color: #8e752e !important;
+}
 
 /* BEGIN Mandala Homepage colors */
 .front.home-carousel .ui-resizable-handle.ui-resizable-nw:active { background-color: #4d59ca !important; }
+
+
+/* custom theme color change under Search Flyout Tabs Places - Subjects */
+.front .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-2>a,
+.front .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-container .glyphicon,
+.front .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-container .fancytree-node:hover > .glyphicon, 
+.front .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-container .fancytree-node:active > .glyphicon, 
+.front .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-node.fancytree-active > .glyphicon,
+.page-places .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-2>a,
+.page-places .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-container .glyphicon,
+.page-places .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-container .fancytree-node:hover > .glyphicon, 
+.page-places .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-container .fancytree-node:active > .glyphicon, 
+.page-places .view-section .shanti-kmaps-faceted-search-kmaps-2 .fancytree-node.fancytree-active > .glyphicon{
+  color: #cc4c39 !important;
+}
+.front .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-1>a,
+.front .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-container .glyphicon,
+.front .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-container .fancytree-node:hover > .glyphicon, 
+.front .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-container .fancytree-node:active > .glyphicon, 
+.front .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-node.fancytree-active > .glyphicon,
+.page-subjects .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-1>a,
+.page-subjects .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-container .glyphicon,
+.page-subjects .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-container .fancytree-node:hover > .glyphicon, 
+.page-subjects .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-container .fancytree-node:active > .glyphicon, 
+.page-subjects .view-section .shanti-kmaps-faceted-search-kmaps-1 .fancytree-node.fancytree-active > .glyphicon{
+  color: #49a0f2 !important;
+}
+.front .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-1>a,
+.page-subjects .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-1>a{
+  border-top-color: #49a0f2 !important;
+}
+.front .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-2>a,
+.page-places .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-2>a{
+  border-top-color: #cc4c39 !important;
+}
+.front .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-facets>a,
+.page-places .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-facets>a,
+.page-subjects .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-facets>a{
+  color: #4d59ca !important;
+}
+.front .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-facets>a,
+.page-subjects .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-facets>a,
+.page-places .view-section .nav-tabs>li.active.shanti-kmaps-faceted-search-kmaps-facets>a{
+  border-top-color: #4d59ca !important;
+}
+
+.front .ui-resizable-handle.ui-resizable-w,
+.front .ui-resizable-handle.ui-resizable-w:hover,
+.front .ui-resizable-handle.ui-resizable-w:active { border-color: #4d59ca transparent transparent transparent; }
+
+
+
+
+.sidebar-first .ajax-progress,
+.sidebar-first .ajax-progress .throbber{
+  display:inline-block !important;
+}
+
+/** Quick fix for visual teasers in kmaps  (ndg8f) */
+.kmaps-visuals-grid li.shanti-thumbnail.visual .shanti-field-agent a, 
+.kmaps-visuals-grid li.shanti-thumbnail.visual .shanti-field-created, 
+.kmaps-visuals-grid li.shanti-thumbnail.visual .shanti-field-type * {
+    font-size: 1.25rem !important;
+}
+
 
 
 /**
