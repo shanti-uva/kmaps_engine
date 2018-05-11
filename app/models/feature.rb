@@ -34,7 +34,7 @@ class Feature < ActiveRecord::Base
   has_many :affiliations, dependent: :destroy
   has_many :all_child_relations, class_name: 'FeatureRelation', foreign_key: 'parent_node_id', dependent: :destroy
   has_many :all_parent_relations, class_name: 'FeatureRelation', foreign_key: 'child_node_id', dependent: :destroy
-  has_many :association_notes, foreign_key: "notable_id", dependent: :destroy
+  has_many :association_notes, as: :notable, dependent: :destroy
   has_many :cached_feature_names, dependent: :destroy
   has_many :captions, dependent: :destroy
   has_many :collections, through: :affiliations
