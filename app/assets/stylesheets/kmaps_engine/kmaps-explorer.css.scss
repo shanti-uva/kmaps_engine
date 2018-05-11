@@ -13,13 +13,19 @@
  *= require_self
  */
 
-span.fancytree-title {
-  cursor: pointer;
+
+/* fix rails search section */
+.input-section {
+  height: auto;
+  padding: 1.3rem 0.5rem 0;
+}
+/* fix for Go button on advance search */
+.extruder .input-section .input-group .input-group-btn {
+  position: absolute;
+  top: 1px;
 }
 
-.fancytree-node span.popover-kmaps{
-  top: 6px;
-}
-.fancytree-node span.popover-kmaps-tip{
-  bottom: 1.4rem;
+/* set size for tabs in search flyout tabs */
+.kmaps .view-section .nav-tabs>li {
+  width: 35%;
 }
