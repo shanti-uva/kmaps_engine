@@ -9,6 +9,7 @@
       domain: 'places',
       root_kmapid: '',
       autocomplete_field: 'name_autocomplete',
+      search_fields: ['name_bod_tibt'],
       max_terms: 150,
       max_defaults: 50,
       min_chars: 1,
@@ -110,23 +111,32 @@
           cache: false,
           prepare: function (query, remote) { //http://stackoverflow.com/questions/18688891/typeahead-js-include-dynamic-variable-in-remote-url
             var extras = {};
-            var val = input.val();
+            var orig_val = input.val();
             //val = val.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-            val = val.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, " ");
+            var val = orig_val.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, " ");
             switch(settings.match_criterion){
               case 'begins':
                 val = ""+val+"*";
+                orig_val = ""+orig_val+"*";
                 break;
               case 'exactly':
                 val = "\""+val+"\"";
+                orig_val = "\""+orig_val+"\"";
                 break;
               case 'contains': //do nothing
                 val = "*"+val+"*";
+                orig_val = "*"+orig_val+"*";
             }
 						val = settings.case_sensitive ? val : val.toLowerCase();
             if (val) {
+              var solr_query = settings.autocomplete_field + ':' + val.replace(/[\s\u0f0b\u0f0d]+/g, '\\ ');
+              if(settings.search_fields){
+                solr_query = settings.search_fields.reduce(function(full_query,search_field){
+                  return full_query+" OR "+search_field+":"+orig_val;
+                },solr_query);
+              }
               extras = {
-                'q': settings.autocomplete_field + ':' + val.replace(/[\s\u0f0b\u0f0d]+/g, '\\ '),
+                'q': solr_query,
                 'rows': settings.max_terms,
                 'sort': settings.sort,
                 'start': plugin.start,
