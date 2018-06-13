@@ -42,10 +42,10 @@
     root_kmap_path: null,
     features_path: "<%= features_path %>",
     autocomplete_field: "title",
-    filters: "asset_type:sources"
+    filters: "asset_type:sources",
+    ignore_tree: true
   });
   $("#kmaps-search-source").bind('typeahead:select', function(ev, suggestion) {
-  console.log('Selection: ' + JSON.stringify(suggestion));
   $("#citation_info_source_id").val(suggestion.id);
 });
 <% end %>

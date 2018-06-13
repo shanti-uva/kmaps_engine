@@ -30,7 +30,8 @@
       menu: '',
       no_results_msg: '',
       match_criterion: 'contains', //{contains, begins, exactly}
-      case_sensitive: false
+      case_sensitive: false,
+      ignore_tree: false,
     };
 
   function Plugin(element, options) {
@@ -64,7 +65,9 @@
       var ancestor_field = 'ancestor_ids_generic'; //(settings.domain == 'subjects') ? 'ancestor_ids_default' : 'ancestor_ids_pol.admin.hier';
 
       //Previously all the queries have teh following filter, I removed it as a default to work with subjects and sources
-      plugin.fq.push('tree:' + settings.domain);
+      if(!settings.ignore_tree){
+        plugin.fq.push('tree:' + settings.domain);
+      }
       if (settings.filters) {
         plugin.fq.push(settings.filters);
       }
