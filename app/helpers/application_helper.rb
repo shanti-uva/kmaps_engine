@@ -505,7 +505,7 @@ module ApplicationHelper
     logger.debug("Session:#{session.inspect}")
     feature = object.feature if feature.nil? && defined?(object) && object.respond_to?(:feature)
     if feature.nil? || feature.id.nil?
-      context_id = session[:interface].blank? ? nil : session[:interface]["context_id"]
+      context_id = session[:interface].blank? ? nil : session[:interface][:context_id]
       begin
         feature = Feature.find(context_id) if !context_id.blank?
       rescue ActiveRecord::RecordNotFound
