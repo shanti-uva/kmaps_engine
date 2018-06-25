@@ -1,0 +1,33 @@
+.collapsible_all_btn{
+  color: #454fa4;
+}
+.collapsible_all_btn:hover,.collapsible_all_btn_selected{
+  color: #df3d26;
+}
+li.collapsibleListOpen,li.collapsibleListClosed, .collapsible_all_btn{
+  cursor: pointer;
+}
+li.collapsibleListOpen:before, li.collapsibleListClosed:before{
+  display:none !important;
+}
+li.collapsibleListOpen .glyphicon:before{
+  content: "\e082";
+}
+li.collapsibleListClosed .glyphicon:before{
+  content: "\e081";
+}
+.collapsibleList {
+  li{
+    cursor: auto;
+  }
+  span.glyphicon {
+    padding-right: 5px;
+    color: #666 !important;
+  }
+  #relation_details .tab-content-loading{
+    position:relative;
+    top:0;
+    right:0;
+    background-image: none;
+  }
+}
