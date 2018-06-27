@@ -18,7 +18,11 @@ class Summary < ActiveRecord::Base
   has_many :imports, :as => 'item', :dependent => :destroy
   
   validates :language_id, :uniqueness => {:scope => :feature_id}
-  validates_length_of :content, :within => 1..750, :tokenizer => lambda { |str| str.strip_tags.split(//) }
+  validates :plain_content, length: 1..750
   
   include KmapsEngine::IsCitable
+
+  def plain_content
+    ActionController::Base.helpers.strip_tags(content)
+  end
 end
