@@ -502,7 +502,7 @@ module ApplicationHelper
     when :feature_name_relation then parent_object.child_node.feature
     else nil
     end if feature.nil? && defined?(parent_type)
-    logger.debug("Session:#{session.inspect}")
+    logger.debug { "Session:#{session.inspect}" }
     feature = object.feature if feature.nil? && defined?(object) && object.respond_to?(:feature)
     if feature.nil? || feature.id.nil?
       context_id = session[:interface].blank? ? nil : session[:interface][:context_id]
