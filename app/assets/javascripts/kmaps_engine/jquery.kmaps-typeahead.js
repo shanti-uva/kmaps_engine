@@ -132,7 +132,7 @@
               var solr_query = settings.autocomplete_field + ':' + val.replace(/[\s\u0f0b\u0f0d]+/g, '\\ ');
               if(settings.search_fields){
                 solr_query = settings.search_fields.reduce(function(full_query,search_field){
-                  return full_query+" OR "+search_field+":"+orig_val;
+                  return full_query+" OR "+search_field+":"+val.replace(/[\s]+/g, '\\ ');
                 },solr_query);
               }
               extras = {
