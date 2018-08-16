@@ -57,7 +57,7 @@ module ApplicationHelper
   #
   def fname_breadcrumb(feature_name)
     acts_as_family_tree_breadcrumb(feature_name) {|r| fname_label(r)}
-	end
+  end
 	
 	def concise_fname_breadcrumb(feature_name)
 	  label = ""
@@ -280,12 +280,14 @@ module ApplicationHelper
   #
   #
   def time_units_for(object, options={})
-    if object.respond_to?(:time_units)
-      if object.time_units.size > 0
-        time_units_list = object.time_units_ordered_by_date.collect{|tu| "#{tu}#{note_popup_link_for(tu)}" }.reject{|str| str.blank?}.join("; ")
-        "<span class='time-units'>(#{time_units_list})</span>".html_safe
-      end
+    if has_time_units(object)
+      time_units_list = object.time_units_ordered_by_date.collect{|tu| "#{tu}#{note_popup_link_for(tu)}" }.reject{|str| str.blank?}.join("; ")
+      "<span class='time-units'>(#{time_units_list})</span>".html_safe
     end
+  end
+
+  def has_time_units(object)
+    object.respond_to?(:time_units) && object.time_units.exists?
   end
   
   #
@@ -437,16 +439,16 @@ module ApplicationHelper
       while p.has_next? && new_len > 0
         p_e = p.pull
         case p_e.event_type
-      when :start_element
-        tags.push p_e[0]
-        results << "<#{tags.last} #{attrs_to_s(p_e[1])}>"
-      when :end_element
-        results << "</#{tags.pop}>"
-      when :text
-        results << p_e[0].first(new_len)
-        new_len -= p_e[0].length
+        when :start_element
+          tags.push p_e[0]
+          results << "<#{tags.last} #{attrs_to_s(p_e[1])}>"
+        when :end_element
+          results << "</#{tags.pop}>"
+        when :text
+          results << p_e[0].first(new_len)
+          new_len -= p_e[0].length
+        end
       end
-    end
 
     tags.reverse.each do |tag|
       results << "</#{tag}>"
