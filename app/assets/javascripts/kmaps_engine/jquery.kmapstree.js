@@ -28,7 +28,8 @@
             },
             expand_path: null,
             // baseUrl: "http://subjects.kmaps.virginia.edu/"
-            sortChildren: true,
+            sortNodes: true,
+            sortNodesBy: "header",
         };
 
     // copied from jquery.fancytree.js to support moved loadKeyPath function
@@ -176,6 +177,7 @@
                   var caption = data.node.data.caption;
                   var theIdPath = data.node.data.path;
                   var displayPath = data.node.data.displayPath;
+                  var position_i = data.node.data.position_i;
 
                   if(plugin.settings.displayPopup){
                     decorateElementWithPopover(elem, key, title, displayPath, caption);
@@ -194,23 +196,9 @@
 
                     var path = plugin.makeStringPath(data);
 
-                    // decorateElementWithPopover(data.node.span, data.node.key,data.node.title, data.node.path, data.node.data.caption);
-                    //$(data.node.span).find('#ajax-id-' + data.node.key).once('nav', function () {
                     $(data.node.span).find('#ajax-id-' + data.node.key+":not(.nav-processed)").addClass('nav-processed').each(function () {
                       var base = $(this).attr('id');
                       var argument = $(this).attr('argument');
-                      /*
-                       * TODO:
-                       * fix this for agnostic purposes, currently just setting a window location
-                      var url = location.origin + location.pathname.substring(0, location.pathname.indexOf(plugin.settings.type)) + plugin.settings.type + '/' + data.node.key + '/overview/nojs';
-                            Drupal.ajax[base] = new Drupal.ajax(base, this, {
-                                url: url,
-                                event: 'navigate',
-                                progress: {
-                                    type: 'throbber'
-                                }
-                            });
-                      */
                     });
                   }
                   return data;
@@ -224,12 +212,6 @@
                   var facet_counts = data.response.facet_counts.facet_fields["ancestor_id_"+plugin.settings.perspective+"_path"];
                   var rootbin = {};
                   var countbin = {};
-
-                  docs.sort(function (a, b) {
-                    var aName = a["ancestor_id_"+plugin.settings.perspective+"_path"].toLowerCase();
-                    var bName = b["ancestor_id_"+plugin.settings.perspective+"_path"].toLowerCase();
-                    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
-                  });
 
                   for (var i = 0; i < facet_counts.length; i += 2) {
                     var path = facet_counts[i];
@@ -254,13 +236,16 @@
                     var caption = (docs[i]['caption_eng'] && $.isArray(docs[i]['caption_eng'])) ? docs[i]['caption_eng'][0] : null;
                     var displayPath = (ancestors) ? ancestors.join("/") : "";
                     var parentPath = (parentIdPath) ? parentIdPath.join("/") : "";
+                    var position_i = doc['position_i'];
                     var n =
                       {
                         key: localId,
                         title: doc.header,
+                        header: doc.header,
                         parent: parentPath,
                         path: ancestorIdPath,
                         displayPath: displayPath,
+                        position_i: position_i,
                         caption: caption,
                         level: doc["level_" + plugin.settings.perspective + "_i"],
                         lazy: (countbin[ancestorIdPath]) ? true : false,
@@ -270,8 +255,6 @@
                   }
 
 
-                  //if (DEBUG) console.log("ROOT BIN");
-                  //if (DEBUG) console.log(JSON.stringify(rootbin));
                   var props = Object.getOwnPropertyNames(rootbin);
                   for (var i = 0; i < props.length; i++) {
                     var node = rootbin[props[i]];
@@ -292,7 +275,6 @@
                     data.result.push(rootbin[x[i]]);
                   }
                   if (DEBUG) console.dir({log: "result", "data": data.result});
-                  //data.result.sortChildren();
                 },
 
                 lazyLoad: function (event, data) {
@@ -315,19 +297,6 @@
                   var focus_id = "";
 
                   log("initing!");
-                  /* TODO: need to clean this up, added the kmaps_path and the focus_id to
-                   * the default object so it can be passed as an argument. In Drupal it was
-                   * intended to be a setting but for a more agnostic approach it was changed.
-                   *
-                    if (Drupal
-                        && Drupal.settings
-                        && Drupal.settings.kmaps_explorer
-                        && Drupal.settings.kmaps_explorer.kmaps_path
-                    ) {
-                        path = Drupal.settings.kmaps_explorer.kmaps_path
-                        focus_id = Drupal.settings.kmaps_explorer.kmaps_id
-                    }
-                    */
                   path = plugin.settings.expand_path ? plugin.settings.expand_path : path;
                   focus_id = plugin.settings.activeNodeId ? plugin.settings.activeNodeId : focus_id;
                   if (DEBUG) console.error("path = " + path + " focus_id = " + focus_id);
@@ -361,7 +330,7 @@
                     )
                   } else {
                     if (plugin.settings.expand_path) {
-                      /* if (DEBUG) */ console.log("Auto-expandeing expand_path = " + plugin.settings.expand_path);
+                      if (DEBUG) console.log("Auto-expandeing expand_path = " + plugin.settings.expand_path);
                       $(event.target).fancytree('getTree').loadKeyPath(plugin.settings.expand_path, function(x) { if (typeof(x.setExpanded) == "function") { x.setExpanded(true); }});
                     }
                   }
@@ -374,13 +343,10 @@
                     error: "glyphicon glyphicon-warning-sign",
                     expanderClosed: "glyphicon glyphicon-plus-sign",
                     expanderLazy: "glyphicon glyphicon-plus-sign",
-                    // expanderLazy: "glyphicon glyphicon-expand",
                     expanderOpen: "glyphicon glyphicon-minus-sign",
-                    // expanderOpen: "glyphicon glyphicon-collapse-down",
                     folder: "",
                     folderOpen: "",
                     loading: "glyphicon glyphicon-refresh"
-                    //              loading: "icon-spinner icon-spin"
                   }
                 },
 
@@ -392,8 +358,16 @@
                     console.log("loadChildren...");
                   }
 
-                  if(plugin.settings.sortChildren){
-                    ctx.node.sortChildren(null, true);
+                  if(plugin.settings.sortNodes){
+                    ctx.node.sortChildren(function(a,b){
+                      if(a.data[plugin.settings.sortNodesBy] < b.data[plugin.settings.sortNodesBy]) {
+                        return -1;
+                      } else if (a.data[plugin.settings.sortNodesBy] > b.data[plugin.settings.sortNodesBy]) {
+                        return 1;
+                      }
+                      return 0;
+                    }
+                      , true);
                   }
 
                 }
@@ -471,7 +445,6 @@
                             timeout: 90000,
                             error: function (e) {
                                 console.error(e);
-                                // countsElem.html("<i class='glyphicon glyphicon-warning-sign' title='" + e.statusText);
                             },
                             beforeSend: function () {
                             },
@@ -494,9 +467,6 @@
                         });
 
                         // Update related place and subjects counts from term index
-
-
-                        // {!child of=block_type:parent}id:places-22675&wt=json&indent=true&group=true&group.field=block_child_type&group.limit=0
                         var relatedCountsUrl =
                             termidxBase + '/select?q={!child of=block_type:parent}id:' + plugin.settings.type + '-' + key + project_filter + '&wt=json&indent=true&group=true&group.field=block_child_type&group.limit=0&wt=json&json.wrf=?';
                         if (DEBUG) console.error("relatedCountsUrl = " + relatedCountsUrl);
@@ -507,7 +477,6 @@
                             timeout: 90000,
                             error: function (e) {
                                 console.error(e);
-                                // countsElem.html("<i class='glyphicon glyphicon-warning-sign' title='" + e.statusText);
                             },
                             beforeSend: function () {
                             },
@@ -540,7 +509,6 @@
                             timeout: 90000,
                             error: function (e) {
                                 console.error(e);
-                                // countsElem.html("<i class='glyphicon glyphicon-warning-sign' title='" + e.statusText);
                             },
                             beforeSend: function () {
                             },
@@ -566,11 +534,6 @@
 
 
                 function update_counts(elem, counts) {
-
-                    // console.log("elem = ");
-                    // console.dir(elem);
-                    // console.error(JSON.stringify(counts,undefined,2));
-
                     var av = elem.find('i.shanticon-audio-video ~ span.badge');
                     if (typeof(counts["audio-video"]) != "undefined") {
                         (counts["audio-video"]) ? av.html(counts["audio-video"]).parent().show() : av.parent().hide();
@@ -650,29 +613,6 @@
             };
 
             function decorateElemWithDrupalAjax(theElem, theKey, theType) {
-                //if (DEBUG) console.log("decorateElementWithDrupalAjax: "  + $(theElem).html());
-                //$(theElem).once('nav', function () {
-                //    //if (DEBUG) console.log("applying click handling to " + $(this).html());
-                //    var base = $(this).attr('id') || "ajax-wax-" + theKey;
-                //    var argument = $(this).attr('argument');
-                //    var url = location.origin + location.pathname.substring(0, location.pathname.indexOf(theType)) + theType + '/' + theKey + '/overview/nojs';
-                //
-                //    var element_settings = {
-                //        url: url,
-                //        event: 'navigate',
-                //        progress: {
-                //            type: 'throbber'
-                //        }
-                //    };
-                //
-                //    // if (DEBUG) console.log("Adding to ajax to " + base);
-                //
-                //    Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
-                //    //this.click(function () {
-                //    //    if (DEBUG) console.log("pushing state for " + url);
-                //    //    window.history.pushState({tag: true}, null, url);
-                //    //});
-                //});
             }
 
 
@@ -750,12 +690,12 @@
                 "id",
                 "ancestor*",
                 "caption_eng",
-                "level_" +plugin.settings.perspective+ "_i"
+                "level_" +plugin.settings.perspective+ "_i",
+                "position_i"
             ].join(",");
 
             var result =
                 termIndexRoot + "/select?" +
-                //"df=ancestor_id_path" +
                 "df=ancestor_id_" + plugin.settings.perspective +"_path" +
                 "&q=" + path +
                 "&wt=json" +
@@ -766,8 +706,6 @@
                 "&indent=true" +
 
                 "&fq=tree:" + type +
-                //"&fq=level_i:[" + lvla + "+TO+" + (lvlb + 1) + "]" +
-                //"&fq={!tag=hoot}level_i:[" + lvla + "+TO+" + lvlb + "]" +
                 "&fq=level_" + plugin.settings.perspective + "_i:[" + lvla + "+TO+" + (lvlb + 1) + "]" +
                 "&fq={!tag=hoot}level_" + plugin.settings.perspective + "_i:[" + lvla + "+TO+" + lvlb + "]" +
 
@@ -790,8 +728,6 @@
         },
         showPaths: function (paths, callback) {
 
-            //console.log("ARGY!");
-            //console.dir(arguments);
             var plugin = this;
 
             var cleanPath = function (path, parentOnly, rootSlash) {
@@ -856,8 +792,6 @@
                     pathlist.push(paths[i]);
                 }
             }
-            // if (DEBUG)
-            //     log("loadKeyPath " + pathlist);
 
             if (paths !== null) {
                 if (pathlist.length == 0) { // all paths to show have already been loaded
@@ -894,20 +828,6 @@
                             }
 
                         }
-                      /*
-                    ).always(
-                        // The logic here is not DRY, so will need to refactor.
-                        function () {
-                            if (callback) {
-                                if (DEBUG) {
-                                    log("Calling back! ");
-                                    console.dir(arguments);
-                                }
-                                callback();
-                            }
-                        }
-                    );
-                    */
                     );
                 }
             } else {
@@ -937,7 +857,6 @@
                 segList = path.split(sep);
                 while (segList.length) {
                     key = segList.shift();
-//                node = _findDirectChild(root, key);
                     node = root._findDirectChild(key);
                     if (!node) {
                         self.info("loadKeyPath: key not found: " + key + " (parent: " + root + ", path: " + path + ")");
@@ -951,7 +870,6 @@
                         root = node;
                     } else {
                         callback.call(self, node, "loaded");
-//                    segList.unshift(key);
                         if (loadMap[key]) {
                             loadMap[key].push(segList.join(sep));
                         } else {
@@ -961,7 +879,6 @@
                     }
                 }
             }
-//        alert("loadKeyPath: loadMap=" + JSON.stringify(loadMap));
             // Now load all lazy nodes and continue itearation for remaining paths
             deferredList = [];
             // Avoid jshint warning 'Don't make functions within a loop.':
@@ -981,7 +898,6 @@
                 if (node == null) {
                     node = self.getNodeByKey(key);
                 }
-//            alert("loadKeyPath: lazy node(" + key + ") = " + node);
                 dfd = new $.Deferred();
                 deferredList.push(dfd);
                 __lazyload(key, node, dfd);
