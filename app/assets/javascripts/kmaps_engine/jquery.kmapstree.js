@@ -13,7 +13,7 @@
     // as this (slightly) quickens the resolution process and can be more efficiently
     // minified (especially when both are regularly referenced in your plugin).
 
-    var SOLR_ROW_LIMIT = 2000;
+    var SOLR_ROW_LIMIT = 3000;
     var DEBUG = false;
 
     // Create the defaults once
@@ -360,16 +360,11 @@
 
                   if(plugin.settings.sortNodes){
                     ctx.node.sortChildren(function(a,b){
-                      if(a.data[plugin.settings.sortNodesBy] < b.data[plugin.settings.sortNodesBy]) {
-                        return -1;
-                      } else if (a.data[plugin.settings.sortNodesBy] > b.data[plugin.settings.sortNodesBy]) {
-                        return 1;
-                      }
-                      return 0;
-                    }
-                      , true);
+                      var aName = a.data[plugin.settings.sortNodesBy];
+                      var bName = b.data[plugin.settings.sortNodesBy];
+                      return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+                    }, true);
                   }
-
                 }
               }).on('fancytreeinit', function (x, y) {
 
