@@ -28,6 +28,7 @@
       sort: '',
       fields: '',
       filters: '',
+      additional_filters: [],
       menu: '',
       no_results_msg: '',
       match_criterion: 'contains', //{contains, begins, exactly}
@@ -157,10 +158,16 @@
             if (query !== plugin.fake) {
               plugin.start = 0;
             }
+
+            var additional_filters = "";
+            settings.additional_filters.forEach(function(filter){
+              additional_filters += "&fq="+filter;
+            });
+
             $.extend(true, extras, plugin.params);
             remote.dataType = 'jsonp';
             remote.jsonp = 'json.wrf';
-            remote.url += '&' + $.param(extras, true);
+            remote.url += '&' + $.param(extras, true)+additional_filters;
             return remote;
           },
           filter: function (json) {

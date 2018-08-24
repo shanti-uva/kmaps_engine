@@ -253,6 +253,7 @@
         empty_sort: plugin.options.empty_sort,
         sort: plugin.options.sort,
         filters: plugin.options.shanti_kmaps_admin_solr_filter_query ? plugin.options.shanti_kmaps_admin_solr_filter_query : '',
+        additional_filters: plugin.options.filters,
         autocomplete_field: plugin.options.autocomplete_field,
         prefetch_fields: plugin.options.prefetch_fields,
         prefetch_filters: plugin.options.prefetch_filters,
