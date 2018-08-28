@@ -6,7 +6,8 @@
     end
     view_path = change_view_session_path('a').chop %>
 <%=	javascript_on_load do %>
-      jQuery('.radio_view_pref').click(function (){
+      jQuery('.radio_view_pref').click(function (event){
+        event.stopPropagation();
         window.location.pathname = '<%= view_path %>' + this.value;
       });
 <%  end %>
