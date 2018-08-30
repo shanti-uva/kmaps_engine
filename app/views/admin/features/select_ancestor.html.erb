@@ -1,18 +1,44 @@
 <div>
-  <h1>Please select the feature in the hierarchy where you would like to add your new feature</h1>
+  <% feature_title = Feature.model_name.human.titleize.s %>
+  <h1>Please select the <%= feature_title %> in the hierarchy where you would like to add your new <%= feature_title %></h1>
 </div>
 <div id="relation_tree_container">
 </div>
+<%= content_tag :div, "", id: 'related_js_data', data: {
+ term_index: Feature.config.url,
+ asset_index: Flare.config.asset_url,
+ feature_id: "",
+ domain: Feature.uid_prefix,
+ perspective: current_perspective.code,
+ tree: Feature.uid_prefix,
+ feature_path: "#{new_admin_feature_path}?parent_id=%%ID%%",
+ mandala_path: "https://mandala.shanti.virginia.edu/%%APP%%/%%ID%%/%%REL%%/nojs",
+ feature_fid: @feature.fid
+} %>
 <%= javascript_include_tag 'kmaps_engine/kmaps_relations_tree' %>
 <%= javascript_on_load do %>
+  var relatedSolrUtils = kmapsSolrUtils.init({
+    termIndex: $('#related_js_data').data('termIndex'),
+    assetIndex: $('#related_js_data').data('assetIndex'),
+    featureId: $('#related_js_data').data('featureId'),
+    domain: $('#related_js_data').data('domain'),
+    perspective: $('#related_js_data').data('perspective'),
+    tree: $('#related_js_data').data('tree'), //places
+    featuresPath: $('#related_js_data').data('featurePath'),
+  });
   $("#relation_tree_container").kmapsRelationsTree({
-    featureId: 13735,
-    featuresPath: "<%= admin_features_path %>/new?parent_id=%%ID%%",
-    termIndex: "<%= Feature.config.url %>",
-    perspective: "<%= current_perspective.code %>",
+    featureId: $('#related_js_data').data('featureFid'),
+    featuresPath: $('#related_js_data').data('featurePath'),
+    termIndex: $('#related_js_data').data('termIndex'),
+    assetIndex: $('#related_js_data').data('assetIndex'),
+    perspective: $('#related_js_data').data('perspective'),
+    tree: $('#related_js_data').data('tree'), //places
+    domain: $('#related_js_data').data('domain'), //places
     seedTree: {
       descendants: true,
-      directAncestors: false,
-    }
+      directAncestors: true,
+    },
+    displayPopup: false,
+    solrUtils: relatedSolrUtils
   });
 <% end %>
