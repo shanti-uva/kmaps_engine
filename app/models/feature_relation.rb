@@ -24,29 +24,29 @@ class FeatureRelation < ActiveRecord::Base
   
   acts_as_family_tree :tree, -> { where(:feature_relation_type_id => FeatureRelationType.hierarchy_ids) }, :node_class => 'Feature'
       
-  after_save do |record|
-    if !record.skip_update
-      Spawnling.new do
+  #after_save do |record|
+  #  if !record.skip_update
+  #    Spawnling.new do
         # we could update this object's (a FeatureRelation) hierarchy but the THL Places-app doesn't use that info in any way yet
-        [record.parent_node, record.child_node].each { |r| r.update_hierarchy if !r.nil? }
-      end
-    end
-  end
+  #      [record.parent_node, record.child_node].each { |r| r.update_hierarchy if !r.nil? }
+  #    end
+  #  end
+  #end
   
-  after_destroy do |record|
-    if !record.skip_update && record.perspective.is_public?
-      Spawnling.new do
-        is_root = false
-        [record.parent_node, record.child_node].each do |r|
-          if !r.nil?
-            r.update_hierarchy
-            is_root = true if r.is_public==1 && r.ancestors.blank?
-          end
-        end
-        Rails.cache.delete_matched("features/current_roots/#{record.perspective_id}/*") if is_root
-      end
-    end
-  end
+  #after_destroy do |record|
+  #  if !record.skip_update && record.perspective.is_public?
+  #    Spawnling.new do
+  #      is_root = false
+  #      [record.parent_node, record.child_node].each do |r|
+  #        if !r.nil?
+  #          r.update_hierarchy
+  #          is_root = true if r.is_public==1 && r.ancestors.blank?
+  #        end
+  #      end
+  #      Rails.cache.delete_matched("features/current_roots/#{record.perspective_id}/*") if is_root
+  #    end
+  #  end
+  #end
   
   #
   #
