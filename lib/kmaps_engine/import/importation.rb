@@ -77,7 +77,7 @@ class Importation
             attrs = {:is_range => false, :calendar_id => calendar_id, :frequency_id => frequency_id}
             if time_unit.nil?
               complex_date.save
-              time_unit = time_units.create(attrs.merge(:date_id => complex_date.id))
+              time_unit = TimeUnit.create(attrs.merge(dateable_type: dateable.class.to_s, dateable_id: dateable.id, date_id: complex_date.id))
             else
               time_unit.update_attributes(attrs)
             end
@@ -98,7 +98,8 @@ class Importation
             if time_unit.nil?
               complex_start_date.save if !complex_start_date.nil?
               complex_end_date.save if !complex_end_date.nil?
-              time_unit = time_units.create(attrs.merge(:start_date_id => complex_start_date.nil? ? nil : complex_start_date.id, :end_date_id => complex_end_date.nil? ? nil : complex_end_date.id))
+              #time_unit = time_units.create(attrs.merge(:start_date_id => complex_start_date.nil? ? nil : complex_start_date.id, :end_date_id => complex_end_date.nil? ? nil : complex_end_date.id))
+              time_unit = TimeUnit.create(attrs.merge(dateable_type: dateable.class.to_s, dateable_id: dateable.id, start_date_id: complex_start_date.nil? ? nil : complex_start_date.id, end_date_id: complex_end_date.nil? ? nil : complex_end_date.id))
             else
               time_unit.update_attributes(attrs)
             end
@@ -117,7 +118,7 @@ class Importation
             rabjung_id = self.fields.delete("#{field_prefix}.time_units.date.rabjung_id")
             if !rabjung_id.blank?
               complex_date = ComplexDate.create(:rabjung_id => rabjung_id)
-              time_unit = time_units.create(:date_id => complex_date.id)
+              time_unit = TimeUnit.create(dateable_type: dateable.class.to_s, dateable_id: dateable.id, date_id: complex_date.id)
               self.spreadsheet.imports.create(:item => time_unit) if time_unit.imports.find_by(spreadsheet_id: self.spreadsheet.id).nil?
             end
           else
@@ -127,7 +128,7 @@ class Importation
               attrs = {:is_range => false, :calendar_id => calendar_id, :frequency_id => frequency_id}
               if time_unit.nil?
                 complex_date = ComplexDate.create(complex_date_attributes)
-                time_unit = time_units.create(attrs.merge(:date_id => complex_date.id))
+                time_unit = TimeUnit.create(attrs.merge(dateable_type: dateable.class.to_s, dateable_id: dateable.id, date_id: complex_date.id))
               else
                 time_unit.update_attributes(attrs)
               end
@@ -140,7 +141,7 @@ class Importation
               if time_unit.nil?
                 complex_start_date = ComplexDate.create(complex_start_date_attributes)
                 complex_end_date = ComplexDate.create(complex_end_date_attributes)
-                time_unit = time_units.create(attrs.merge(:start_date_id => complex_start_date.nil? ? nil : complex_start_date.id, :end_date_id => complex_end_date.nil? ? nil : complex_end_date.id))
+                time_unit = TimeUnit.create(attrs.merge(dateable_type: dateable.class.to_s, dateable_id: dateable.id, start_date_id: complex_start_date.nil? ? nil : complex_start_date.id, end_date_id: complex_end_date.nil? ? nil : complex_end_date.id))
               else
                 time_unit.update_attributes(attrs)
               end
@@ -152,7 +153,7 @@ class Importation
           attrs = {:is_range => false, :calendar_id => calendar_id, :frequency_id => frequency_id}
           if time_unit.nil?
             complex_date = ComplexDate.create(complex_date_attributes)
-            time_unit = time_units.create(attrs.merge(:date_id => complex_date.id))
+            time_unit = TimeUnit.create(attrs.merge(dateable_type: dateable.class.to_s, dateable_id: dateable.id, date_id: complex_date.id))
           else
             time_unit.update_attributes(attrs)
           end
@@ -171,7 +172,7 @@ class Importation
         attrs = {:is_range => false, :calendar_id => calendar_id, :frequency_id => frequency_id}
         if time_unit.nil?
           complex_date.save
-          time_unit = time_units.create(attrs.merge(:date_id => complex_date.id))
+          time_unit = TimeUnit.create(attrs.merge(dateable_type: dateable.class.to_s, dateable_id: dateable.id, date_id: complex_date.id))
         else
           time_unit.update_attributes(attrs)
         end
