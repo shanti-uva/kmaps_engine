@@ -641,7 +641,7 @@
                   marks.push(marker['mark']);
                 }
               } else if(marker['operation'] == '!includes') {
-                if (!currentNode[marker['field']].includes(marker['value'])) {
+                if (currentNode[marker['field']] && !currentNode[marker['field']].includes(marker['value'])) {
                   marks.push(marker['mark']);
                 }
               } else if(marker['operation'] == 'markAll') {
