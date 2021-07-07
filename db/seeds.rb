@@ -78,7 +78,7 @@
   { code: 'eng.to.tib.script.transcrip', name: 'English-to-Tibetan Transcription',                description: "<p>This is for representing the sound of English words in Tibetans script.</p>" },
   { code: 'unident.tib.transcrip',       name: 'Unidentified System of Tibetan Transcription',    description: "<p>This is used for any transcription system used for Tibetan which is unknown. It may be a system not yet identified, or it might be just a popular rendering of the specific toponym in question without any underlying system behind it.</p>" },
   { code: 'chan.tib.transcrip',          name: 'Chan System of Tibetan Transcription',            description: "<p>This is the system used by Victor Chan to transcribe Tibetan in his book Tibet Handbook</p>" },
-  { code: 'dzo.to.eng.transcrip',        name: 'Dzongkha-to-English Transcription' },
+  { code: 'dzo.transcrip',               name: 'Dzongkha Transcription' },
   { code: 'wade.giles.transcrip',        name: 'Wade-Giles Transcription' },
   { code: 'amdo.transcrip',              name: 'Amdo Transcription' },
   { code: 'mon.to.chi.transcrip',        name: 'Mongolian-to-Chinese Transcription' }
