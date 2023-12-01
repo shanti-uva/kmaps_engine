@@ -312,10 +312,8 @@ module AdminHelper
       html += '<td>' + def_if_blank(name, :writing_system).to_s + '</td>'
       html += '<td>' + fn_relationship(name).to_s + '</td>'
       html += '<td>' + name.position.to_s + '</td>'
-      html += '<td>' + note_link_list_for(name) + '</td>'
-      html += '<td>' + new_note_link_for(name) + '</td>'
-      html += '<td>' + time_unit_link_list_for(name) + '</td>'
-      html += '<td>' + new_time_unit_link_for(name) + '</td>'
+      html += '<td>' + note_link_list_for(name) + new_note_link_for(name) + '</td>'
+      html += '<td>' + time_unit_link_list_for(name) + new_time_unit_link_for(name) + '</td>'
       html += '</tr>'
       html += feature_name_tr(nil, name.children, completed).to_s
     end
