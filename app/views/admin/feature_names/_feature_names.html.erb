@@ -11,9 +11,7 @@
        <th><%= ts 'relat.ion.ship.this' %></th>
        <th><%= ts 'priorit.y' %></th>
        <th><%= Note.model_name.human(:count => :many).titleize.s %></th>
-       <th><%= ts 'add.record', :what => Note.model_name.human.titleize %></th>
        <th><%= t('date.this', :count => :many).titleize.s.s %></th>
-       <th><%= ts 'add.record', :what => t('date.this', :count => 1).titleize %></th>
      </tr>
 <%= pagination_row :colspan=>8 unless @collection.nil? %>
 <%= feature_name_tr(@feature) %>
