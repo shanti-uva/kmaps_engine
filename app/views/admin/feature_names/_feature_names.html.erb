@@ -9,9 +9,9 @@
        <th><%= Language.model_name.human.titleize.s %></th>
        <th><%= WritingSystem.model_name.human.titleize.s %></th>
        <th><%= ts 'relat.ion.ship.this' %></th>
-       <th><%= ts 'priorit.y' %></th>
        <th><%= Note.model_name.human(:count => :many).titleize.s %></th>
        <th><%= t('date.this', :count => :many).titleize.s.s %></th>
+       <th><%= ts 'priorit.y' %></th>
      </tr>
 <%= pagination_row :colspan=>8 unless @collection.nil? %>
 <%= feature_name_tr(@feature) %>
