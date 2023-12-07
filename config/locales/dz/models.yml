@@ -83,6 +83,8 @@ dz:
                 code: 'Code'
                 content: 'Content'
                 title: 'Title'
+            caption:
+                help_text: 'Captions describe the term in fewer than 140 characters, including spaces. They appear in term previews around Mandala.'
             citation:
                 info_source_id: 'Source ID'
                 info_source_type: 'Source Type'
@@ -94,10 +96,13 @@ dz:
             essay:
                 content: 'Content'
                 title: 'Essay Title'
+            etymology: 
+                help_text: 'The origin of the term.'
             external_picture:
                 place_id: 'Place (Places Dictionary FID)'
             feature_geo_code:
                 geo_code_value: 'Value'
+                help_text: 'Term codes are identifiers for a term. For example, the Wikidata entity ID.'
             feature_name:
                 etymology: 'Etymology'
                 is_primary_for_romanization: 'Primary for Popular Romanization View?'
@@ -117,6 +122,9 @@ dz:
                 label: 'Label'
             illustration:
                 picture_id: 'Image ID'
+                help_text: 'Featured images appear on the main overview page for the term. Add image files to Mandala Images first. For help, please see '
+                help_link: 'https://confluence.its.virginia.edu/display/KB/Create+Images'
+                help_link_label: 'this guide.'
             note:
                 custom_note_title: 'Custom Title'
                 is_public: 'Public?'
@@ -131,10 +139,14 @@ dz:
                 description: 'Description'
                 is_public: 'Public?'
                 name: 'Name'
+            recording:
+                help_text: 'Recordings let you add audio files of your term being spoken. Accepted files formats: mp3'
             simple_prop:
                 code: 'Code'
                 description: 'Description'
                 name: 'Name'
+            summary:
+                help_text: 'Summaries describe the term in fewer than 750 characters, including spaces. They appear on the overview page for the term.'
             user:
                 login: 'Login'
                 password: 'Password'

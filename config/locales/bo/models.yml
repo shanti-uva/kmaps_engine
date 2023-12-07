@@ -83,6 +83,8 @@ bo:
                 code: 'ཚབ་ཨང་།'
                 content: 'ནང་དོན།'
                 title: 'གདོང་འཛར།'
+            caption:
+                help_text: 'Captions describe the term in fewer than 140 characters, including spaces. They appear in term previews around Mandala.'
             citation:
                 info_source_id: 'ཆ་འཕ༹ྲིན་ཁུངས།'
                 info_source_type: 'Source Type'
@@ -94,10 +96,13 @@ bo:
             essay:
                 content: 'ཁ་བྱང་།'
                 title: 'རྩོམ་ཡིག་གི་ཁ་བྱང་།'
+            etymology: 
+                help_text: 'The origin of the term.'
             external_picture:
                 place_id: 'Place (Places Dictionary FID)'
             feature_geo_code:
                 geo_code_value: 'གྲངས་ཐང་།'
+                help_text: 'Term codes are identifiers for a term. For example, the Wikidata entity ID.'
             feature_name:
                 etymology: 'ཚིག་ཁུངས།'
                 is_primary_for_romanization: 'རོ་མའི་ཡིག་གཟུགས་ཀྱི་མཐོང་རིས་གཙོ་བཟུང་བྱས་པ། '
@@ -117,6 +122,9 @@ bo:
                 label: 'གདོང་འཛར།'
             illustration:
                 picture_id: 'Image ID'
+                help_text: 'Featured images appear on the main overview page for the term. Add image files to Mandala Images first. For help, please see '
+                help_link: 'https://confluence.its.virginia.edu/display/KB/Create+Images'
+                help_link_label: 'this guide.'
             note:
                 custom_note_title: 'མཚན་ཉིད་རང་འཇོག་གི་ཁ་བྱང་།'
                 is_public: 'སྤྱི་སྤྱོད་པའམ།'
@@ -131,10 +139,14 @@ bo:
                 description: 'ཞིབ་བརྗོད།'
                 is_public: 'སྤྱི་སྤྱོད་པའམ།'
                 name: 'མིང་།'
+            recording:
+                help_text: 'Recordings let you add audio files of your term being spoken. Accepted files formats: mp3'
             simple_prop:
                 code: 'ཚབ་ཨང་།'
                 description: 'ཞིབ་བརྗོད།'
                 name: 'མིང་།'
+            summary:
+                help_text: 'Summaries describe the term in fewer than 750 characters, including spaces. They appear on the overview page for the term.'
             user:
                 login: 'ཐོ་འགོད།'
                 password: 'གསང་ཨང་།'

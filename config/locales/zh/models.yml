@@ -83,6 +83,8 @@ zh:
                 code: '代码'
                 content: '内容'
                 title: '标签'
+            caption:
+                help_text: 'Captions describe the term in fewer than 140 characters, including spaces. They appear in term previews around Mandala.'
             citation:
                 info_source_id: '信息来源'
                 info_source_type: 'Source Type'
@@ -94,10 +96,13 @@ zh:
             essay:
                 content: '题目'
                 title: '文章标题'
+            etymology: 
+                help_text: 'The origin of the term.'
             external_picture:
                 place_id: 'Place (Places Dictionary FID)'
             feature_geo_code:
                 geo_code_value: '数值'
+                help_text: 'Term codes are identifiers for a term. For example, the Wikidata entity ID.'
             feature_name:
                 etymology: '词源'
                 is_primary_for_romanization: '以罗马字体视图为主？'
@@ -110,6 +115,9 @@ zh:
                 is_translation: '翻译?'
             illustration:
                 picture_id: 'Image ID'
+                help_text: 'Featured images appear on the main overview page for the term. Add image files to Mandala Images first. For help, please see '
+                help_link: 'https://confluence.its.virginia.edu/display/KB/Create+Images'
+                help_link_label: 'this guide.'
             feature_relation_type:
                 asymmetric_code: '非对称代码'
                 asymmetric_label: '非对称标签'
@@ -131,10 +139,14 @@ zh:
                 description: '描述'
                 is_public: '公共？'
                 name: '名称'
+            recording:
+                help_text: 'Recordings let you add audio files of your term being spoken. Accepted files formats: mp3'
             simple_prop:
                 code: '代码'
                 description: '描述'
                 name: '名称'
+            summary:
+                help_text: 'Summaries describe the term in fewer than 750 characters, including spaces. They appear on the overview page for the term.'
             user:
                 login: '登录'
                 password: '密码'
