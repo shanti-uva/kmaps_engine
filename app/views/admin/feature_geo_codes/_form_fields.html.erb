@@ -26,10 +26,12 @@ input[type=text] {
 <%= f.label :feature, Feature.model_name.human.titleize.s %>
     <span><%= f_label(object.feature) %></span>
   </div>
+<% if GeoCodeType.any? %>
   <div class="row">
-<%= f.label :geo_code_type, GeoCodeType.model_name.human.titleize.s %>
-<%= f.collection_select(:geo_code_type_id, GeoCodeType.all, :id, :to_s, {include_blank: false}, class: 'form-control form-select ss-select selectpicker') %>
+    <%= f.label :geo_code_type, GeoCodeType.model_name.human.titleize.s %>
+    <%= f.collection_select(:geo_code_type_id, GeoCodeType.all, :id, :to_s, {include_blank: false}, class: 'form-control form-select ss-select selectpicker') %>
   </div>
+<% end %>
   <div class="row">
 <%= f.label(:value).s %>
 <%= f.text_field :geo_code_value, class: [:text, 'text-full form-control form-text'] %>
