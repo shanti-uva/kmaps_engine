@@ -40,8 +40,8 @@ en:
                 one: 'spelling type'
                 other: 'spelling types'
             illustration:
-                one: 'illustration'
-                other: 'illustrations'
+                one: 'homepage image'
+                other: 'homepage images'
             language:
                 one: 'language'
                 other: 'languages'

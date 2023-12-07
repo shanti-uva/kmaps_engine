@@ -40,8 +40,8 @@ bo:
                 one: 'མིང་གི་རིགས།' # TODO change to spelling type
                 other: 'མིང་གི་རིགས་ཁག ' # TODO change to spelling types
             illustration:
-                one: 'illustration'
-                other: 'illustrations'
+                one: 'homepage image'
+                other: 'homepage images'
             language:
                 one: 'སྐད་ཡིག'
                 other: 'སྐད་ཡིག་གི་སྡེ།'

@@ -40,8 +40,8 @@ zh:
                 one: '名称类型' # TODO change to spelling type
                 other: '名称类型' # TODO change to spelling types
             illustration:
-                one: 'illustration'
-                other: 'illustrations'
+                one: 'homepage image'
+                other: 'homepage images'
             language:
                 one: '语言'
                 other: '语言'
