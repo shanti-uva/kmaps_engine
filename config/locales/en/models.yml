@@ -34,8 +34,8 @@ en:
                 one: 'external picture'
                 other: 'external pictures'
             feature_name:
-                one: 'name'
-                other: 'names'
+                one: 'spelling'
+                other: 'spellings'
             feature_name_type:
                 one: 'name type'
                 other: 'name types'
@@ -101,6 +101,8 @@ en:
             feature_name:
                 etymology: 'Etymology'
                 is_primary_for_romanization: 'Primary for Popular Romanization View?'
+                help_text: 'Alternate spellings for the term. Example: colour (English), color (American). You can also add alternate transliterations here.'
+                section_title: 'Spellings and Pronunciations'
             feature_name_relation:
                 is_alt_spelling: 'Alternative Spelling?'
                 is_orthographic: 'Orthographic?'

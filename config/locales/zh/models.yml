@@ -34,8 +34,8 @@ zh:
                 one: 'external picture'
                 other: 'external pictures'
             feature_name:
-                one: '名字'
-                other: '别名'
+                one: '名字' # TODO change to spelling
+                other: '别名' # TODO change to spellings
             feature_name_type:
                 one: '名称类型'
                 other: '名称类型'
@@ -101,6 +101,8 @@ zh:
             feature_name:
                 etymology: '词源'
                 is_primary_for_romanization: '以罗马字体视图为主？'
+                help_text: 'Alternate spellings for the term. Example: colour (English), color (American). You can also add alternate transliterations here.'
+                section_title: 'Spellings and Pronunciations'
             feature_name_relation:
                 is_alt_spelling: '其他拼写？'
                 is_orthographic: '正字?'

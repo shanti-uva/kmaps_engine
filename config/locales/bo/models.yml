@@ -34,8 +34,8 @@ bo:
                 one: 'external picture'
                 other: 'external pictures'
             feature_name:
-                one: 'མིང་།'
-                other: 'མིང་གཞན།'
+                one: 'མིང་།' # TODO change to spelling
+                other: 'མིང་གཞན།' # TODO change to spellings
             feature_name_type:
                 one: 'མིང་གི་རིགས།'
                 other: 'མིང་གི་རིགས་ཁག '
@@ -101,6 +101,8 @@ bo:
             feature_name:
                 etymology: 'ཚིག་ཁུངས།'
                 is_primary_for_romanization: 'རོ་མའི་ཡིག་གཟུགས་ཀྱི་མཐོང་རིས་གཙོ་བཟུང་བྱས་པ། '
+                help_text: 'Alternate spellings for the term. Example: colour (English), color (American). You can also add alternate transliterations here.'
+                section_title: 'Spellings and Pronunciations'
             feature_name_relation:
                 is_alt_spelling: 'སྦྱོར་འབྲི་བའམ།'
                 is_orthographic: 'དག་ཡིག'
