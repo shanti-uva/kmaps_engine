@@ -37,8 +37,8 @@ zh:
                 one: '名字' # TODO change to spelling
                 other: '别名' # TODO change to spellings
             feature_name_type:
-                one: '名称类型'
-                other: '名称类型'
+                one: '名称类型' # TODO change to spelling type
+                other: '名称类型' # TODO change to spelling types
             illustration:
                 one: 'illustration'
                 other: 'illustrations'

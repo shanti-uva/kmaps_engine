@@ -37,8 +37,8 @@ dz:
                 one: 'spelling'
                 other: 'spellings'
             feature_name_type:
-                one: 'name type'
-                other: 'name types'
+                one: 'spelling type'
+                other: 'spelling types'
             illustration:
                 one: 'illustration'
                 other: 'illustrations'

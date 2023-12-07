@@ -37,8 +37,8 @@ bo:
                 one: 'མིང་།' # TODO change to spelling
                 other: 'མིང་གཞན།' # TODO change to spellings
             feature_name_type:
-                one: 'མིང་གི་རིགས།'
-                other: 'མིང་གི་རིགས་ཁག '
+                one: 'མིང་གི་རིགས།' # TODO change to spelling type
+                other: 'མིང་གི་རིགས་ཁག ' # TODO change to spelling types
             illustration:
                 one: 'illustration'
                 other: 'illustrations'
