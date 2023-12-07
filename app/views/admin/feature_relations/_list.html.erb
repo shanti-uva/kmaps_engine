@@ -1,7 +1,7 @@
 <% use_first = use_first.nil? ? true : use_first
    use_names = use_names.nil? ? false : use_names
    if list.empty? %>
-<%=  empty_collection_message %>
+<%=  empty_collection_message("No #{FeatureRelation.model_name.human(count: :many).titleize.s} found.") %>
 <% else %>
    <table class="listGrid">
 <%=  pagination_row :colspan=>6 unless @collection.nil? %>
