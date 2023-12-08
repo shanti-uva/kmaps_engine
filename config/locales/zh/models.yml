@@ -147,6 +147,7 @@ zh:
                 name: '名称'
             summary:
                 help_text: 'Summaries describe the term in fewer than 750 characters, including spaces. They appear on the overview page for the term.'
+                excerpt: 'Excerpt'
             user:
                 login: '登录'
                 password: '密码'
