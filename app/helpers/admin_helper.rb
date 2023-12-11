@@ -461,6 +461,14 @@ module AdminHelper
     html.html_safe
   end
 
+  def accordion_citation_list_fieldset(**options)
+    object = options[:object] || @object
+    html = ""
+    html = "#{render :partial => 'admin/citations/accordion_citations_list', :locals => { :list => object.citations} } " if object.citations.any?
+    html = html + "#{new_item_link(new_polymorphic_path([:admin, object, :citation]), '')}"
+    html.html_safe
+  end
+
   def time_unit_list_fieldset(**options)
     object = options[:object] || @object
     html = "<fieldset>
