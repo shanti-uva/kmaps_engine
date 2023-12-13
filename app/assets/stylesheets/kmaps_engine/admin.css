@@ -473,3 +473,11 @@ input.text-full {
 #search-flyout input[type=text]{
   width: inherit;
 }
+
+/* container for links above tables */
+.flexContainer {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:flex;
+  justify-content: space-between;
+}
