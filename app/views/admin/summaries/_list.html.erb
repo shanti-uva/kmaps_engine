@@ -5,6 +5,7 @@
      <tr>
        <th class="listActionsCol"></th>
        <th><%= Language.model_name.human.titleize.s %></th>
+       <th><%= Citation.model_name.human.titleize.s %></th>
      </tr>
 <%   list.each do |item| %>
      <tr>
@@ -14,6 +15,7 @@
          view_path: admin_feature_summary_path(item.feature, item)) %>
        </td>
        <td><%= item.language.name %></td>
+       <td><%= accordion_citation_list_fieldset(object: item) %></td>
      </tr>
 <%   end %>
    </table>
