@@ -10,9 +10,7 @@
        <th><%= FeatureRelation.model_name.human.titleize.s %></th>
        <th><%= Perspective.model_name.human.titleize.s %></th>
        <th><%= Note.model_name.human(:count => :many).titleize.s %></th>
-       <th><%= ts 'add.record', :what => Note.model_name.human.titleize %></th>
        <th><%= t('date.this', :count => :many).titleize.s %></th>
-       <th><%= ts 'add.record', :what => t('date.this', :count => 1).titleize %></th>
      </tr>
 <%   list.each do |item| %>
      <tr>   
@@ -39,10 +37,8 @@
 <%     end %>
        </td>
        <td><%= item.perspective %></td>
-       <td><%= note_link_list_for item %></td>
-       <td><%= new_note_link_for item %></td>
-       <td><%= time_unit_link_list_for item %></td>
-       <td><%= new_time_unit_link_for item %></td>
+       <td><%= note_link_list_for item %> <%= new_note_link_for item %></td>
+       <td><%= time_unit_link_list_for item %> <%= new_time_unit_link_for item %></td>
      </tr>
 <%   end %>
    </table>
