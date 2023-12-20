@@ -1,5 +1,5 @@
 <% if list.empty? %>
-<%=  empty_collection_message %>
+<%=  empty_collection_message("No #{Caption.model_name.human(count: :many).titleize.s} found.") %>
 <% else %>
    <table class="listGrid">
      <tr>

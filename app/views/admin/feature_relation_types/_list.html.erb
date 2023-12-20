@@ -1,6 +1,6 @@
 <% list = list || [] 
    if list.empty? %>
-<%=  empty_collection_message %>
+<%=  empty_collection_message("No #{FeatureRelationType.model_name.human(count: :many).titleize.s} found.") %>
 <% else %>
    <table class="listGrid">
 <%=  pagination_row :colspan=>3 unless @collection.nil? %>
