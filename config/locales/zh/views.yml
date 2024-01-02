@@ -90,3 +90,6 @@ zh:
     view:
         record: '查看%{what}'
         this: '查看'
+    accordion:
+        summary:
+          excerpt: 'Excerpt'

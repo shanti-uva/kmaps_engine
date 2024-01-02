@@ -90,3 +90,6 @@ dz:
     view:
         record: 'View %{what}'
         this: 'View'
+    accordion:
+        summary:
+          excerpt: 'Excerpt'

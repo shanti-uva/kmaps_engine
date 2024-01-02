@@ -90,3 +90,6 @@ bo:
     view:
         record: '%{what}ལ་ལྟ་ཞིབ་བྱས་པ།'
         this: 'ལྟ་ཞིབ།'
+    accordion:
+        summary:
+          excerpt: 'Excerpt'
