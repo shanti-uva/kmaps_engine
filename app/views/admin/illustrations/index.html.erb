@@ -7,7 +7,7 @@
 <div>
   <div class="right highlight">
 <% if parent? %>
-<%=  ts :for, :what => new_item_link([parent_object, :illustration]), :whom => feature_link(parent_object) %>
+  <%=  ts :for, :what => new_item_link([parent_object, :illustration], "New #{Illustration.model_name.human.s}"), :whom => feature_link(parent_object) %>
 <% end %>
   </div>
 </div>
