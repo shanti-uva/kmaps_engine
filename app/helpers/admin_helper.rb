@@ -375,7 +375,7 @@ module AdminHelper
   #
   #
   def feature_names_link(feature=nil)
-    feature.nil? ? link_to('feature names', admin_feature_names_path) : link_to('names', admin_feature_feature_names_path(feature))
+    feature.nil? ? link_to('feature names', admin_feature_names_path) : link_to(FeatureName.model_name.human(count: :many).titleize.s, admin_feature_feature_names_path(feature))
   end
 
   #
