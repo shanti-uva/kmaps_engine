@@ -69,7 +69,7 @@ dz:
               other: '%{who} has %{how_many} other %{what} directly related to it, which are presented here.'
             name:
                 has_transliteration: '%{what} has a transliteration of %{whom}'
-                not_related: 'Sorry, this name does not currently have any related names.'
+                not_related: 'Sorry, this representation does not currently have any related representations.'
                 resource: 'resource that uses one'
         title: 'Use title case for capitalization (e.g. An Exciting...)'
     suffix:
