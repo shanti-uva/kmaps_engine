@@ -248,11 +248,14 @@ module AdminHelper
   end
 
   def add_breadcrumb_base
-    # Notes are polymorphic,
+    # Notes and Citations are polymorphic,
     # so we've gotta support
     # breadcrumbs for each of the parent types!
     add_breadcrumb_item feature_link(contextual_feature)
     case parent_type
+    when :definition
+      add_breadcrumb_item link_to(Definition.model_name.human(:count => :many).s, admin_feature_path(object.feature.fid, section: 'definitions'))
+      add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s, admin_definition_path(parent_object))
     when :description
       add_breadcrumb_item feature_descriptions_link(parent_object.feature)
       add_breadcrumb_item link_to(parent_object.id, admin_feature_description_path(parent_object.feature, parent_object))
