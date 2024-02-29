@@ -1,6 +1,6 @@
 <% add_breadcrumb_item feature_link(object.feature)
    add_breadcrumb_item feature_descriptions_link(object.feature)
-   add_breadcrumb_item object.id %>
+   add_breadcrumb_item object.title.strip_tags.truncate(25).s %>
 <div>
   <h1><%= Description.model_name.human.titleize.s %>: <%= object.id %></h1>
 </div>

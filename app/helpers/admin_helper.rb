@@ -253,9 +253,9 @@ module AdminHelper
     # breadcrumbs for each of the parent types!
     add_breadcrumb_item feature_link(contextual_feature)
     case parent_type
-    when :definition
+    when :definition # in terms_engine
       add_breadcrumb_item link_to(Definition.model_name.human(:count => :many).s, admin_feature_path(object.feature.fid, section: 'definitions'))
-      add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s, admin_definition_path(parent_object))
+      add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s, admin_feature_definition_path(object.feature, parent_object, section: 'citations'))
     when :description
       add_breadcrumb_item feature_descriptions_link(parent_object.feature)
       add_breadcrumb_item link_to(parent_object.id, admin_feature_description_path(parent_object.feature, parent_object))
@@ -275,6 +275,8 @@ module AdminHelper
     when :feature_relation
       add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_feature_relations_path(parent_object.child_node))
       add_breadcrumb_item feature_relation_role_label(parent_object.child_node, parent_object, :use_first=>false)
+    when :passage # in terms_engine
+      
     when :time_unit
       add_breadcrumb_item link_to(ts('date.this', :count => :many), admin_time_units_path)
       add_breadcrumb_item link_to(parent_object.to_s, polymorphic_path([:admin, parent_object]))
@@ -389,7 +391,7 @@ module AdminHelper
   end
 
   def feature_descriptions_link(feature=nil)
-    feature.nil? ? link_to('admin', admin_path) : link_to('essays', admin_feature_descriptions_path(feature))
+    feature.nil? ? link_to('admin', admin_path) : link_to(Description.model_name.human(count: :many).titleize.s, admin_feature_path(feature.fid, section: 'descriptions'))
   end
   #
   #
