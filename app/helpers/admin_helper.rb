@@ -261,10 +261,10 @@ module AdminHelper
       add_breadcrumb_item link_to(parent_object.title.strip_tags.truncate(25).titleize.s, admin_feature_description_path(parent_object.feature, parent_object))
     when :feature
     when :feature_name
-      add_breadcrumb_item feature_names_link(parent_object.feature)
-      add_breadcrumb_item link_to(parent_object.id, admin_feature_name_path(parent_object))
+      add_breadcrumb_item link_to(FeatureName.model_name.human(count: :many).titleize.s, admin_feature_path(parent_object.feature.fid, section: 'names'))
+      add_breadcrumb_item link_to(parent_object.name.strip_tags.truncate(25).s, admin_feature_name_path(parent_object))
     when :feature_name_relation
-      add_breadcrumb_item feature_names_link(parent_object.child_node.feature)
+      add_breadcrumb_item feature_names_link(parent_object.child_node.feature.fid)
       add_breadcrumb_item link_to(parent_object.child_node.name, admin_feature_name_path(parent_object.child_node))
       add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_name_feature_name_relations_path(parent_object.child_node))
       add_breadcrumb_item link_to(parent_object, admin_feature_name_feature_name_relation_path(parent_object.child_node, parent_object))

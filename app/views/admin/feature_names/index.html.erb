@@ -6,8 +6,8 @@ end
 if @locating_relation
   add_breadcrumb_item features_link
   add_breadcrumb_item feature_link(object.feature)
-  add_breadcrumb_item link_to(FeatureName.model_name.human(:count => :many).s, admin_feature_feature_names_path(object.feature))
-  add_breadcrumb_item link_to(object.id, admin_feature_feature_name_path(object.feature, object))
+  add_breadcrumb_item link_to(FeatureName.model_name.human(:count => :many).titleize.s, admin_feature_path(object.feature.fid, section: 'names'))
+  add_breadcrumb_item link_to(object.name.strip_tags.truncate(25).titleize.s, admin_feature_feature_name_path(object.feature, object))
   add_breadcrumb_item ts('relat.ion.location')
 end %>
 <div>
