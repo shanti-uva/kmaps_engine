@@ -1,5 +1,5 @@
 <%  add_breadcrumb_item feature_link(object.feature)
-    add_breadcrumb_item link_to(Affiliation.model_name.human(count: :many).s, collection_path)
+    add_breadcrumb_item link_to(Affiliation.model_name.human(count: :many).s, admin_feature_path(object.feature.fid, section: 'collections'))
     add_breadcrumb_item ts('new.this') %>
 <section class="panel panel-content">
   <div class="panel-heading">
