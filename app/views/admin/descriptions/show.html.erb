@@ -2,7 +2,7 @@
    add_breadcrumb_item feature_descriptions_link(object.feature)
    add_breadcrumb_item object.title.strip_tags.truncate(25).s %>
 <div>
-  <h1><%= Description.model_name.human.titleize.s %>: <%= object.id %></h1>
+  <h1><%= Description.model_name.human.titleize.s %>: <%= object.title %></h1>
 </div>
 <br class="clear"/>
 <section class="panel panel-content">
@@ -10,6 +10,7 @@
     <h6><%= Description.model_name.human.titleize.s %></h6>
   </div>
   <div class="panel-body">
+    <div id="descriptionShow" style="position:relative;">
   <div id="accordion" class="panel-group">
 <section class="panel panel-default">
     <div class="panel-heading">
@@ -84,5 +85,7 @@
   </div> <!-- END collapseFour -->
 </section> <!-- END panel -->
   </div> <!-- END accordion -->
+  </div><!-- END descriptionShow -->
   </div> <!-- END panel-body -->
 </section> <!-- END panel -->
+<%= javascript_include_tag "kmaps_engine/descriptions_admin_accordion.js" %>

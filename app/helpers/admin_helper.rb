@@ -258,7 +258,7 @@ module AdminHelper
       add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s, admin_feature_definition_path(object.feature, parent_object, section: 'citations'))
     when :description
       add_breadcrumb_item feature_descriptions_link(parent_object.feature)
-      add_breadcrumb_item link_to(parent_object.id, admin_feature_description_path(parent_object.feature, parent_object))
+      add_breadcrumb_item link_to(parent_object.title.strip_tags.truncate(25).titleize.s, admin_feature_description_path(parent_object.feature, parent_object))
     when :feature
     when :feature_name
       add_breadcrumb_item feature_names_link(parent_object.feature)

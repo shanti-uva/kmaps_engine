@@ -1,2 +1,11 @@
-<% add_breadcrumb_base
-   add_breadcrumb_item link_to(Citation.model_name.human(:count => :many).titleize.s, collection_path) %>
+<% 
+    add_breadcrumb_base
+
+case parent_type
+when :description
+  add_breadcrumb_item link_to(Citation.model_name.human(:count => :many).titleize.s, polymorphic_path([:admin, object.feature, object.citable], section: 'citations'))
+
+
+end
+#add_breadcrumb_item link_to(Citation.model_name.human(:count => :many).titleize.s, collection_path) 
+%>

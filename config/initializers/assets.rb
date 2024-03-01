@@ -10,3 +10,4 @@ Rails.application.config.assets.precompile.concat(['kmaps_engine/admin.js', 'kma
   'gallery/default-skin.svg','kmaps_tree/jquery.fancytree-all.min.js','kmaps_tree/icons.gif'])
 Rails.application.config.assets.precompile.concat(['sarvaka_kmaps/*', 'collapsible_list/kmaps_collapsible_list.css', 'kmaps_tree/kmapstree.css', 'kmaps_engine/xml-books.css', 'kmaps_engine/gallery.css'])
 Rails.application.config.assets.precompile.concat(['collapsible_list/jquery.kmapsCollapsibleList.js'])
+Rails.application.config.assets.precompile.concat(['kmaps_engine/descriptions_admin_accordion.js'])
