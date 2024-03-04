@@ -1,5 +1,5 @@
 <%= render partial: 'breadcrumbs' %>
-<%  add_breadcrumb_item link_to(object.id, object_path(object))
+<%  add_breadcrumb_item link_to(object.title.blank? ? object.id : object.title.strip_tags.truncate(25).s, object_path(object))
     add_breadcrumb_item ts('edit.this') %>
 <section class="panel panel-content">
   <div class="panel-heading">
@@ -8,7 +8,7 @@
   <div class="panel-body">
 <%= form_for object, url: polymorphic_path([:admin, parent_object, object]), method: :put do |f| %>
 <%=   render partial: 'form_fields', locals: {f: f, object: object} %>
-<%=   link_to ts('cancel.this'), polymorphic_path(stacked_parents), class: 'btn btn-primary form-submit', id: 'edit-cancel' %>
+<%=   link_to ts('cancel.this'), polymorphic_path(stacked_parents, section: 'notes'), class: 'btn btn-primary form-submit', id: 'edit-cancel' %>
 | <%= globalized_submit_tag 'update.this', class: 'btn btn-primary form-submit' %>
 <%  end %>
   </div> <!-- END panel-body -->

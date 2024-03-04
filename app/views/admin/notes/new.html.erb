@@ -9,7 +9,7 @@
 <%=   f.hidden_field :notable_id %>
 <%=   f.hidden_field :notable_type %>
 <%=   render partial: 'form_fields', locals: {f: f,object: object} %>
-<%=   link_to ts('cancel.this'), polymorphic_path(stacked_parents), class: 'btn btn-primary form-submit', id: 'edit-cancel' %> | <%= globalized_submit_tag 'creat.e.this', class: 'btn btn-primary form-submit' %>
+<%=   link_to ts('cancel.this'), polymorphic_path(stacked_parents, section: 'notes'), class: 'btn btn-primary form-submit', id: 'edit-cancel' %> | <%= globalized_submit_tag 'creat.e.this', class: 'btn btn-primary form-submit' %>
 <%  end %>
   </div> <!-- END panel-body -->
 </section> <!-- END panel -->
