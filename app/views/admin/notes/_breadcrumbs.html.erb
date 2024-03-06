@@ -1,2 +1,2 @@
 <% add_breadcrumb_base
-   add_breadcrumb_item link_to('notes', collection_path) %>
+   add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.feature, object.notable], section: 'notes')) %>

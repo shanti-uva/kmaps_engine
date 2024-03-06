@@ -1,6 +1,6 @@
 <% add_breadcrumb_item feature_link(object.feature)
    add_breadcrumb_item link_to(Affiliation.model_name.human(:count => :many).s, admin_feature_affiliations_path(object.feature))
-   add_breadcrumb_item object.id %>
+   add_breadcrumb_item object.collection.name.blank? ? Collection.model_name.s : object.collection.name.strip_tags.truncate(25).s %>
 <p id="notice"><%= notice %></p>
 <br class="clear"/>
 <section class="panel panel-content">

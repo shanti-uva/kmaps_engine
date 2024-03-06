@@ -52,7 +52,7 @@
      </table>
 <% end %>
     <div class="returnLink">
-<%= link_to "&#8592; #{ts 'snippet.feature.return'}".html_safe, admin_feature_path(@feature.fid) %>
+<%= link_to "&#8592; #{ts 'snippet.feature.return'}".html_safe, admin_feature_path(@feature.fid, section: 'names') %>
     </div>
   </div> <!-- END panel-body -->
 </section> <!-- END panel -->

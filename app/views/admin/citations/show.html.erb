@@ -2,7 +2,7 @@
 <%  add_breadcrumb_item object.id %>
 <section class="panel panel-content">
   <div class="panel-heading">
-    <h6><%= ts :for, :what => Citation.model_name.human.titleize.s, :whom => object.citable_type.titleize %> <%= edit_item_link object %> <%= delete_item_link object %></h6>
+    <h6><%= ts :for, :what => Citation.model_name.human.titleize.s, :whom => object.citable.model_name.human.titleize %> <%= edit_item_link object %> <%= delete_item_link object %></h6>
   </div>
   <div class="panel-body">
 <fieldset>
