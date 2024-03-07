@@ -11,7 +11,7 @@
   <div class="panel-body">
 <%= form_with(model: [:admin, object],local: true) do |f| %>
 <%=  render :partial=>'form_fields', :locals=>{:f=>f} %>
-<%=  link_to ts('cancel.this'), admin_feature_name_path(object), class: 'btn btn-primary form-submit', id: 'edit-cancel' %> | <%= globalized_submit_tag 'update.this', class: 'btn btn-primary form-submit' %>
+<%=  link_to ts('cancel.this'), admin_feature_path(parent_object.fid, section: 'names'), class: 'btn btn-primary form-submit', id: 'edit-cancel' %> | <%= globalized_submit_tag 'update.this', class: 'btn btn-primary form-submit' %>
 <% end %>
   </div> <!-- END panel-body -->
 </section> <!-- END panel -->

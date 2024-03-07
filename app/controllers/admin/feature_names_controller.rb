@@ -5,6 +5,10 @@ class Admin::FeatureNamesController < AclController
   cache_sweeper :feature_sweeper, :only => [:create, :update, :destroy]
   belongs_to :feature
   before_action :collection, :only=>:locate_for_relation
+
+  create.wants.html { redirect_to admin_feature_url(parent_object.fid, section: 'names') }
+  update.wants.html { redirect_to admin_feature_url(parent_object.fid, section: 'names') }
+  # destroy handled differently below 
   
   def initialize
     super
