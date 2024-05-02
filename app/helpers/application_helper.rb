@@ -516,6 +516,8 @@ module ApplicationHelper
   end
 
   def object_authorized?(o)
+    Rails.logger.info "+++++++++++++++++++"
+    Rails.logger.info current_user.object_authorized?(o).inspect
     current_user.object_authorized?(o)
   end
 
