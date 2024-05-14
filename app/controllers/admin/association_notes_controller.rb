@@ -12,13 +12,27 @@ class Admin::AssociationNotesController < AclController
     object.notable_type = parent_object.class.name
   end
 
-  create.wants.html { redirect_to polymorphic_url([:admin, object.notable, object]) }
-  update.wants.html { redirect_to polymorphic_url([:admin, object.notable, object]) }
+  create.wants.html do
+    if object.notable.class == Feature
+      redirect_to admin_feature_url(object.notable.fid, section: object.association_type.pluralize.downcase)
+    else
+      redirect_to polymorphic_url([:admin, object.notable], section: object.association_type.pluralize.downcase)
+    end
+  end
+
+  update.wants.html do
+    if object.notable.class == Feature
+      redirect_to admin_feature_url(object.notable.fid, section: object.association_type.pluralize.downcase)
+    else
+      redirect_to polymorphic_url([:admin, object.notable], section: object.association_type.pluralize.downcase)
+    end
+  end
+
   destroy.wants.html do
     if object.notable.class == Feature
-      redirect_to admin_feature_url(object.notable.fid)
+      redirect_to admin_feature_url(object.notable.fid, section: object.association_type.pluralize.downcase)
     else
-      redirect_to polymorphic_url([:admin, object.notable])
+      redirect_to polymorphic_url([:admin, object.notable], section: object.association_type.pluralize.downcase)
     end
   end
   

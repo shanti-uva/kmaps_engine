@@ -23,7 +23,13 @@
 <%#    uncomment the following lines to link to the citable object %>
 <%#    object_path_method = ['admin', item.citable_type.underscore, 'path'].join('_').to_sym %>
 <%#=   link_to(item.citable, send(object_path_method, item.citable)) %>
-<%     info_source = item.info_source %>
+<% 
+  begin
+    info_source = item.info_source
+  rescue 
+    info_source = nil
+  end
+%>
 <%     if info_source.nil? %>
          <td>&nbsp;</td>
          <td>&nbsp;</td>
