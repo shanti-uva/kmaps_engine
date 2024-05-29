@@ -253,6 +253,17 @@ module AdminHelper
     # breadcrumbs for each of the parent types!
     add_breadcrumb_item feature_link(contextual_feature)
     case parent_type
+    when :passage_translation # in terms_engine
+      add_breadcrumb_item link_to(PassageTranslation.model_name.human(:count => :many).s, polymorphic_path([:admin, parent_object.feature, parent_object.context], section: 'passage_translations'))
+      add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s,  polymorphic_path([:admin, parent_object]))
+    when :passage # in terms_engine
+      if parent_object.context.instance_of? Feature
+        add_breadcrumb_item link_to(Passage.model_name.human(:count => :many).s, admin_feature_path(parent_object.feature, section: 'passages'))
+        add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s, polymorphic_path([:admin, parent_object.feature, parent_object]))
+      else
+        add_breadcrumb_item link_to(Passage.model_name.human(:count => :many).s, polymorphic_path([:admin, parent_object.feature, parent_object.context], section: 'passages'))
+        add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s, polymorphic_path([:admin, parent_object.context, parent_object]))
+      end
     when :definition # in terms_engine
       add_breadcrumb_item link_to(Definition.model_name.human(:count => :many).s, admin_feature_path(object.feature.fid, section: 'definitions'))
       add_breadcrumb_item link_to(parent_object.content.strip_tags.truncate(25).s, admin_feature_definition_path(object.feature, parent_object, section: 'citations'))
@@ -275,8 +286,6 @@ module AdminHelper
     when :feature_relation
       add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_feature_relations_path(parent_object.child_node))
       add_breadcrumb_item feature_relation_role_label(parent_object.child_node, parent_object, :use_first=>false)
-    when :passage # in terms_engine
-      
     when :time_unit
       add_breadcrumb_item link_to(ts('date.this', :count => :many), admin_time_units_path)
       add_breadcrumb_item link_to(parent_object.to_s, polymorphic_path([:admin, parent_object]))
