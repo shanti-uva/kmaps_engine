@@ -464,6 +464,13 @@ module AdminHelper
     html.html_safe
   end
 
+  def accordion_note_list_fieldset(object=nil)
+    object ||= @object
+    html = object.notes.any? ? "#{render :partial => 'admin/notes/accordion_notes_list', :locals => { :list => object.notes, :options => {:hide_type => true, :hide_type_value => true} }}" : ''
+    html += new_item_link(new_polymorphic_path([:admin, object, :note]), '')
+    html.html_safe
+  end
+
   def citation_list_fieldset(**options)
     object = options[:object] || @object
     html = "<fieldset>
