@@ -13,7 +13,6 @@
          <th><%= FeatureNameRelation.human_attribute_name(:is_orthographic).s %></th>
          <th><%= FeatureNameRelation.human_attribute_name(:is_alt_spelling).s %></th>
          <th><%= Note.model_name.human(:count => :many).titleize.s %></th>
-         <th><%= ts 'add.record', :what => Note.model_name.human.titleize %></th>
        </tr>
 <%     list.each do |item| %>
        <tr>
@@ -39,8 +38,7 @@
 <%=         yes_no item.is_alt_spelling %><br/>
 <%=         def_if_blank(item, :alt_spelling_system, :name) { '' } %>
          </td>
-         <td><%= note_link_list_for item %></td>
-         <td><%= new_note_link_for item %></td>
+         <td><%= (note_link_list_for(item) + new_note_link_for(item)).html_safe %></td>
        </tr>
 <%     end %>
      </table>
