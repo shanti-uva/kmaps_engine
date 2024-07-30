@@ -1,2 +1,15 @@
-<% add_breadcrumb_base
-   add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.feature, object.notable], section: 'notes')) %>
+<% 
+  add_breadcrumb_base
+
+  # if object.notable is nested more deeply than a Feature,
+# we need to link to object.notable.context instead of object.feature
+# need to regression test this change, not sure how it'll impact TODO
+#
+# Should the link below go to object.notable.context instead of object.notable?
+# for example if the note's lineage is FEature > Definition > Passage > Note
+# would we link to Definition with the passage section expanded? hrm
+
+  # add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.feature, object.notable], section: 'notes'))
+  add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.notable.context, object.notable], section: 'notes')) 
+%>
+
