@@ -234,7 +234,7 @@ module AdminHelper
     #@breadcrumbs.unshift link_to_unless_current('features', admin_features_path)
     #@breadcrumbs.to_a.join(' > ').html_safe
     @breadcrumbs ||= []
-    list = @breadcrumbs[0...@breadcrumbs.size-1].collect{|e| "#{e}#{breadcrumb_separator}".html_safe} + [@breadcrumbs.last]
+    list = [link_to("#{ts('home.this')}:".html_safe, admin_root_path)]+@breadcrumbs[0...@breadcrumbs.size-1].collect{|e| "#{e}#{breadcrumb_separator}".html_safe} + [@breadcrumbs.last]
     content_tag :ol, list.collect{|e| "<li>#{e}</li>"}.join.html_safe, class: 'breadcrumb'
   end
 
