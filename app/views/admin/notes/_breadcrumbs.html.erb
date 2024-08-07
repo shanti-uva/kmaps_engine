@@ -1,4 +1,5 @@
 <% 
+    
   add_breadcrumb_base
 
   # if object.notable is nested more deeply than a Feature,
@@ -9,7 +10,11 @@
 # for example if the note's lineage is FEature > Definition > Passage > Note
 # would we link to Definition with the passage section expanded? hrm
 
-  # add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.feature, object.notable], section: 'notes'))
-  add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.notable.context, object.notable], section: 'notes')) 
+
+if object.notable.respond_to? :context
+  add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.notable.context, object.notable], section: 'notes'))
+else
+  add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.feature, object.notable], section: 'notes'))
+end
 %>
 
