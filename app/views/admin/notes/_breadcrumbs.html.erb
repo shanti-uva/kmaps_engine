@@ -1,2 +1,13 @@
-<% add_breadcrumb_base
-   add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.feature, object.notable], section: 'notes')) %>
+<% 
+add_breadcrumb_base
+
+# if object.notable is nested more deeply than a Feature,
+# we need to link to object.notable.context instead of object.feature
+
+if object.notable.respond_to? :context
+  add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.notable.context, object.notable], section: 'notes'))
+else
+  add_breadcrumb_item link_to(Note.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.feature, object.notable], section: 'notes'))
+end
+%>
+
