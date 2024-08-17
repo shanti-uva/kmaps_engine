@@ -32,9 +32,11 @@ class FeatureRelationType < ActiveRecord::Base
   # Creates options for a select, marking either the asymmetric label or the original label's id
   # with a prefix of "_", which can be detected and used for switching the parent and child node
   # ids if the relation being selected requires it.
-  def self.marked_options(mark_asymmetric=true)
+  def self.marked_options(mark_asymmetric: true, include_hierarchical: true)
     options = []
-    FeatureRelationType.order(:id).each do |type|
+    types = FeatureRelationType.order(:id)
+    types = types.where(is_hierarchical: false) if !include_hierarchical
+    types.each do |type|
       if type.is_symmetric
         options.push([type.label, type.id])
       else

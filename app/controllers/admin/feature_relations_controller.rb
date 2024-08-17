@@ -50,6 +50,15 @@ class Admin::FeatureRelationsController < AclController
     end
   end
   
+  def get_perspectives
+    if defined?(super)
+      super
+    else
+      @perspectives = parent_object.affiliations_by_user(current_user, descendants: true).collect(&:perspective)
+      @perspectives = Perspective.order(:name) if current_user.admin? || @perspectives.blank?
+    end
+  end
+  
   private
   
   def collection
@@ -85,11 +94,6 @@ class Admin::FeatureRelationsController < AclController
       params[:feature_relation][:parent_node_id] = swap_temp
     end
     params[:feature_relation][:feature_relation_type_id] = params[:feature_relation][:feature_relation_type_id].gsub(/^_/, '')
-  end
-  
-  def get_perspectives
-    @perspectives = parent_object.affiliations_by_user(current_user, descendants: true).collect(&:perspective)
-    @perspectives = Perspective.order(:name) if current_user.admin? || @perspectives.include?(nil)
   end
   
   ActiveSupport.run_load_hooks(:admin_feature_relations_controller, Admin::FeatureRelationsController)

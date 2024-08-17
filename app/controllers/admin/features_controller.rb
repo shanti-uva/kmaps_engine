@@ -102,7 +102,7 @@ class Admin::FeaturesController < AclController
     unless context_id.blank?
       @context_feature, @collection = Feature.contextual_search(context_id, filter)
     else
-      @collection = Feature.search(Search.new(filter: filter, context_id: context_id))
+      @collection = Feature.search(Search.new(filter: filter, context_id: context_id, scope: 'name'))
     end
     @collection = @collection.joins(:affiliations).where(affiliations: {collection_id: current_user.collections.collect(&:id)}) if !current_user.admin?
     @collection = @collection.page(page)

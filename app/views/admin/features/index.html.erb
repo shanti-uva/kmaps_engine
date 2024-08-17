@@ -32,7 +32,7 @@ end %>
       <tr class="<%= @context_feature==item ? 'selected' : '' %>">
         <td class="listActionsCol">
 <%      if @locating_relation %>
-<%=       form_tag new_admin_feature_feature_relation_path(object), { method: :get } %>
+<%=       form_tag new_admin_feature_feature_relation_path(object), method: :get %>
 <%=         hidden_field_tag :target_id, item.id %>
 <%=         globalized_submit_tag 'select.this' %>
           </form>

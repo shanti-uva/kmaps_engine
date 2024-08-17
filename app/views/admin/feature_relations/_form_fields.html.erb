@@ -15,7 +15,7 @@
   <div class="row">
 <%= f.label :feature_relation_type_id, FeatureRelationType.model_name.human.titleize.s %>
 <%= fname_labels(parent_object) %>
-<%= f.select :feature_relation_type_id, FeatureRelationType.marked_options(parent_object.id == object.parent_node_id), {}, class: 'form-control form-select ss-select selectpicker' %>
+<%= f.select :feature_relation_type_id, FeatureRelationType.marked_options(mark_asymmetric: parent_object.id == object.parent_node_id), {}, class: 'form-control form-select ss-select selectpicker' %>
 <%= fname_labels(object.other_node(parent_object)) %>
   </div>
   <div class="row">
