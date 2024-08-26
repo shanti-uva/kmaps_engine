@@ -23,7 +23,9 @@ class FeatureSweeper < ActionController::Caching::Sweeper
     return if record.skip_update || KmapsEngine::ApplicationSettings.disable_cache_expiration?
     # Relevant for solr:
     if record.destroyed?
-      record.remove!
+      if record.class.post_to_index?
+        record.remove!
+      end # have to deal with deleting records from index.
     elsif record.is_public?
       record.queued_index
     end
