@@ -25,6 +25,8 @@ class FeatureSweeper < ActionController::Caching::Sweeper
     if record.destroyed?
       if record.class.post_to_index?
         record.remove!
+      else
+        record.fs_remove
       end # have to deal with deleting records from index.
     elsif record.is_public?
       record.queued_index

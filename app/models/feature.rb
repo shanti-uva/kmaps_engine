@@ -579,6 +579,10 @@ class Feature < ActiveRecord::Base
     self
   end
   
+  def solr_url
+    URI.join(Feature.solr_url.to_s, "#{self.fid}.json")
+  end
+  
   def document_for_rsolr
     doc = defined?(super) ? super : nested_documents_for_rsolr
     v = View.get_by_code(KmapsEngine::ApplicationSettings.default_view_code)
