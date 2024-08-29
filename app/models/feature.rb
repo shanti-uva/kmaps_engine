@@ -580,7 +580,11 @@ class Feature < ActiveRecord::Base
   end
   
   def solr_url
-    URI.join(Feature.solr_url.to_s, "#{self.fid}.json")
+    URI.join(Feature.solr_url.to_s, solr_filename)
+  end
+  
+  def solr_filename
+    "#{self.fid}.json"
   end
   
   def document_for_rsolr
