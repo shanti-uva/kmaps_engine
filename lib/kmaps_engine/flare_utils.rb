@@ -96,26 +96,26 @@ module KmapsEngine
       end
       puts "Deleting #{features_indexed_not_in_db.size} docs not in db."
       self.log.debug { "#{Time.now}: Features to delete: #{features_indexed_not_in_db.join(', ')}." }
-      slices = features_indexed_not_in_db.each_slice(10).to_a
-      i = 0
-      total = slices.size
-      slices.each do |s|
-        begin
-          if Feature.post_to_index?
+      if Feature.post_to_index?
+        slices = features_indexed_not_in_db.each_slice(10).to_a
+        i = 0
+        total = slices.size
+        slices.each do |s|
+          begin
             Feature.remove(s)
-          else
-            Feature.fs_remove(s)
+            self.progress_bar(num: i, total: total, current: s.first)
+          rescue Exception => e
+            self.log.fatal { "#{Time.now}: An error occured when processing #{s}:" }
+            self.say "#{Time.now}: #{s} failed."
+            self.log.fatal { e.message }
+            self.log.fatal { e.backtrace.join("\n") }
           end
-          self.progress_bar(num: i, total: total, current: s.first)
-        rescue Exception => e
-          self.log.fatal { "#{Time.now}: An error occured when processing #{s}:" }
-          self.say "#{Time.now}: #{s} failed."
-          self.log.fatal { e.message }
-          self.log.fatal { e.backtrace.join("\n") }
+          i += 1
         end
-        i += 1
+        Feature.commit
+      else
+        Feature.fs_remove(features_indexed_not_in_db)
       end
-      Feature.commit
     end
     
     def self.reindex_stale_since_all(additional_classes = [])
