@@ -102,7 +102,7 @@ module KmapsEngine
         total = slices.size
         slices.each do |s|
           begin
-            Feature.remove(s)
+            Feature.remove(*s)
             self.progress_bar(num: i, total: total, current: s.first)
           rescue Exception => e
             self.log.fatal { "#{Time.now}: An error occured when processing #{s}:" }
@@ -114,7 +114,7 @@ module KmapsEngine
         end
         Feature.commit
       else
-        Feature.fs_remove(features_indexed_not_in_db)
+        Feature.fs_remove(*features_indexed_not_in_db)
       end
     end
     
