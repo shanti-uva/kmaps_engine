@@ -66,7 +66,7 @@ module KmapsEngine
       self.log.debug "#{Time.now}: Reindexing done."
     end
     
-    def index_cleanup
+    def index_cleanup(blank = false)
       query = "tree:#{Feature.uid_prefix}"
       numFound = Feature.search_by(query)['numFound']
       self.log.debug { "#{Time.now}: Starting cleanup." }
@@ -114,7 +114,11 @@ module KmapsEngine
         end
         Feature.commit
       else
-        Feature.fs_remove(*features_indexed_not_in_db)
+        if blank
+          Feature.fs_blank(*features_indexed_not_in_db)
+        else
+          Feature.fs_remove(*features_indexed_not_in_db)
+        end
       end
     end
     

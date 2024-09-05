@@ -373,11 +373,11 @@ class Feature < ActiveRecord::Base
   
   # Override uid to use fid instead of id
   def uid
-    "#{Feature.uid_prefix}-#{self.fid}"
+    Feature.uid(self.fid)
   end
   
   def uid_i
-    self.fid*100 + Feature.uid_code
+    Feature.uid_i(self.fid)
   end
 
   def related_features_count
@@ -575,6 +575,23 @@ class Feature < ActiveRecord::Base
     end
   end
   
+  def self.uid(fid)
+    "#{self.uid_prefix}-#{fid}"
+  end
+  
+  def self.uid_i(fid)
+    fid*100 + Feature.uid_code
+  end
+  
+  def self.solr_filename(fid)
+    "#{fid}.json"
+  end
+  
+  def self.blank_document_for_rsolr(fid)
+    doc = { id: self.uid(fid), uid_i: self.uid_i(fid), deleted_b: true }
+  end
+  
+  
   def feature
     self
   end
@@ -584,7 +601,7 @@ class Feature < ActiveRecord::Base
   end
   
   def solr_filename
-    "#{self.fid}.json"
+    Feature.solr_filename(self.fid)
   end
   
   def document_for_rsolr
