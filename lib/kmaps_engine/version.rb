@@ -1,3 +1,3 @@
 module KmapsEngine
-  VERSION = '6.8.3'
+  VERSION = '6.8.4'
 end

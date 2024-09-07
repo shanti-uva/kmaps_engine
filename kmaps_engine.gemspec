@@ -27,6 +27,8 @@ Gem::Specification.new do |s|
   # See https://github.com/rails/execjs#readme for more supported runtimes
   # gem 'therubyracer', platforms: :ruby
 
+  s.add_dependency 'delayed_job_active_record'
+
   # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
   s.add_dependency 'jbuilder'
   # Reduces boot times through caching; required in config/boot.rb

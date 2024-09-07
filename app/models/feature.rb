@@ -46,6 +46,7 @@ class Feature < ActiveRecord::Base
   has_many :captions, dependent: :destroy
   has_many :collections, through: :affiliations
   has_many :citations, as: :citable, dependent: :destroy
+  has_one  :job, class_name: '::Delayed::Job', as: :reference, dependent: :destroy
   has_many :descriptions, dependent: :destroy
   has_many :essays, dependent: :destroy
   has_many :geo_codes, class_name: 'FeatureGeoCode', dependent: :destroy # naming inconsistency here (see feature_object_types association) ?

@@ -48,9 +48,10 @@ GIT
 PATH
   remote: .
   specs:
-    kmaps_engine (6.7.3)
+    kmaps_engine (6.8.3)
       annotate
       bootsnap
+      delayed_job_active_record
       exception_notification
       hpricot
       jbuilder
