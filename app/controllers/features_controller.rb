@@ -10,7 +10,7 @@ class FeaturesController < ApplicationController
     @intro_blurb = KmapsEngine::ApplicationSettings.homepage_blurb || Blurb.new
         
     respond_to do |format|
-      format.html
+      format.html { update_perspective }
       format.js
       format.xml  #{ render :xml => Feature.current_roots(Perspective.get_by_code(default_perspective_code), View.get_by_code(default_view_code)).to_xml }
       format.json { render json: Hash.from_xml(render_to_string(action: 'index', format: 'xml')) }
@@ -28,6 +28,7 @@ class FeaturesController < ApplicationController
           redirect_to features_url
         else
           session['interface']['context_id'] = @feature.id unless @feature.nil?
+          update_perspective
           @tab_options = {:entity => @feature}
           @current_tab_id = :place
         end
@@ -374,6 +375,13 @@ class FeaturesController < ApplicationController
       p << "view_code=#{view_code}"
     end
     "#{c.request.path}?#{p.join('&')}"
+  end
+  
+  def update_perspective
+    return if @feature.nil?
+    perspective_ids = @feature.parent_relations.select(:perspective_id).distinct.collect(&:perspective_id) + @feature.child_relations.select(:perspective_id).distinct.collect(&:perspective_id)
+    return if perspective_ids.blank? || perspective_ids.include?(self.current_perspective.id)
+    self.current_perspective_id = perspective_ids.first
   end
   
   ActiveSupport.run_load_hooks(:features_controller, FeaturesController)

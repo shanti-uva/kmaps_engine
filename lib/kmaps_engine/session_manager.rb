@@ -29,11 +29,14 @@ module KmapsEngine
     end
 
     def current_perspective=(perspective)
-      session['perspective_id'] = perspective.id
+      perspective_id = perspective.id
+      session['perspective_id'] = perspective_id
+      @session.perspective_id = perspective_id if defined? @session
     end
 
     def current_perspective_id=(perspective_id)
       session['perspective_id'] = perspective_id
+      @session.perspective_id = perspective_id if defined? @session
     end
 
     def current_view

@@ -29,7 +29,8 @@ class SessionsController < ApplicationController
     perspective = Perspective.find(params[:id])
     self.current_perspective_id = perspective.id if !perspective.nil?
     session['interface']['context_id'] = nil
-    redirect_back fallback_location: root_url
+    redirect_to root_url
+    #redirect_back fallback_location: root_url
   end
   
   def change_view
