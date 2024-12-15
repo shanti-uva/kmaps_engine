@@ -8,9 +8,8 @@
        <th><%= FeatureGeoCode.human_attribute_name(:geo_code_value).s %></th>
        <th><%= GeoCodeType.model_name.human.titleize.s %></th>
        <th><%= Note.model_name.human(:count => :many).titleize.s %></th>
-       <th><%= ts 'add.record', :what => Note.model_name.human.titleize %></th>
        <th><%= t('date.this', :count => :many).titleize.s %></th>
-       <th><%= ts 'add.record', :what => t('date.this', :count => 1).titleize %></th>
+       <th><%=  Citation.model_name.human(:count => :many).titleize.s %></th>
      </tr>
 <%   list.each do |item| %>
      <tr>
@@ -21,10 +20,9 @@
        </td>
        <td><%= item.geo_code_value %></td>
        <td><%= item.geo_code_type.name if !item.geo_code_type.nil? %></td>
-       <td><%= note_link_list_for item %></td>
-       <td><%= new_note_link_for item %></td>
-       <td><%= time_unit_link_list_for item %></td>
-       <td><%= new_time_unit_link_for item %></td>
+       <td><%= note_link_list_for item %> <%= new_note_link_for item %></td>
+       <td><%= time_unit_link_list_for item %> <%= new_time_unit_link_for item %></td>
+       <td><%= accordion_citation_list_fieldset(object: item) %></td>
      </tr>
 <%   end %>
    </table>
