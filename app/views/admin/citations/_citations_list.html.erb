@@ -43,13 +43,13 @@
            <td><%= item.web_pages.collect(&:path).join(', ') %></td>
 <%       when 'ShantiIntegration::Source' %>
            <td><%= info_source.title.first %></td>
-           <td>&nbsp;</td>
+           <td><%= item.pages.collect(&:to_s).join(', ') %></td>
 <%       when 'OralSource' %>
            <td><%= info_source.name %></td>
-           <td>&nbsp;</td>
+           <td><%= item.pages.collect(&:to_s).join(', ') %></td>
 <%       else %>
            <td><%= info_source.title %></td>
-           <td>&nbsp;</td>
+           <td><%= item.pages.collect(&:to_s).join(', ') %></td>
 <%       end
        end %>
        </td>
