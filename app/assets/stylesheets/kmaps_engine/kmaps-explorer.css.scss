@@ -25,11 +25,8 @@
   top: 1px;
 }
 
-.kmaps .search-section .nav-tabs > li {
-  width: 33%;
-}
-
 /* set size for tabs in search flyout tabs */
+.kmaps .search-section .nav-tabs > li,
 .kmaps .view-section .nav-tabs>li {
   width: 35%;
 }
