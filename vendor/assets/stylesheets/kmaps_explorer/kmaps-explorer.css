@@ -226,6 +226,7 @@ article#tab-main > h6:first-of-type{
   font-size: 0.88em;
 }
 */
+.kmaps .search-section .nav-tabs>li,
 .kmaps .view-section .nav-tabs>li{
   width:23%;
 }

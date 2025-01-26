@@ -34,18 +34,13 @@ class FeatureRelation < ActiveRecord::Base
       
   after_save do |record|
     if !record.skip_update
-      Spawnling.new(kill: true) do
-        # we could update this object's (a FeatureRelation) hierarchy but the THL Places-app doesn't use that info in any way yet
-        [record.parent_node, record.child_node].each { |r| r.update_hierarchy if !r.nil? }
-      end
+      [record.parent_node, record.child_node].each { |r| r.queued_update_hierarchy if !r.nil? }
     end
   end
   
   after_destroy do |record|
     if !record.skip_update && record.perspective.is_public?
-      Spawnling.new(kill: true) do
-        [record.parent_node, record.child_node].each { |r| r.update_hierarchy if !r.nil? }
-      end
+      [record.parent_node, record.child_node].each { |r| r.queued_update_hierarchy if !r.nil? }
     end
   end
   

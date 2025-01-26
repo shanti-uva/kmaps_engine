@@ -145,7 +145,7 @@ module KmapsEngine
           if timestamps[f.fid].nil? || timestamps[f.fid].instance_of?(String)
             timestamps[f.fid] = timestamps[f.fid].nil? ? f.updated_at - 1.day : DateTime.parse(timestamps[f.fid])
             if f.updated_at > timestamps[f.fid]
-              f.queued_index
+              f.queued_index(priority: Flare::IndexerJob::LOW)
               count += 1
             end
           end

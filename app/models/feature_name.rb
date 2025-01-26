@@ -34,7 +34,7 @@ class FeatureName < ActiveRecord::Base
       views = feature.update_cached_feature_names
       # views = (views + CachedFeatureName.where(feature_name_id: record.id).select(:view_id).collect(&:view_id)).uniq if record.name_changed?
     end
-  end #{ |record| record.update_hierarchy
+  end #{ |record| record.queued_update_hierarchy
   
   # Too much for the importer to deal with!
   #after_destroy do |record|

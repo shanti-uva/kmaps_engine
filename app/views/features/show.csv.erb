@@ -1,14 +1,15 @@
-<%= CSV.generate_line(['fid', 'relation', 'parent', 'names'], col_sep: "\t") -%>
+<%= CSV.generate_line(['fid', 'relation', 'parent', 'name', 'codes'], col_sep: "\t") -%>
 <%  view = current_view
   @features_with_parents.collect do |pair|
-      feature = pair[0]
-      parent = pair[1]
-      relation = pair[2]
-      row = [feature.fid]
-      row << ((relation.nil? || relation.feature_relation_type.nil?) ? '' : relation.feature_relation_type.code)
-      # Add parent
-      row << (parent.nil? ? '' : "#{parent.prioritized_name(view)} (#{parent.fid})")
+    feature = pair[0]
+    parent = pair[1]
+    relation = pair[2]
+    row = [feature.fid]
+    row << ((relation.nil? || relation.feature_relation_type.nil?) ? '' : relation.feature_relation_type.code)
+    # Add parent
+    row << (parent.nil? ? '' : "#{parent.prioritized_name(view)} (#{parent.fid})")
     names = feature.flattened_name_tree
-    row += names.collect(&:detailed_name) # Or add this to header: names.collect(&:name_details) and just do 'name' -%>
-<%=   CSV.generate_line(row, col_sep: "\t").html_safe -%>
+    row << feature.prioritized_name(current_view).name # Or add this to header: names.collect(&:name_details) and just do 'name'
+		row += feature.geo_codes.collect(&:geo_code_value) -%>
+<%= CSV.generate_line(row, col_sep: "\t").html_safe -%>
 <% end -%>

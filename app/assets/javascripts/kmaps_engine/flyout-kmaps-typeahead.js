@@ -31,7 +31,7 @@
       ancestors: 'off', //don't display ancestry in search results
       fields: 'ancestors', //get ancestors field for use in popover
       max_terms: 30,
-      min_chars: 0,
+      min_chars: 1,
       pager: 'on',
       empty_query: '*:*',
       empty_limit: 30,

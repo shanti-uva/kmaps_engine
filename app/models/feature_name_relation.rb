@@ -30,7 +30,7 @@ class FeatureNameRelation < ActiveRecord::Base
   after_save do |record|
     if !record.skip_update
       # we could update this object's (a FeatureRelation) hierarchy but the THL Places-app doesn't use that info in any way yet
-      [record.parent_node, record.child_node].each {|r| r.update_hierarchy }
+      [record.parent_node, record.child_node].each {|r| r.queued_update_hierarchy }
       feature = record.feature
       feature.update_name_positions
       views = feature.update_cached_feature_names
@@ -40,7 +40,7 @@ class FeatureNameRelation < ActiveRecord::Base
   after_destroy do |record|
     if !record.skip_update
       # we could update this object's (a FeatureRelation) hierarchy but the THL Places-app doesn't use that info in any way yet
-      [record.parent_node, record.child_node].each {|r| r.update_hierarchy }
+      [record.parent_node, record.child_node].each {|r| r.queued_update_hierarchy }
       feature = record.feature
       views = feature.update_cached_feature_names
     end

@@ -415,7 +415,7 @@ module KmapsEngine
                 if name_relation.nil?
                   self.say "Could not associate #{name_str} to Tibetan name for feature #{self.feature.pid}."
                 else
-                  parent_name.update_hierarchy
+                  parent_name.queued_update_hierarchy
                   name_positions_with_changed_relations << n if !name_positions_with_changed_relations.include? n
                 end
               else
@@ -436,7 +436,7 @@ module KmapsEngine
                 if name_relation.nil?
                   self.say "Could not make #{name_str} a parent of simplified chinese name for feature #{self.feature.pid}"
                 else
-                  simp_chi_name.update_hierarchy
+                  simp_chi_name.queued_update_hierarchy
                   name_positions_with_changed_relations << n if !name_positions_with_changed_relations.include? n
                 end
               elsif !phonetic_system.nil? && phonetic_system.code=='tib.to.chi.transcrip'
@@ -512,7 +512,7 @@ module KmapsEngine
       end
 
       # running triggers for feature_name_relation
-      name_positions_with_changed_relations.each{|pos| name[pos].update_hierarchy if !name[pos].nil?}
+      name_positions_with_changed_relations.each{|pos| name[pos].queued_update_hierarchy if !name[pos].nil?}
       return name_changed || name_added
     end
 

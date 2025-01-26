@@ -1,5 +1,6 @@
 <%    header = ['features.fid', 'feature_names.delete']
-      citation_count = @feature.names.joins(:citations).select('feature_names.id, COUNT(DISTINCT citations.id) as count').group('feature_names.id').order('count DESC').first.count.to_i
+      citation = @feature.names.joins(:citations).select('feature_names.id, COUNT(DISTINCT citations.id) as count').group('feature_names.id').order('count DESC').first
+      citation_count = citation.nil? ? 0 : citation.count.to_i
       1.upto(@feature.names.count) do |i|
       header += ["#{i}.feature_names.name", "#{i}.languages.code", "#{i}.writing_systems.code", "#{i}.feature_names.etymology", "#{i}.feature_names.is_primary", "#{i}.feature_name_relations.parent_node", "#{i}.feature_name_relations.is_translation", "#{i}.feature_name_relations.relationship.code", "#{i}.alt_spelling_systems.code"]
     if citation_count > 0

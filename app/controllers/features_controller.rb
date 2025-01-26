@@ -319,36 +319,7 @@ class FeaturesController < ApplicationController
   end
   
   protected
-  
-  def search_scope_defined?
-    !params[:search_scope].blank?
-  end
-  
-  def contextual_search_selected?
-    ('contextual' == params[:search_scope])
-  end
-  
-  def global_search_selected?
-    ('global' == params[:search_scope])
-  end
-  
-  def fid_search_selected?
-    ('fid' == params[:search_scope])
-  end
-  
-  def perform_contextual_search(options, **search_options)
-    @context_feature, @features = Feature.contextual_search(
-      params[:context_id],
-      params[:filter],
-      options,
-      **search_options
-      )
-  end
-  
-  def perform_global_search(search)
-    Feature.search(search)
-  end
-  
+    
   def api_render(features, **options)
     collection = {}
     collection[:features] = features.collect{|f| api_format_feature(f)}
