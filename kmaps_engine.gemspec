@@ -16,12 +16,11 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  #s.add_dependency 'rails', '5.1.4'
-  s.add_dependency 'rails' #, '~> 5.2.3'
+  s.add_dependency 'rails', '~> 7.1.0' #, '~> 5.2.3'
   # Use postgresql as the database for Active Record
   s.add_dependency 'pg'
   # Use Puma as the app server
-  s.add_dependency 'puma', ">= 5.0"
+  s.add_dependency 'puma'
   # Use Uglifier as compressor for JavaScript assets
   # s.add_dependency 'uglifier', '~> 4.1', '>= 4.1.20'
   # See https://github.com/rails/execjs#readme for more supported runtimes
