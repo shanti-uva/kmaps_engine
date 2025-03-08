@@ -1,4 +1,6 @@
-<% 
-  add_breadcrumb_base
-  add_breadcrumb_item link_to(Citation.model_name.human(:count => :many).titleize.s, polymorphic_path([:admin, object.citable], section: 'citations'))
-%>
+<% add_breadcrumb_base
+   if object.citable.instance_of? Feature
+     add_breadcrumb_item link_to(Citation.model_name.human(count: :many).titleize.s, admin_feature_path(object.citable.fid, section: 'citations'))
+   else
+     add_breadcrumb_item link_to(Citation.model_name.human(count: :many).titleize.s, polymorphic_path([:admin, object.citable], section: 'citations'))
+   end %>
