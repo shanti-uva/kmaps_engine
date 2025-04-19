@@ -133,10 +133,10 @@
                 val = "*"+val+"*";
             }
             if (orig_val) {
-              var solr_query = "name:" + orig_val + " OR name:" + orig_val + "/ OR name_tibt:\"" + orig_val + "\" OR " + settings.autocomplete_field + ':' + val.replace(/[\u0f0b\u0f0d]+/g, '\\ ');
+              var solr_query = "name:" + orig_val + " OR name:" + orig_val + "/ OR " + settings.autocomplete_field + ':' + val.replace(/[\u0f0b\u0f0d]+/g, '\\ ');
               if(settings.search_fields){
                 solr_query = settings.search_fields.reduce(function(full_query,search_field){
-                  return full_query + " OR " + search_field + ":" + val;
+                  return full_query + " OR " + search_field + ":\"" + orig_val + "\" OR " + search_field + ":" + val;
                 },solr_query);
               }
               extras = {

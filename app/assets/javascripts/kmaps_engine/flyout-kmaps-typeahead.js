@@ -39,6 +39,7 @@
       sort: 'header_ssort ASC', // sort even when there's a search term
       shanti_kmaps_admin_solr_filter_query: '',
       autocomplete_field: 'name_autocomplete',
+      search_fields: ['name_tibt'],
       prefetch_field: 'feature_types',
       prefetch_filters: ['tree:places', 'ancestor_id_path:13735'],
       mandalaURL: "https://mandala.shanti.virginia.edu/%%APP%%/%%ID%%/%%REL%%/nojs",
@@ -258,6 +259,7 @@
         filters: plugin.options.shanti_kmaps_admin_solr_filter_query ? plugin.options.shanti_kmaps_admin_solr_filter_query : '',
         additional_filters: plugin.options.filters,
         autocomplete_field: plugin.options.autocomplete_field,
+        search_fields: plugin.options.search_fields,
         prefetch_fields: plugin.options.prefetch_fields,
         prefetch_filters: plugin.options.prefetch_filters,
       }).kmapsTypeahead('onSuggest',
