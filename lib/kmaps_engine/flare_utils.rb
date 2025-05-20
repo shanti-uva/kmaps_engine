@@ -142,6 +142,10 @@ module KmapsEngine
         puts "Analyzing #{Feature.model_name.human(count: :many)} for #{a.count} #{klass.model_name.human(count: :many)}."
         a.each do |e|
           f = e.feature
+          if f.nil?
+            puts "Feature associated with #{klass.model_name.human} #{e.id} not found!"
+            next
+          end
           if timestamps[f.fid].nil? || timestamps[f.fid].instance_of?(String)
             timestamps[f.fid] = timestamps[f.fid].nil? ? f.updated_at - 1.day : DateTime.parse(timestamps[f.fid])
             if f.updated_at > timestamps[f.fid]

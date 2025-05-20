@@ -97,7 +97,9 @@ class FeatureNameRelation < ActiveRecord::Base
   # Returns the feature that owns this FeatureNameRelation
   #
   def feature
-    child_node.feature
+    return self.child_node.feature if !self.child_node.nil?
+    return self.parent_node.feature if !self.parent_node.nil?
+    return nil
   end
   
   def self.search(filter_value)
