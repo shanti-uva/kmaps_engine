@@ -87,9 +87,9 @@ module FeatureExtensionForNamePositioning
         name = HelperMethods.find_name_for_writing_and_phonetic_system(all_names, latin_id, PhoneticSystem.get_by_code('dzo.to.eng.transcrip').id)
         return name if !name.nil?
         name = HelperMethods.find_name_for_writing_system(all_names, latin_id)
-        # Later we will get the writing system=dzongkha or writing system=tibt version, and then this latin version will be demoted to a derivative of those dzongkha script names with writing system=latn , and phonetic_systems=dzo.to.eng.transcript
+        # Later we will get the writing system=dzongkha or writing system=tibt version, and then this latin version will be demoted to a derivative of those dzongkha script names with writing system=latn , and phonetic_systems=dzo.transcrip
         # The new rule would look like this:
-        # name = HelperMethods.find_name_for_writing_and_phonetic_system(all_names, latin_id, PhoneticSystem.get_by_code('dzo.to.eng.transcript').id)  
+        # name = HelperMethods.find_name_for_writing_and_phonetic_system(all_names, latin_id, PhoneticSystem.get_by_code('dzo.transcrip').id)
       # language=mon; writing_systems=latn
       when 'mon'
         # orthographic_systems=thl.mongol.translit
