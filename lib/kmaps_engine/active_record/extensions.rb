@@ -1,6 +1,6 @@
-module ActiveRecord
-  module KmapsEngine
-    module Extension
+module KmapsEngine
+  module ActiveRecord
+    module Extensions
       extend ActiveSupport::Concern
       
       included do

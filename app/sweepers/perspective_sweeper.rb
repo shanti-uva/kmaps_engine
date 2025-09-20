@@ -1,5 +1,5 @@
 class PerspectiveSweeper < ActionController::Caching::Sweeper
-  include InterfaceUtils::Extensions::Sweeper
+  include InterfaceUtils::SweeperExtensions
   include Rails.application.routes.url_helpers
   include ActionController::Caching::Pages
   

@@ -4,8 +4,8 @@ module KmapsEngine
       require 'kmaps_engine/array_ext'
       require 'kmaps_engine/import/importation.rb'
       
-      Array.send :include, KmapsEngine::ArrayExtension
-      Sprockets::Context.send :include, Rails.application.routes.url_helpers
+      ::Array.include KmapsEngine::ArrayExtension
+      Sprockets::Context.include Rails.application.routes.url_helpers
     end
 
     config.generators do |g|

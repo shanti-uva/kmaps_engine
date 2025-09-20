@@ -23,7 +23,7 @@
 class Feature < ActiveRecord::Base
   #attr_accessor :skip_update
   
-  include FeatureExtensionForNamePositioning
+  include KmapsEngine::FeatureExtensionForNamePositioning
   extend IsDateable
   
   validates_presence_of :fid
@@ -425,7 +425,6 @@ class Feature < ActiveRecord::Base
   end
 
   def self.current_roots_by_perspective(current_perspective)
-    return super if defined?(super)
     feature_ids = Rails.cache.fetch("features/current_roots/#{current_perspective.id}", expires_in: 1.day) do
       self.where('features.is_blank' => false).scoping do
         self.roots.select do |r|
@@ -606,7 +605,7 @@ class Feature < ActiveRecord::Base
   end
   
   def document_for_rsolr
-    doc = defined?(super) ? super : nested_documents_for_rsolr
+    doc = nested_documents_for_rsolr # this may have been overrided elsewhere
     v = View.get_by_code(KmapsEngine::ApplicationSettings.default_view_code)
     doc[:id] = self.uid
     doc[:uid_i] = self.uid_i

@@ -23,11 +23,7 @@ class Admin::FeatureRelationTypesController < AclController
   
   # Only allow a trusted parameter "white list" through.
   def feature_relation_type_params
-    if defined?(super)
-      super
-    else
-      params.require(:feature_relation_type).permit(:is_hierarchical, :is_symmetric, :label, :asymmetric_label, :code, :asymmetric_code)
-    end
+    params.require(:feature_relation_type).permit(:is_hierarchical, :is_symmetric, :label, :asymmetric_label, :code, :asymmetric_code)
   end
   
   ActiveSupport.run_load_hooks(:admin_feature_relation_types_controller, Admin::FeatureRelationTypesController)

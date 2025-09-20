@@ -54,7 +54,7 @@ GIT
 PATH
   remote: .
   specs:
-    kmaps_engine (6.8.7)
+    kmaps_engine (6.9.2)
       annotate
       bootsnap
       delayed_job_active_record
@@ -64,7 +64,7 @@ PATH
       memcache-client
       pg
       puma
-      rails (~> 7.1.0)
+      rails
       will_paginate
 
 GEM

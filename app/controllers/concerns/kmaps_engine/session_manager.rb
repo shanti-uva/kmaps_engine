@@ -1,5 +1,10 @@
 module KmapsEngine
   module SessionManager
+    extend ActiveSupport::Concern
+    
+    included do
+    end
+      
     protected
     def default_perspective_code
       KmapsEngine::ApplicationSettings.default_perspective_code

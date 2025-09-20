@@ -42,21 +42,13 @@ class Admin::FeatureRelationsController < AclController
   
   # Only allow a trusted parameter "white list" through.
   def feature_relation_params
-    if defined?(super)
-      super
-    else
-      process_feature_relation_type_id_mark
-      params.require(:feature_relation).permit(:perspective_id, :parent_node_id, :child_node_id, :feature_relation_type_id)
-    end
+    process_feature_relation_type_id_mark
+    params.require(:feature_relation).permit(:perspective_id, :parent_node_id, :child_node_id, :feature_relation_type_id)
   end
   
   def get_perspectives
-    if defined?(super)
-      super
-    else
-      @perspectives = parent_object.affiliations_by_user(current_user, descendants: true).collect(&:perspective)
-      @perspectives = Perspective.order(:name) if current_user.admin? || @perspectives.blank?
-    end
+    @perspectives = parent_object.affiliations_by_user(current_user, descendants: true).collect(&:perspective)
+    @perspectives = Perspective.order(:name) if current_user.admin? || @perspectives.blank?
   end
   
   private

@@ -1,11 +1,6 @@
 # reference: http://www.devchix.com/2007/07/23/will_paginate-array/
 module KmapsEngine
   module ArrayExtension
-    extend ActiveSupport::Concern
-    
-    included do
-    end
-    
     def paginate(page=1, per_page=15)
       pagination_array = WillPaginate::Collection.new(page, per_page, self.size)
       start_index = pagination_array.offset

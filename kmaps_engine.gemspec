@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  s.add_dependency 'rails', '~> 7.1.0' #, '~> 5.2.3'
+  s.add_dependency 'rails'
   # Use postgresql as the database for Active Record
   s.add_dependency 'pg'
   # Use Puma as the app server
