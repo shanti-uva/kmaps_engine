@@ -237,6 +237,8 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.10-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-linux-gnu)
+      racc (~> 1.4)
     pg (1.5.9)
     pp (0.6.2)
       prettyprint
@@ -318,7 +320,7 @@ GEM
     timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.0.2)
+    uri (1.0.3)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
@@ -328,6 +330,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   actionpack-action_caching
