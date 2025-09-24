@@ -7,7 +7,7 @@ module KmapsEngine
       attr_accessor :id
     end
     
-    module ClassMethods
+    class_methods do
       
       def create(**attributes)
         @list ||= []

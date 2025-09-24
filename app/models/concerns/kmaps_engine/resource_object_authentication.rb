@@ -26,7 +26,7 @@ module KmapsEngine
       end
     end
     
-    module ClassMethods
+    class_methods do
     end
   end
 end

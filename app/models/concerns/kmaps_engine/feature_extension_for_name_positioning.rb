@@ -1,5 +1,10 @@
 module KmapsEngine
   module FeatureExtensionForNamePositioning
+    extend ActiveSupport::Concern
+    
+    included do
+    end
+    
     def prioritized_name(current_view)
       view = current_view
       name_id = Rails.cache.fetch("#{self.cache_key}/#{view.cache_key}/prioritized_name", :expires_in => 1.hour) do
@@ -262,13 +267,8 @@ module KmapsEngine
       #pinyin_simp_rel = simp_chi_name.child_relations.detect{|r| r.phonetic_system_id==pinyin_id}
       #!pinyin_simp_rel.nil? && pinyin_trad_rel.nil?
     end
-  
-    extend ActiveSupport::Concern
-
-    included do
-    end
-  
-    module ClassMethods
+    
+    class_methods do
       def reset_name_positions
         self.all.each { |f| f.reset_name_positions }
       end

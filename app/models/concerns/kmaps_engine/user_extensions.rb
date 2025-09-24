@@ -21,7 +21,7 @@ module KmapsEngine
       self.role_ids.include? 1
     end
     
-    module ClassMethods
+    class_methods do
     end
   end
 end

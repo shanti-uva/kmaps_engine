@@ -10,7 +10,7 @@ module KmapsEngine
         10
       end
       
-      module ClassMethods
+      class_methods do
         #
         # generic helper method used for building "LIKE" conditions
         # on mulitple columns, using a single filter value

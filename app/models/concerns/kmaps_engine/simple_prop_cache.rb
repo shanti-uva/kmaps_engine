@@ -5,7 +5,7 @@ module KmapsEngine
     included do
     end
 
-    module ClassMethods
+    class_methods do
       def get_all
         self.order('created_at').all
       end
