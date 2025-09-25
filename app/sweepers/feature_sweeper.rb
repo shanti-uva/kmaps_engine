@@ -1,3 +1,5 @@
+require 'rails/observers/action_controller/caching'
+
 class FeatureSweeper < ActionController::Caching::Sweeper
   include InterfaceUtils::SweeperExtensions
   include Rails.application.routes.url_helpers
