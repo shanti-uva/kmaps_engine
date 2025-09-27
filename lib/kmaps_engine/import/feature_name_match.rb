@@ -54,7 +54,7 @@ module KmapsEngine
 
     def self.find_feature_by_name(name_str)
       name = FeatureName.where(name: name_str).first
-      name.nil? ? nil : name.feature
+      name&.feature
     end
 
     def self.format_name(name)

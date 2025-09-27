@@ -29,7 +29,7 @@ class Affiliation < ActiveRecord::Base
       perspective = record.perspective
       descendants = record.perspective.nil? ? record.feature.all_descendants : record.feature.descendants_by_perspective_with_parent(record.perspective).collect(&:first)
       descendants.each do |f|
-        options = {collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective.nil? ? nil : perspective.id}
+        options = {collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective&.id}
         a = Affiliation.where(options).first
         Affiliation.create(options.merge(skip_update: true)) if a.nil?
       end
@@ -41,7 +41,7 @@ class Affiliation < ActiveRecord::Base
       perspective = record.perspective
       descendants = record.perspective.nil? ? record.feature.all_descendants : record.feature.descendants_by_perspective_with_parent(record.perspective).collect(&:first)
       descendants.each do |f|
-        Affiliation.where(collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective.nil? ? nil : perspective.id).delete_all
+        Affiliation.where(collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective&.id).delete_all
       end
     end
   end
@@ -53,7 +53,7 @@ class Affiliation < ActiveRecord::Base
         perspective = record.perspective
         descendants = record.perspective.nil? ? record.feature.all_descendants : record.feature.descendants_by_perspective_with_parent(record.perspective).collect(&:first)
         descendants.each do |f|
-          options = {collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective.nil? ? nil : perspective.id}
+          options = {collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective&.id}
           a = Affiliation.where(options).first
           Affiliation.create(options.merge(skip_update: true)) if a.nil?
         end
@@ -76,7 +76,7 @@ class Affiliation < ActiveRecord::Base
       perspective = record.perspective
       descendants = record.perspective.nil? ? record.feature.all_descendants : record.feature.descendants_by_perspective_with_parent(record.perspective).collect(&:first)
       descendants.each do |f|
-        options = {collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective.nil? ? nil : perspective.id}
+        options = {collection_id: record.collection.id, feature_id: f.id, perspective_id: perspective&.id}
         a = Affiliation.where(options).first
         Affiliation.create(options.merge(skip_update: true)) if a.nil?
       end
@@ -84,7 +84,7 @@ class Affiliation < ActiveRecord::Base
       perspective = record.perspective
       descendants = record.perspective.nil? ? record.feature.all_descendants : record.feature.descendants_by_perspective_with_parent(record.perspective).collect(&:first)
       descendants.each do |f|
-        options = {collection_id: record.collection_id_was, feature_id: f.id, perspective_id: perspective.nil? ? nil : perspective.id}
+        options = {collection_id: record.collection_id_was, feature_id: f.id, perspective_id: perspective&.id}
         Affiliation.where(options).update_all(collection_id: record.collection_id)
       end
     end

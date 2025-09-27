@@ -411,7 +411,7 @@ module KmapsEngine
             else
               name_relation = name[n].parent_relations.find_by(parent_node_id: parent_name.id)
               if name_relation.nil?
-                name_relation = name[n].parent_relations.create(:skip_update => true, :parent_node_id => parent_name.id, :phonetic_system_id => phonetic_system.nil? ? nil : phonetic_system.id, :is_phonetic => 1, :is_translation => is_translation)
+                name_relation = name[n].parent_relations.create(:skip_update => true, :parent_node_id => parent_name.id, :phonetic_system_id => phonetic_system&.id, :is_phonetic => 1, :is_translation => is_translation)
                 if name_relation.nil?
                   self.say "Could not associate #{name_str} to Tibetan name for feature #{self.feature.pid}."
                 else
@@ -419,7 +419,7 @@ module KmapsEngine
                   name_positions_with_changed_relations << n if !name_positions_with_changed_relations.include? n
                 end
               else
-                name_relation.update(:phonetic_system_id => phonetic_system.nil? ? nil : phonetic_system.id, :is_phonetic => 1, :orthographic_system_id => nil, :is_orthographic => 0, :is_translation => is_translation)
+                name_relation.update(:phonetic_system_id => phonetic_system&.id, :is_phonetic => 1, :orthographic_system_id => nil, :is_orthographic => 0, :is_translation => is_translation)
               end
               self.spreadsheet.imports.create(:item => name_relation) if name_relation.imports.find_by(spreadsheet_id: self.spreadsheet.id).nil?
             end                
@@ -453,7 +453,7 @@ module KmapsEngine
             end
           end
         else
-          conditions = {:skip_update => true, :phonetic_system_id => phonetic_system.nil? ? nil : phonetic_system.id, :orthographic_system_id => orthographic_system.nil? ? nil : orthographic_system.id, :is_translation => is_translation, :alt_spelling_system_id => alt_spelling_system.nil? ? nil : alt_spelling_system.id}
+          conditions = {:skip_update => true, :phonetic_system_id => phonetic_system&.id, :orthographic_system_id => orthographic_system&.id, :is_translation => is_translation, :alt_spelling_system_id => alt_spelling_system&.id}
           is_phonetic = self.fields.delete("#{i}.feature_name_relations.is_phonetic")
           if is_phonetic.blank?
             conditions[:is_phonetic] = phonetic_system.nil? ? 0 : 1

@@ -37,7 +37,7 @@ class Note < ActiveRecord::Base
   end
   
   def title
-    self.custom_note_title.blank? ? (self.note_title.nil? ? nil : self.note_title.title) : self.custom_note_title
+    self.custom_note_title.blank? ? (self.note_title&.title) : self.custom_note_title
   end
   
   def notable_type_name

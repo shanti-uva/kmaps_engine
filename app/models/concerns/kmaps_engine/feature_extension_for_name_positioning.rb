@@ -227,11 +227,11 @@ module KmapsEngine
         calculated_name = self.calculate_prioritized_name(view)
         cached_name = cached_names.find_by(view_id: view.id)
         if cached_name.nil?
-          cached_names.create(:view_id => view.id, :feature_name_id => calculated_name.nil? ? nil : calculated_name.id)
+          cached_names.create(:view_id => view.id, :feature_name_id => calculated_name&.id)
           changed_views << view.id
         else
           if cached_name.feature_name != calculated_name
-            cached_name.update_attribute(:feature_name_id, calculated_name.nil? ? nil : calculated_name.id)
+            cached_name.update_attribute(:feature_name_id, calculated_name&.id)
             changed_views << view.id
             # Expire the names that have changed
             Rails.cache.delete("#{self.cache_key}/#{view.cache_key}/prioritized_name")

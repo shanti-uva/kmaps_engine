@@ -83,7 +83,7 @@ class Feature < ActiveRecord::Base
   
   def parent_by_perspective(perspective)
     parent_relation = FeatureRelation.where(child_node_id: self.id, perspective_id: perspective.id, feature_relation_type_id: FeatureRelationType.hierarchy_ids).select(:parent_node_id).order(:created_at).first
-    parent_relation.nil? ? nil : parent_relation.parent_node
+    parent_relation&.parent_node
   end
   
   def parents_by_perspective(perspective)
@@ -564,7 +564,7 @@ class Feature < ActiveRecord::Base
     key = "features-fid/#{fid}"
     feature_id = Rails.cache.fetch(key, expires_in: 1.day) do
       feature = self.find_by(fid: fid)
-      feature.nil? ? nil : feature.id
+      feature&.id
     end
     # TODO: this won't be necessary when upgrading to rails 6.0 using skip_nil
     if feature_id.nil?

@@ -109,7 +109,7 @@ class FeatureName < ActiveRecord::Base
     r = parent_relations.first
     return nil if r.nil?
     o = r.orthographic_system
-    return o.nil? ? nil : o.code
+    return o&.code
   end
   
   def display_string

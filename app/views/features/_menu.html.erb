@@ -75,7 +75,7 @@
   </section>
 </section>
 <% feature = contextual_feature
-   fid = feature.nil? ? nil : feature.fid
+   fid = feature&.fid
    uid = !fid.nil? ? "#{Feature.uid_prefix}-#{fid}" : "";
 %>
 <%= content_tag :div, "", id: 'menu_js_data', data: {

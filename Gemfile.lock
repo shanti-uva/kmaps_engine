@@ -69,7 +69,7 @@ GIT
 PATH
   remote: .
   specs:
-    kmaps_engine (6.9.5)
+    kmaps_engine (6.9.6)
       annotate
       bootsnap
       delayed_job_active_record

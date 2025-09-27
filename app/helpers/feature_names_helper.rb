@@ -9,17 +9,17 @@ module FeatureNamesHelper
         line += [nil, nil, nil, nil]
       else
         system = parent_relation.phonetic_system
-        code = system.nil? ? nil : system.code
+        code = system&.code
         if code.nil?
           system = parent_relation.orthographic_system
-          code = system.nil? ? nil : system.code
+          code = system&.code
         end
         alt_spelling = parent_relation.alt_spelling_system
         parent = parent_relation.parent_node
         parent_id = parent.id
         parent_index = names.index{|n| n.id == parent_id }
         parent_index += 1 if !parent_index.nil?
-        line+= [parent_index, parent_relation.is_translation? ? 1 : 0, code, alt_spelling.nil? ? nil : alt_spelling.code]
+        line+= [parent_index, parent_relation.is_translation? ? 1 : 0, code, alt_spelling&.code]
       end
       citations = name.citations.to_a
       while citations.size < citation_count
