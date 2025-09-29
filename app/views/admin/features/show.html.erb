@@ -31,7 +31,7 @@
         </div> <!-- END panel-body -->
       </div> <!-- END collapseOne -->
     </section> <!-- END panel -->
-<% if current_user.admin? %>
+<% if AuthenticatedSystem::Current.user.admin? %>
     <section class="panel panel-default">
       <div class="panel-heading">
         <h6><a href="#collapseTwo" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle collapsed"><span class="glyphicon glyphicon-plus"></span><%= Collection.model_name.human(count: :many).titleize.s %></a></h6>
@@ -121,7 +121,7 @@
         </div> <!-- END panel-body -->
       </div> <!-- END collapseSeven -->
     </section>
-<% if current_user.admin? || object.authorized_for_descendants?(current_user) %>
+<% if AuthenticatedSystem::Current.user.admin? || object.authorized_for_descendants?(AuthenticatedSystem::Current.user) %>
     <section class="panel panel-default">
       <div class="panel-heading">
         <h6><a href="#collapseEight" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle collapsed"><span class="glyphicon glyphicon-plus"></span><%= FeatureRelation.model_name.human(:count => :many).titleize.s %></a></h6>

@@ -1,8 +1,3 @@
-class Admin::XmlDocumentsController < AclController
+class Admin::XmlDocumentsController < ApplicationController
   resource_controller
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
 end

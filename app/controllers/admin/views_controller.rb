@@ -1,15 +1,10 @@
-class Admin::ViewsController < AclController
+class Admin::ViewsController < ApplicationController
+  allow_unauthenticated_access only: :index
   resource_controller
   include KmapsEngine::SimplePropsControllerHelper
-  
   caches_page :index, :if => Proc.new { |c| c.request.format.xml? || c.request.format.json? }
   cache_sweeper :view_sweeper, :only => [:update, :destroy]
   
-  def initialize
-    super
-    @guest_perms = ['admin/views/index']
-  end
-
   index.wants.xml { render xml: JSON.parse(@collection.to_json).to_xml(root: :views) }
   index.wants.json { render :json => @collection }
   

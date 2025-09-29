@@ -8,8 +8,8 @@ module ApplicationHelper
     str = "<h3 class=\"head\">#{link_to 'Place Dictionary', '#nogo', {:hreflang => 'Manages geographical features.'}}</h3>\n<ul>\n"
     str += "<li>#{link_to 'Home', root_path, {:hreflang => 'Search and navigate through places.'}}</li>\n"
     str += "<li>#{link_to 'Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/thl%20place%20dictionary%20end%20user%20manual.html', {:hreflang => 'End User Manual'}}</li>"
-    str += "<li>#{link_to 'Edit', admin_root_path, {:hreflang => 'Manage places.'}}</li>\n" if logged_in?
-    str += "<li>#{link_to 'Editing Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/thl%20place%20dictionary%20editorial%20manual.html', {:hreflang => 'Editorial Manual'}}</li>" if logged_in?
+    str += "<li>#{link_to 'Edit', admin_root_path, {:hreflang => 'Manage places.'}}</li>\n" if authenticated?
+    str += "<li>#{link_to 'Editing Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/thl%20place%20dictionary%20editorial%20manual.html', {:hreflang => 'Editorial Manual'}}</li>" if authenticated?
     str += "<li>#{link_to 'Feature Thesaurus', "#iframe=#{SubjectsIntegration::Feature.get_url('20')}", {:hreflang => 'Feature Thesaurus'}}</li>" if defined?(SubjectsIntegration)
     str += "</ul>"
     return str.html_safe
@@ -516,7 +516,7 @@ module ApplicationHelper
   end
 
   def object_authorized?(o)
-    current_user.object_authorized?(o)
+    AuthenticatedSystem::Current.user.object_authorized?(o)
   end
 
   def contextual_feature

@@ -1,4 +1,5 @@
-class Admin::OralSourcesController < AclController
+class Admin::OralSourcesController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   resource_controller
   include KmapsEngine::SimplePropsControllerHelper
   

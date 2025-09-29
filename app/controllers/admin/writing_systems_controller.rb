@@ -1,4 +1,5 @@
-class Admin::WritingSystemsController < AclController
+class Admin::WritingSystemsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   resource_controller
   include KmapsEngine::SimplePropsControllerHelper
   

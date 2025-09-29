@@ -1,13 +1,7 @@
-class Admin::IllustrationsController < AclController
+class Admin::IllustrationsController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   belongs_to :feature
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   create.before do
     if params[:picture_type]=='MmsIntegration::Picture' || params[:picture_type]=='ShantiIntegration::Image'

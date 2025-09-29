@@ -1,4 +1,4 @@
-<%= header(class: "html not-front #{logged_in? ? 'logged-in' : 'not-logged-in'} no-sidebars page-#{Feature.uid_prefix} kmaps rails", stylesheet_files: ["kmaps_engine/#{current_view.code=='roman.scholar' ? 'scholar' : 'popular'}", 'kmaps_engine/xml-books']) %>
+<%= header(class: "html not-front #{authenticated? ? 'logged-in' : 'not-logged-in'} no-sidebars page-#{Feature.uid_prefix} kmaps rails", stylesheet_files: ["kmaps_engine/#{current_view.code=='roman.scholar' ? 'scholar' : 'popular'}", 'kmaps_engine/xml-books']) %>
 <!-- Begin Content Region -->
 <main class="main-wrapper container-fluid">
   <article class="main-content" role="main">

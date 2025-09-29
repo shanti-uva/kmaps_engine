@@ -1,16 +1,9 @@
-class Admin::FeatureRelationTypesController < AclController
+class Admin::FeatureRelationTypesController < ApplicationController
   resource_controller
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
-  
   #before_action :collection
   
   create.before { object.asymmetric_label = object.label if object.is_symmetric }
   update.before { object.asymmetric_label = object.label if object.is_symmetric }
-
   create.wants.html { redirect_to polymorphic_url([:admin, object]) }
   update.wants.html { redirect_to polymorphic_url([:admin, object]) }
   destroy.wants.html { redirect_to admin_feature_relation_types_url }

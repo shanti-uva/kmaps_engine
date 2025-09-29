@@ -1,4 +1,5 @@
 class PreferencesController < ApplicationController
+  allow_unauthenticated_access
   protect_from_forgery :except => :edit
   
   def edit

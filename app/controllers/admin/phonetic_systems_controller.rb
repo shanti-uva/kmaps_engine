@@ -1,6 +1,6 @@
-class Admin::PhoneticSystemsController < AclController
+class Admin::PhoneticSystemsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   resource_controller
-  
   include KmapsEngine::SimplePropsControllerHelper
   
   protected

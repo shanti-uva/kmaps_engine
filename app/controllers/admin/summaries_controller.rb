@@ -1,14 +1,8 @@
-class Admin::SummariesController < AclController
+class Admin::SummariesController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   cache_sweeper :summary_sweeper, :only => [:update, :destroy]
   belongs_to :feature
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   new_action.before do
     used_languages = parent_object.summaries.collect(&:language_id)
@@ -17,7 +11,7 @@ class Admin::SummariesController < AclController
     @languages = used_languages.empty? ? query : query.where(['id NOT IN (?)', used_languages])
     object.language = english if !used_languages.include? english.id
     @authors = AuthenticatedSystem::Person.order('fullname')
-    object.author = current_user.person
+    object.author = AuthenticatedSystem::Current.user.person
   end
   
   edit.before do

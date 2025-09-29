@@ -1,15 +1,9 @@
-class Admin::CitationsController < AclController
+class Admin::CitationsController < ApplicationController
   resource_controller
   belongs_to :caption, :description, :feature, :feature_geo_code, :feature_name, :feature_name_relation, :feature_relation, :summary
   before_action :collection
   
-  def initialize
-    super
-    @guest_perms = []
-  end
-  
   new_action.before { object.citable_type = parent_object.class.name }
-  
   create.wants.html { redirect_to polymorphic_url(helpers.stacked_parents) }
   update.wants.html { redirect_to polymorphic_url(helpers.stacked_parents) }
   destroy.wants.html { redirect_to polymorphic_url(helpers.stacked_parents) }

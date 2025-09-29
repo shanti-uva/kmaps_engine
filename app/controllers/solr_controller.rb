@@ -1,4 +1,5 @@
 class SolrController < ApplicationController
+  allow_unauthenticated_access
   caches_page :show
   
   #

@@ -1,13 +1,7 @@
-class Admin::FeatureGeoCodesController < AclController
+class Admin::FeatureGeoCodesController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-
   belongs_to :feature
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   protected
   

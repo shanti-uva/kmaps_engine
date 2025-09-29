@@ -1,10 +1,5 @@
-class Admin::BlurbsController < AclController
+class Admin::BlurbsController < ApplicationController
   resource_controller
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   def collection
     @collection = Blurb.search(params[:filter]).page(params[:page])

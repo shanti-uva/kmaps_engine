@@ -1,15 +1,9 @@
-class Admin::FeatureNamesController < AclController
+class Admin::FeatureNamesController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   cache_sweeper :feature_sweeper, :only => [:create, :update, :destroy]
   belongs_to :feature
   before_action :collection, :only=>:locate_for_relation
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   def locate_for_relation
     @locating_relation=true # flag used in template

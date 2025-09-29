@@ -1,13 +1,8 @@
-class Admin::PerspectivesController < AclController
+class Admin::PerspectivesController < ApplicationController
+  allow_unauthenticated_access only: :index
   resource_controller
-  
   caches_page :index, if: Proc.new { |c| c.request.format.xml? || c.request.format.json? }
   cache_sweeper :perspective_sweeper, only: [:update, :destroy]
-  
-  def initialize
-    super
-    @guest_perms = ['admin/perspectives/index']
-  end
   
   def collection
     @collection = Perspective.search(params[:filter]).page(params[:page])

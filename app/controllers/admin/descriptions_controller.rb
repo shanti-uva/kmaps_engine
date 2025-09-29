@@ -1,14 +1,8 @@
-class Admin::DescriptionsController < AclController
+class Admin::DescriptionsController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   belongs_to :feature
   before_action :collection
-
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   new_action.before do
     used_languages = parent_object.captions.collect(&:language_id)

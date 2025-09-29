@@ -1,13 +1,7 @@
-class Admin::CaptionsController < AclController
+class Admin::CaptionsController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   belongs_to :feature
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   new_action.before do
     used_languages = parent_object.captions.collect(&:language_id)
@@ -16,7 +10,7 @@ class Admin::CaptionsController < AclController
     @languages = used_languages.empty? ? query : query.where(['id NOT IN (?)', used_languages])
     object.language = english if !used_languages.include? english.id
     @authors = AuthenticatedSystem::Person.order('fullname')
-    object.author = current_user.person
+    object.author = AuthenticatedSystem::Current.user.person
   end
   
   edit.before do

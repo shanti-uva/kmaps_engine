@@ -1,13 +1,7 @@
-class Admin::AffiliationsController < AclController
+class Admin::AffiliationsController < ApplicationController
   resource_controller
-  
   belongs_to :feature
   before_action :get_collections
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   create.wants.html { redirect_to admin_feature_url(parent_object.fid, section: 'collections') }
   update.wants.html { redirect_to admin_feature_url(parent_object.fid, section: 'collections') }

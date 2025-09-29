@@ -1,4 +1,5 @@
 class FeaturesController < ApplicationController
+  allow_unauthenticated_access
   caches_page :show, :if => Proc.new { |c| c.request.format.xml? || c.request.format.json? || c.request.format.csv? }
   #
   def index

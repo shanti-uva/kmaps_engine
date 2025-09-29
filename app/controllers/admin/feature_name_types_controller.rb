@@ -1,4 +1,5 @@
-class Admin::FeatureNameTypesController < AclController
+class Admin::FeatureNameTypesController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   resource_controller
   include KmapsEngine::SimplePropsControllerHelper
   

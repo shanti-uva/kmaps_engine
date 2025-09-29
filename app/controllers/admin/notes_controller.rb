@@ -1,14 +1,8 @@
-class Admin::NotesController < AclController
+class Admin::NotesController < ApplicationController
   resource_controller
-  
   belongs_to :description, :feature_geo_code, :feature_name, :feature_name_relation, :feature_relation, :time_unit
   before_action :collection
   
-  def initialize
-    super
-    @guest_perms = []
-  end
-
   new_action.before do
     object.notable_type = parent_object.class.name
   end

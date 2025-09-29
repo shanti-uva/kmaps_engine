@@ -1,4 +1,4 @@
-<%= content_tag :h6, "#{feature_name_header(feature)} #{edit_item_link(admin_feature_path(feature.fid)) if logged_in? && object_authorized?(feature)}".html_safe %>
+<%= content_tag :h6, "#{feature_name_header(feature)} #{edit_item_link(admin_feature_path(feature.fid)) if authenticated? && object_authorized?(feature)}".html_safe %>
 <%= time_units_for(feature) %>
 <%= render partial: 'summaries', locals: { feature: feature } %>
 <%  illustration = feature.illustration

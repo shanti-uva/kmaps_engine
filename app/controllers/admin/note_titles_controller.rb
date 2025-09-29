@@ -1,13 +1,7 @@
-class Admin::NoteTitlesController < AclController
+class Admin::NoteTitlesController < ApplicationController
   resource_controller
-  
   before_action :collection
   
-  def initialize
-    super
-    @guest_perms = []
-  end
-
   # GET /note_titles
   # GET /note_titles.xml
   def index

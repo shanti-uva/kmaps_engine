@@ -1,14 +1,8 @@
-class Admin::FeatureRelationsController < AclController
+class Admin::FeatureRelationsController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   cache_sweeper :feature_sweeper, :only => [:create, :update, :destroy]
   belongs_to :feature
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   new_action.before do |c|
     c.send :setup_for_new_relation
@@ -47,8 +41,8 @@ class Admin::FeatureRelationsController < AclController
   end
   
   def get_perspectives
-    @perspectives = parent_object.affiliations_by_user(current_user, descendants: true).collect(&:perspective)
-    @perspectives = Perspective.order(:name) if current_user.admin? || @perspectives.blank?
+    @perspectives = parent_object.affiliations_by_user(AuthenticatedSystem::Current.user, descendants: true).collect(&:perspective)
+    @perspectives = Perspective.order(:name) if AuthenticatedSystem::Current.user.admin? || @perspectives.blank?
   end
   
   private

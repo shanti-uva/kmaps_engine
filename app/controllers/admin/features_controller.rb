@@ -1,14 +1,7 @@
-class Admin::FeaturesController < AclController
+class Admin::FeaturesController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   cache_sweeper :feature_sweeper, :only => [:update, :destroy]
-
-  def initialize
-    super
-    @guest_perms = []
-  end
-
   before_action :collection, only: :locate_for_relation
   
   new_action.before do
@@ -16,8 +9,8 @@ class Admin::FeaturesController < AclController
     parent_id = params[:parent_id]
     @parent = parent_id.blank? ? nil : Feature.get_by_fid(parent_id)
     if !@parent.nil?
-      @perspectives = @parent.affiliations_by_user(current_user, descendants: true).collect(&:perspective)
-      @perspectives = Perspective.order(:name) if @perspectives.include?(nil) || current_user.admin?
+      @perspectives = @parent.affiliations_by_user(AuthenticatedSystem::Current.user, descendants: true).collect(&:perspective)
+      @perspectives = Perspective.order(:name) if @perspectives.include?(nil) || AuthenticatedSystem::Current.user.admin?
       @name = FeatureName.new(language: Language.get_by_code('eng'), writing_system: WritingSystem.get_by_code('latin'), is_primary_for_romanization: true)
       @relation = FeatureRelation.new(parent_node: @parent, perspective: current_perspective, feature_relation_type: FeatureRelationType.get_by_code(default_relation_type_code) )
     end
@@ -40,7 +33,7 @@ class Admin::FeaturesController < AclController
       parent_id = feature_relation_params[:parent_node_id]
       @parent = parent_id.blank? ? nil : Feature.find(parent_id)
       if !@parent.nil?
-        @perspectives = @parent.affiliations_by_user(current_user, descendants: true).collect(&:perspective)
+        @perspectives = @parent.affiliations_by_user(AuthenticatedSystem::Current.user, descendants: true).collect(&:perspective)
         @perspectives = Perspective.order(:name) if @perspectives.include? nil
         @name = FeatureName.new(feature_name_params)
         @relation = FeatureRelation.new(feature_relation_params)
@@ -104,7 +97,7 @@ class Admin::FeaturesController < AclController
     else
       @collection = Feature.search(Search.new(filter: filter, context_id: context_id, scope: 'name'))
     end
-    @collection = @collection.joins(:affiliations).where(affiliations: {collection_id: current_user.collections.collect(&:id)}) if !current_user.admin?
+    @collection = @collection.joins(:affiliations).where(affiliations: {collection_id: AuthenticatedSystem::Current.user.collections.collect(&:id)}) if !AuthenticatedSystem::Current.user.admin?
     @collection = @collection.page(page)
   end
   

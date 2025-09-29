@@ -1,13 +1,7 @@
-class Admin::FeatureNameRelationsController < AclController
+class Admin::FeatureNameRelationsController < ApplicationController
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   belongs_to :feature_name
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   new_action.before {|c| c.send :setup_for_new_relation}
   

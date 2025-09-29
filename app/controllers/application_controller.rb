@@ -2,10 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include Authentication
   include KmapsEngine::SessionManager
-  
   protect_from_forgery with: :exception
-  #before_action :admin_authentication
   before_action :set_common_variables #, if: -> { request.format.html? }
   layout :choose_layout
   
@@ -15,13 +14,6 @@ class ApplicationController < ActionController::Base
     params[:controller] =~ /^(admin|authenticated_system\/[^s])/
   end
     
-  def admin_authentication
-    login_required if is_admin_area?
-    #authenticate_or_request_with_http_basic do |username, password|
-    #  username == 'gaz_admin' && password == 'gaz2008'
-    #end
-  end
-  
   def choose_layout
     return 'admin' if is_admin_area?
     # if request.xhr?

@@ -1,7 +1,7 @@
-class Admin::AssociationNotesController < AclController
+class Admin::AssociationNotesController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-  
   belongs_to :feature
   before_action :collection
   before_action :validate_association_type, :only => [:new]

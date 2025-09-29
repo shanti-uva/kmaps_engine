@@ -1,4 +1,5 @@
-class Admin::AltSpellingSystemsController < AclController
+class Admin::AltSpellingSystemsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   resource_controller
   include KmapsEngine::SimplePropsControllerHelper
   

@@ -1,10 +1,5 @@
-class Admin::CollectionsController < AclController
+class Admin::CollectionsController < ApplicationController
   resource_controller
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   edit.before do |r|
     @users = AuthenticatedSystem::User.includes(:person).order(['people.fullname', :login])

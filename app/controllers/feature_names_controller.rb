@@ -1,4 +1,5 @@
 class FeatureNamesController < ApplicationController
+  allow_unauthenticated_access
   before_action :find_feature
   
   def show

@@ -1,7 +1,7 @@
-class Admin::EssaysController < AclController
+class Admin::EssaysController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   include KmapsEngine::ResourceObjectAuthentication
   resource_controller
-
   belongs_to :feature
   protected
 

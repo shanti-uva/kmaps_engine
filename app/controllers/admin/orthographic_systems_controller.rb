@@ -1,4 +1,5 @@
-class Admin::OrthographicSystemsController < AclController
+class Admin::OrthographicSystemsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   resource_controller
   include KmapsEngine::SimplePropsControllerHelper
   

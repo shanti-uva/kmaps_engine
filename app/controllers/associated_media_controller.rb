@@ -1,4 +1,5 @@
 class AssociatedMediaController < ApplicationController
+  allow_unauthenticated_access
   before_action :find_feature
   skip_before_action :find_feature, only: :show
 

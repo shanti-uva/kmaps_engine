@@ -14,7 +14,7 @@ module KmapsEngine
   
     def redirect_if_unauthorized
       obj = object.nil? ? parent_object : object
-      if !(obj.nil? || current_user.object_authorized?(obj))
+      if !(obj.nil? || AuthenticatedSystem::Current.user.object_authorized?(obj))
         message = 'Your user is not authorized to access '
         if obj.nil? || !obj.instance_of?(Feature)
           message << "#{request.fullpath}."

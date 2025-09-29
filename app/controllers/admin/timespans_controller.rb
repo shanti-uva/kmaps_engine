@@ -1,10 +1,5 @@
-class Admin::TimespansController < AclController
+class Admin::TimespansController < ApplicationController
   resource_controller
-  
-  def initialize
-    super
-    @guest_perms = []
-  end
   
   def collection
     @collection = Timespan.search(params[:filter]).page(params[:page])
