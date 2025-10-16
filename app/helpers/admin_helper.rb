@@ -31,16 +31,16 @@ module AdminHelper
   end
   
   def stacked_parents
-    if defined?(extended_stacked_parents)
-      extended_stacked_parents
-    else
-      array = [:admin]
-      if !parent_object.instance_of?(Feature) && parent_object.respond_to?(:feature)
+    array = [:admin]
+    if !parent_object.instance_of?(Feature)
+      if parent_object.instance_of?(FeatureNameRelation)
+        array << parent_object.child_node
+      elsif parent_object.respond_to?(:feature)
         array << parent_object.feature
       end
-      array << parent_object
-      array
     end
+    array << parent_object
+    array
   end
   
   def name_preferences_admin_resources
@@ -94,7 +94,7 @@ module AdminHelper
     # resources['Admin Home'] = admin_root_path if authorized? admin_root_path
     resources['Name preferences'] = name_preferences_admin_resources
     resources['User admin'] = user_admin_resources
-    resources['Data management'] = defined?(extended_data_management_admin_resources) ? extended_data_management_admin_resources : data_management_admin_resources
+    resources['Data management'] = data_management_admin_resources
     resources['Admin tasks'] = admin_task_resources
     resources
   end
@@ -249,33 +249,29 @@ module AdminHelper
 
   def add_breadcrumb_base
     # Notes and Citations are polymorphic. Support breadcrumbs for each of the parent types!
-    if defined?(extended_add_breadcrumb_base)
-      extended_add_breadcrumb_base
-    else
-      add_breadcrumb_item feature_link(contextual_feature)
-      case parent_type
-      when :description
-        add_breadcrumb_item feature_descriptions_link(parent_object.feature)
-        add_breadcrumb_item link_to(parent_object.title.strip_tags.truncate(25).titleize.s, admin_feature_description_path(parent_object.feature, parent_object))
-      when :feature
-      when :feature_name
-        add_breadcrumb_item link_to(FeatureName.model_name.human(count: :many).titleize.s, admin_feature_path(parent_object.feature.fid, section: 'names'))
-        add_breadcrumb_item link_to(parent_object.name.strip_tags.truncate(25).s, admin_feature_name_path(parent_object))
-      when :feature_name_relation
-        add_breadcrumb_item feature_names_link(parent_object.child_node.feature.fid)
-        add_breadcrumb_item link_to(parent_object.child_node.name, admin_feature_name_path(parent_object.child_node))
-        add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_name_feature_name_relations_path(parent_object.child_node))
-        add_breadcrumb_item link_to(parent_object, admin_feature_name_feature_name_relation_path(parent_object.child_node, parent_object))
-      when :feature_geo_code
-        add_breadcrumb_item link_to(FeatureGeoCode.model_name.human(:count => :many).s, admin_feature_feature_geo_codes_path(parent_object.feature))
-        add_breadcrumb_item link_to(parent_object, admin_feature_geo_code_path(parent_object))
-      when :feature_relation
-        add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_feature_relations_path(parent_object.child_node))
-        add_breadcrumb_item feature_relation_role_label(parent_object.child_node, parent_object, :use_first=>false)
-      when :time_unit
-        add_breadcrumb_item link_to(ts('date.this', :count => :many), admin_time_units_path)
-        add_breadcrumb_item link_to(parent_object.to_s, polymorphic_path([:admin, parent_object]))
-      end
+    add_breadcrumb_item feature_link(contextual_feature)
+    case parent_type
+    when :description
+      add_breadcrumb_item feature_descriptions_link(parent_object.feature)
+      add_breadcrumb_item link_to(parent_object.title.strip_tags.truncate(25).titleize.s, admin_feature_description_path(parent_object.feature, parent_object))
+    when :feature
+    when :feature_name
+      add_breadcrumb_item link_to(FeatureName.model_name.human(count: :many).titleize.s, admin_feature_path(parent_object.feature.fid, section: 'names'))
+      add_breadcrumb_item link_to(parent_object.name.strip_tags.truncate(25).s, admin_feature_name_path(parent_object))
+    when :feature_name_relation
+      add_breadcrumb_item feature_names_link(parent_object.child_node.feature.fid)
+      add_breadcrumb_item link_to(parent_object.child_node.name, admin_feature_name_path(parent_object.child_node))
+      add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_name_feature_name_relations_path(parent_object.child_node))
+      add_breadcrumb_item link_to(parent_object, admin_feature_name_feature_name_relation_path(parent_object.child_node, parent_object))
+    when :feature_geo_code
+      add_breadcrumb_item link_to(FeatureGeoCode.model_name.human(:count => :many).s, admin_feature_feature_geo_codes_path(parent_object.feature))
+      add_breadcrumb_item link_to(parent_object, admin_feature_geo_code_path(parent_object))
+    when :feature_relation
+      add_breadcrumb_item link_to(ts('relation.this', :count => :many), admin_feature_feature_relations_path(parent_object.child_node))
+      add_breadcrumb_item feature_relation_role_label(parent_object.child_node, parent_object, :use_first=>false)
+    when :time_unit
+      add_breadcrumb_item link_to(ts('date.this', :count => :many), admin_time_units_path)
+      add_breadcrumb_item link_to(parent_object.to_s, polymorphic_path([:admin, parent_object]))
     end
   end
   #

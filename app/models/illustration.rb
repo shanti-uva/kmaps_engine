@@ -94,6 +94,4 @@ class Illustration < ActiveRecord::Base
       primary_illustrations.where(['id <> ?', keep.id]).update_all(:is_primary => false) if !keep.nil?
     end
   end
-  
-  ActiveSupport.run_load_hooks(:illustration, Illustration)
 end

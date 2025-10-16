@@ -81,6 +81,4 @@ class Admin::FeatureRelationsController < ApplicationController
     end
     params[:feature_relation][:feature_relation_type_id] = params[:feature_relation][:feature_relation_type_id].gsub(/^_/, '')
   end
-  
-  ActiveSupport.run_load_hooks(:admin_feature_relations_controller, Admin::FeatureRelationsController)
 end

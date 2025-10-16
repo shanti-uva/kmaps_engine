@@ -355,6 +355,4 @@ class FeaturesController < ApplicationController
     return if perspective_ids.blank? || perspective_ids.include?(self.current_perspective.id)
     self.current_perspective_id = perspective_ids.first
   end
-  
-  ActiveSupport.run_load_hooks(:features_controller, FeaturesController)
 end

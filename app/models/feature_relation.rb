@@ -122,6 +122,4 @@ class FeatureRelation < ActiveRecord::Base
     # need to do a join here (not :include) because we're searching parents and children feature.pids
     query.joins('LEFT JOIN features parents ON parents.id=feature_relations.parent_node_id LEFT JOIN features children ON children.id=feature_relations.child_node_id')
   end
-  
-  ActiveSupport.run_load_hooks(:feature_relation, FeatureRelation)
 end

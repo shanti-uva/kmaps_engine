@@ -13,6 +13,11 @@ module KmapsEngine
       g.assets false
       g.helper false
     end
-
+    
+    config.to_prepare do
+      require_dependency 'authenticated_system/user'
+      require_dependency 'kmaps_engine/user_extensions'  # needed even under app/models/concerns
+      AuthenticatedSystem::User.include KmapsEngine::UserExtensions
+    end
   end
 end

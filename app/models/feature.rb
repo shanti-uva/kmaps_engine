@@ -853,6 +853,4 @@ class Feature < ActiveRecord::Base
   
   def self.name_search_options(filter_value, **options)
   end
-  
-  ActiveSupport.run_load_hooks(:feature, Feature)
 end

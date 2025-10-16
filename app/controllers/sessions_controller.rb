@@ -40,6 +40,4 @@ class SessionsController < ApplicationController
     self.current_view_id = view.id if !view.nil?
     redirect_back fallback_location: root_url
   end
-  
-  ActiveSupport.run_load_hooks(:sessions_controller, SessionsController)
 end

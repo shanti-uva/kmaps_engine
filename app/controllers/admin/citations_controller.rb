@@ -25,6 +25,4 @@ class Admin::CitationsController < ApplicationController
   def citation_params
     params.require(:citation).permit(:info_source_id, :notes, :citable_id, :citable_type)
   end
-  
-  ActiveSupport.run_load_hooks(:admin_citations_controller, Admin::CitationsController)
 end
