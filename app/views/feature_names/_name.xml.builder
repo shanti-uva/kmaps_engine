@@ -9,9 +9,9 @@ xml.name do
   else
     xml.writing_system(name: w.name, code: w.code)
   end
-  xml << render(partial: 'time_units/index', format: 'xml', locals: {time_units: name.time_units})
-  xml << render(partial: 'citations/index', format: 'xml', locals: {citations: name.citations})
-  xml << render(partial: 'notes/index', format: 'xml', locals: {notes: name.notes})
+  xml << render(partial: 'time_units/index', formats: [:xml], locals: {time_units: name.time_units})
+  xml << render(partial: 'citations/index', formats: [:xml], locals: {citations: name.citations})
+  xml << render(partial: 'notes/index', formats: [:xml], locals: {notes: name.notes})
   parent_relation = name.parent_relations.first
   if parent_relation.nil?
     xml.relationship(name: 'Original', code: nil, type: nil)
@@ -29,15 +29,15 @@ xml.name do
         xml.code(relationship.code)
         xml.type(relationship.type)
       end
-      xml << render(partial: 'citations/index', format: 'xml', locals: {citations: parent_relation.citations})
-      xml << render(partial: 'notes/index', format: 'xml', locals: {notes: parent_relation.notes})
+      xml << render(partial: 'citations/index', formats: [:xml], locals: {citations: parent_relation.citations})
+      xml << render(partial: 'notes/index', formats: [:xml], locals: {notes: parent_relation.notes})
     end
     # have to add time units and citations to name relations.
   end
   if !@feature.nil?
     xml.names(type: 'array') do
       names = name.children.order('position')
-      xml << render(partial: 'name', format: 'xml', collection: names) if !names.empty?
+      xml << render(partial: 'name', formats: [:xml], collection: names) if !names.empty?
     end
   end
 end

@@ -20,13 +20,13 @@ class DescriptionsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to features_url }
         format.xml
-        format.json { render json: Hash.from_xml(render_to_string(action: 'index', format: 'xml')), callback: params[:callback] }
+        format.json { render json: Hash.from_xml(render_to_string(action: 'index', formats: [:xml])), callback: params[:callback] }
       end
     else
       @descriptions = @feature.descriptions
       respond_to do |format|
         format.xml
-        format.json { render json: Hash.from_xml(render_to_string(action: 'index', format: 'xml')), callback: params[:callback] }
+        format.json { render json: Hash.from_xml(render_to_string(action: 'index', formats: [:xml])), callback: params[:callback] }
       end
     end
   end
@@ -43,7 +43,7 @@ class DescriptionsController < ApplicationController
       format.html
       format.xml
       format.js
-      format.json { render json: Hash.from_xml(render_to_string(action: 'show', format: 'xml')), callback: params[:callback] }
+      format.json { render json: Hash.from_xml(render_to_string(action: 'show', formats: [:xml])), callback: params[:callback] }
     end
   end
 

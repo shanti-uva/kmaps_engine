@@ -6,7 +6,7 @@ class CaptionsController < ApplicationController
     @caption = Caption.find(params[:id])
     respond_to do |format|
       format.xml  { render xml: @caption   }
-      format.json { render json:  @caption } #Hash.from_xml(render_to_string(action: 'show', format: 'xml')) }
+      format.json { render json:  @caption } #Hash.from_xml(render_to_string(action: 'show', formats: [:xml])) }
     end
   end
 
@@ -14,7 +14,7 @@ class CaptionsController < ApplicationController
     @captions = @feature.captions
     respond_to do |format|
       format.xml  { render xml: @captions  }
-      format.json { render json: @captions } #Hash.from_xml(render_to_string(action: 'index', format: 'xml')) }
+      format.json { render json: @captions } #Hash.from_xml(render_to_string(action: 'index', formats: [:xml])) }
     end
   end
   

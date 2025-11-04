@@ -1,1 +1,1 @@
-xml << render(partial: 'stripped_feature', format: 'xml', locals: {feature: child_relation.child_node, relation: child_relation})
+xml << render(partial: 'stripped_feature', formats: [:xml], locals: {feature: child_relation.child_node, relation: child_relation})

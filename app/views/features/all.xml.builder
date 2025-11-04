@@ -1,2 +1,2 @@
 xml.instruct!
-xml << render(partial: 'recursive_stripped_feature', format: 'xml', locals: {feature: @feature})
+xml << render(partial: 'recursive_stripped_feature', formats: [:xml], locals: {feature: @feature})

@@ -1,1 +1,1 @@
-xml << render(partial: 'description', format: 'xml', object: @description)
+xml << render(partial: 'description', formats: [:xml], object: @description)

@@ -6,7 +6,7 @@ class SummariesController < ApplicationController
     @summary = Summary.find(params[:id])
     respond_to do |format|
       format.xml  { render xml: @summary }
-      format.json { render json: @summary } #Hash.from_xml(render_to_string(action: 'show', format: 'xml')) }
+      format.json { render json: @summary } #Hash.from_xml(render_to_string(action: 'show', formats: [:xml])) }
     end
   end
 
@@ -14,7 +14,7 @@ class SummariesController < ApplicationController
     @summaries = @feature.summaries
     respond_to do |format|
       format.xml  { render xml: @summaries }
-      format.json { render json: @summaries } #Hash.from_xml(render_to_string(action: 'index', format: 'xml')) }
+      format.json { render json: @summaries } #Hash.from_xml(render_to_string(action: 'index', formats: [:xml])) }
     end
   end
   

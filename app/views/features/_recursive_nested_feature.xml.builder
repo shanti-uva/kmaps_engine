@@ -6,5 +6,5 @@ caption = feature.caption
 options = { :id => feature.fid, :childCount => children.size, :title => header }
 options[:caption] = caption.content if !caption.nil?
 xml.feature(options) do
-  xml << render(:partial => 'recursive_nested_feature', format: 'xml', collection: children, as: :feature) if !children.empty?
+  xml << render(:partial => 'recursive_nested_feature', formats: [:xml], collection: children, as: :feature) if !children.empty?
 end
