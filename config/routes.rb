@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'solr/show'
   concern :notable_citable do
-    resources :notes, :citations
+    resources :notes, :citations, only: :index
   end
   resource :session do
     get 'change_language/:id', to: 'sessions#change_language', as: :change_language
