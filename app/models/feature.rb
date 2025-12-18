@@ -21,7 +21,7 @@
 #
 
 class Feature < ActiveRecord::Base
-  #attr_accessor :skip_update
+  attr_accessor :skip_update
   
   include KmapsEngine::FeatureExtensionForNamePositioning
   extend IsDateable
