@@ -12,7 +12,6 @@
 <%=      "<th>#{ts(:about)}</th>" unless options[:hide_association_type] %>
          <th><%= ts(:title) %></th>
          <th><%= ts(:author, :count => :many) %></th>
-         <th><%= t('date.this', :count => :many).titleize.s %></th>
        </tr>
 <%   list.each do |item| %>
      <tr>
@@ -26,7 +25,6 @@
 <%=      "<td>#{item.association_type_name}</td>" unless options[:hide_association_type] %>
          <td><%= item.title %></td>
          <td><%= item.authors.collect(&:fullname).join('<br />').s %></td>
-         <td><%= formatted_date(item.updated_at) %></td>
        </tr>
 <%   end %>
 </table>
