@@ -11,8 +11,9 @@ if children.empty?
   xml.feature(options)
 else
   xml.feature(options) do # , :pid => feature.pid
-    xml.features(type: 'array') do
-      xml << render(partial: 'recursive_stripped_feature', formats: [:xml], collection: children, as: :feature) if !children.empty?
-    end
+    # getting rid of recursive navigations to avoid apps from crashes!
+    #xml.features(type: 'array') do
+    #  xml << render(partial: 'recursive_stripped_feature', formats: [:xml], collection: children, as: :feature) if !children.empty?
+    #end
   end
 end

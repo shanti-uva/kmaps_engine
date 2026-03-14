@@ -5,6 +5,7 @@ children = feature.current_children(@perspective, @view).sort_by{ |f| [f.positio
 caption = feature.caption
 options = { :id => feature.fid, :childCount => children.size, :title => header }
 options[:caption] = caption.content if !caption.nil?
-xml.feature(options) do
-  xml << render(:partial => 'recursive_nested_feature', formats: [:xml], collection: children, as: :feature) if !children.empty?
-end
+# getting rid of recursive navigations to avoid apps from crashes!
+#xml.feature(options) do
+#  xml << render(:partial => 'recursive_nested_feature', formats: [:xml], collection: children, as: :feature) if !children.empty?
+#end
