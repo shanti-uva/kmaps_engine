@@ -564,7 +564,7 @@
       } else {
         url += "&q=*";
         url += "&df=header";
-        url += "&fq=level_"+plugin.settings.perspective+"_i:[1 TO 1]";
+        url += "&fq=level_"+plugin.settings.perspective+"_i:[1+TO+1]";
       }
     } else { //TODO: if we want direct ancestors use the method getAncestorTree
     }
@@ -800,7 +800,7 @@
       } else {
         url += "&q=*";
         url += "&df=header";
-        url += "&fq=level_"+plugin.settings.perspective+"_i:[1 TO 1]";
+        url += "&fq=level_"+plugin.settings.perspective+"_i:[1+TO+1]";
       }
     } else { //TODO: if we want all ancestors use the method getFullAncestorTree
     }
