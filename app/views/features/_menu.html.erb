@@ -79,7 +79,7 @@
    uid = !fid.nil? ? "#{Feature.uid_prefix}-#{fid}" : "";
 %>
 <%= content_tag :div, "", id: 'menu_js_data', data: {
- term_index: Feature.config.url,
+ term_index: Feature.config.public_url,
  asset_index: ShantiIntegration::Source.config.url,
  feature_id: uid,
  domain: Feature.uid_prefix,
@@ -108,7 +108,7 @@
    $(".view-section .nav.nav-tabs a[href='.listview']").tab("show");
   });
   $("#kmaps-explorer-search-term").flyoutKmapsTypeahead({
-    hostname: "<%= Feature.config.url %>",
+    hostname: "<%= Feature.config.public_url %>",
     hostname_assets: "<%= ShantiIntegration::Source.config.url %>",
     domain: '<%= Feature.uid_prefix %>',
     filters_domain: '<%= Feature.uid_prefix %>',
