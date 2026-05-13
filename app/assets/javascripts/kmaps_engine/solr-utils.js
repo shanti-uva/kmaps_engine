@@ -39,7 +39,7 @@
     var plugin = this;
     var dfd = $.Deferred();
     var relatedCountsUrl =
-      plugin.settings.termIndex + '/select?q={!child of=block_type:parent}id:' + plugin.settings.featureId + '&group=true&group.field=block_child_type&group.limit=0&wt=json&json.wrf=?';
+      plugin.settings.termIndex + '/select?q={!child of=block_type:parent}id:' + plugin.settings.featureId + '&group=true&group.field=block_child_type&group.limit=0&json.wrf=?';
     $.ajax({
       type: "GET",
       url: relatedCountsUrl,
@@ -128,7 +128,6 @@
       "&fl="+ fieldList +
       "&rows=" + SOLR_ROW_LIMIT +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&sort=related_"+plugin.settings.domain+"_header_s+asc";
     $.ajax({
@@ -222,7 +221,6 @@
       "&fl=uid,related_"+plugin.settings.domain+"_id_s,related_"+plugin.settings.domain+"_header_s" +","+ fieldList +
       "&rows=" + SOLR_ROW_LIMIT +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&sort=related_"+plugin.settings.domain+"_header_s+asc";
     $.ajax({
@@ -311,7 +309,6 @@
       "&fl=uid,related_"+plugin.settings.domain+"_id_s,related_"+plugin.settings.domain+"_header_s" +","+ fieldList +
       "&rows=" + SOLR_ROW_LIMIT +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&sort=related_"+plugin.settings.domain+"_header_s+asc";
     $.ajax({
@@ -361,7 +358,7 @@
       "ancestor_ids_closest_" + plugin.settings.perspective,
       "ancestors_closest_" + plugin.settings.perspective,
     ].join(',');
-    var url = plugin.settings.termIndex + '/select?q=id:' + currentFeatureId + '&fl=header,'+ fieldList +'*&wt=json&json.wrf=?';
+    var url = plugin.settings.termIndex + '/select?q=id:' + currentFeatureId + '&fl=header,'+ fieldList +'*&json.wrf=?';
     $.ajax({
       url: url,
       dataType: 'jsonp',
@@ -398,7 +395,7 @@
     const dfd = $.Deferred();
     // Update counts from asset index
     var nodeCaptionsUrl =
-      plugin.settings.termIndex + '/select?q=id:' + key + '&fl=caption_*&wt=json&json.wrf=?';
+      plugin.settings.termIndex + '/select?q=id:' + key + '&fl=caption_*&json.wrf=?';
     $.ajax({
       type: "GET",
       url: nodeCaptionsUrl,
@@ -429,7 +426,7 @@
     const dfd = $.Deferred();
     // Update counts from asset index
     var assetCountsUrl =
-      plugin.settings.assetIndex + '/select?q=kmapid:' + key + project_filter + '&start=0&facets=on&group=true&group.field=asset_type&group.facet=true&group.ngroups=true&group.limit=0&wt=json&json.wrf=?';
+      plugin.settings.assetIndex + '/select?q=kmapid:' + key + project_filter + '&start=0&facets=on&group=true&group.field=asset_type&group.facet=true&group.ngroups=true&group.limit=0&json.wrf=?';
     $.ajax({
       type: "GET",
       url: assetCountsUrl,
@@ -457,7 +454,7 @@
     var plugin = this;
     const dfd = $.Deferred();
     var relatedCountsUrl =
-      plugin.settings.termIndex + '/select?q={!child of=block_type:parent}id:' + key + project_filter + '&wt=json&indent=true&group=true&group.field=block_child_type&group.limit=0&wt=json&json.wrf=?';
+      plugin.settings.termIndex + '/select?q={!child of=block_type:parent}id:' + key + project_filter + '&indent=true&group=true&group.field=block_child_type&group.limit=0&json.wrf=?';
     $.ajax({
       type: "GET",
       url: relatedCountsUrl,
@@ -486,7 +483,7 @@
   Plugin.getNodeSubjectsRelatedPlacesCount =    function getNodeSubjectsRelatedPlacesCount(key,title) {
     var plugin = this;
     const dfd = $.Deferred();
-    var subjectsRelatedPlacesCountQuery = plugin.settings.termIndex + "/select?indent=on&q={!parent%20which=block_type:parent}related_subject_uid_s:" + key + "&wt=json&json.wrf=?&group=true&group.field=tree&group.limit=0";
+    var subjectsRelatedPlacesCountQuery = plugin.settings.termIndex + "/select?indent=on&q={!parent%20which=block_type:parent}related_subject_uid_s:" + key + "&json.wrf=?&group=true&group.field=tree&group.limit=0";
 
     $.ajax({
       type: "GET",
@@ -521,7 +518,6 @@
       "&fl=level_"+plugin.settings.perspective+"_i,ancestor_id_" + plugin.settings.perspective + "_path" +
       "&fq=tree:" + plugin.settings.tree +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&rows=" + SOLR_ROW_LIMIT +
       "&limit=" + SOLR_ROW_LIMIT;
@@ -571,7 +567,6 @@
     url += "&fl=" + fieldList +
       "&fq=tree:" + plugin.settings.tree +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&rows=" + SOLR_ROW_LIMIT +
       "&limit=" + SOLR_ROW_LIMIT;
@@ -702,10 +697,8 @@
       //end child count
       "&fl=" + fieldList +
       "&facet=true" +
-      "&wt=json" +
       "&limit=" + SOLR_ROW_LIMIT +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&rows=" + SOLR_ROW_LIMIT;
     $.ajax({
@@ -807,7 +800,6 @@
     url += "&fl=" + fieldList +
       "&fq=tree:" + plugin.settings.tree +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&rows=" + SOLR_ROW_LIMIT +
       "&limit=" + SOLR_ROW_LIMIT+
@@ -921,10 +913,8 @@
       "&fq=related_kmaps_node_type:" + "child" +
       "&fq="+"{!collapse field=related_"+plugin.settings.domain+"_id_s}" +
       //end of V3
-      "&wt=json" +
       "&limit=" + SOLR_ROW_LIMIT +
       "&indent=true" +
-      "&wt=json" +
       "&json.wrf=?" +
       "&sort="+ sortByQuery +
       "&rows=" + SOLR_ROW_LIMIT;
@@ -1009,7 +999,7 @@
     var plugin = this;
     var dfd = $.Deferred();
     var relatedUrl =
-      plugin.settings.assetIndex + '/select?q=asset_type:texts* AND kmapid_strict:' + plugin.settings.domain+'-'+plugin.settings.featureId + '&wt=json&json.wrf=?';
+      plugin.settings.assetIndex + '/select?q=asset_type:texts* AND kmapid_strict:' + plugin.settings.domain+'-'+plugin.settings.featureId + '&json.wrf=?';
     $.ajax({
       type: "GET",
       url: relatedUrl,
