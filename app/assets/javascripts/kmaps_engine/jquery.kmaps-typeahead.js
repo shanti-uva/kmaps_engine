@@ -91,7 +91,6 @@
         fl = fl.concat(settings.fields.split(','));
       }
       var params = {
-        'wt': 'json',
         'indent': true,
         'fl': fl.join(),
         'hl': true,
@@ -228,7 +227,6 @@
       };
       if (prefetch_facets) {
         var prefetch_params = {
-          'wt': 'json',
           'indent': true,
           'fl': '*',
           'q': '*:*',

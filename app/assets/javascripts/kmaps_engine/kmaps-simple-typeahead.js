@@ -64,7 +64,6 @@
         fl = fl.concat(settings.fields.split(','));
       }
       var params = {
-        'wt': 'json',
         'indent': true,
         'fl': fl.join(),
         'hl': true,
