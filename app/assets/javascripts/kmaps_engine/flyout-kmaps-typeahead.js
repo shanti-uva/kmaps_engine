@@ -438,7 +438,6 @@
       const fid = elem.val();
       var params = {
         'q': 'id:'+plugin.options.domain+'-'+fid,
-        'wt': 'json',
         'fl': 'id'
       };
       var callBack = function(data){
