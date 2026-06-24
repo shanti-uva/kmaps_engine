@@ -44,5 +44,4 @@ class ApplicationController < ActionController::Base
     @perspectives = Perspective.find_all_public
     @views = View.order('name')
   end
-  
 end
