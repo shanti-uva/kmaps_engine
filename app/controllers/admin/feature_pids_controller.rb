@@ -1,4 +1,7 @@
 class Admin::FeaturePidsController < ApplicationController
+  include InterfaceUtils::SweeperExtensions
+  include ActionController::Caching::Pages
+
   # GET /feature_pids
   # GET /feature_pids.xml
   def index
@@ -41,6 +44,7 @@ class Admin::FeaturePidsController < ApplicationController
     last = nil
     count.times {|i| last = Feature.create(:fid => Feature.generate_pid, :is_blank => true)}
     if successful
+      expire_full_path_page sitemap_url(only_path: true)
       if last.nil?
         @message = "Feature created: #{first.pid}."
       else

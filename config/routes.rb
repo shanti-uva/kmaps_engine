@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get "sitemap.xml", to: "sitemaps#index", as: :sitemap, defaults: { format: :xml }
+  get "sitemaps/features-:page.xml",
+    to: "sitemaps#features",
+    as: :features_sitemap,
+    constraints: { page: /\d+/ },
+    defaults: { format: :xml }
+
   get 'solr/show'
   concern :notable_citable do
     resources :notes, :citations, only: :index

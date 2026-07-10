@@ -8,6 +8,7 @@ class FeatureSweeper < ActionController::Caching::Sweeper
   
   observe Feature
   FORMATS = ['xml', 'json']
+  FIDS_PER_SITEMAP = 50_000
   
   def after_save(record)
     expire_cache(record)
@@ -39,5 +40,16 @@ class FeatureSweeper < ActionController::Caching::Sweeper
       options[:format] = format
       expire_full_path_page feature_url(record.fid, options)
     end
+    expire_sitemap_cache(record)
+  end
+
+  def expire_sitemap_cache(record)
+    return if record.fid.blank?
+
+    expire_full_path_page features_sitemap_url(page: sitemap_page_for_fid(record.fid), only_path: true)
+  end
+
+  def sitemap_page_for_fid(fid)
+    (fid.to_i / FIDS_PER_SITEMAP) + 1
   end
 end
