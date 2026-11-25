@@ -15,7 +15,7 @@ module KmapsEngine
     # i.feature_name_relations.parent_node, i.feature_name_relations.is_translation, 
     # i.feature_name_relations.is_phonetic, i.feature_name_relations.is_orthographic, BOTH DEPRECATED AND USELESS
     # i.geo_code_types.code/name, i.feature_geo_codes.geo_code_value, i.feature_geo_codes.info_source.id/code,
-    # feature_relations.delete, [i.]feature_relations.related_feature.fid or [i.]feature_relations.related_feature.name,
+    # feature_relations.delete, feature_relations.delete.alpha, [i.]feature_relations.related_feature.fid or [i.]feature_relations.related_feature.name,
     # [i.]feature_relations.type.code, [i.]perspectives.code/name, feature_relations.replace
     # descriptions.delete, [i.]descriptions.title, [i.]descriptions.content, [i.]descriptions.author.fullname, [i.]descriptions.language.code/name
     # [i.]captions:
@@ -564,8 +564,13 @@ module KmapsEngine
       feature_ids_with_changed_relations = Array.new
       delete_relations = self.fields.delete('feature_relations.delete')
       if !delete_relations.blank? && delete_relations.downcase == 'yes'
-        self.feature.all_child_relations.clear
-        self.feature.all_parent_relations.clear
+        self.feature.all_child_relations.where.not(feature_relation_type_id: FeatureRelationType.hierarchy_ids).clear
+        self.feature.all_parent_relations.where.not(feature_relation_type_id: FeatureRelationType.hierarchy_ids).clear
+      end
+      delete_relations = self.fields.delete('feature_relations.delete.alpha')
+      if !delete_relations.blank? && delete_relations.downcase == 'yes'
+        self.feature.child_relations.clear
+        self.feature.parent_relations.clear
       end
       replace_relations_str = self.fields.delete('feature_relations.replace')
       if replace_relations_str.blank?

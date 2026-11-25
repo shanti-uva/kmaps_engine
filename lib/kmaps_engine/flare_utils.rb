@@ -136,7 +136,7 @@ module KmapsEngine
         begin
           a = klass.where(['updated_at > ?', d]).includes(:feature)
           a.first
-        rescue ActiveRecord::AssociationNotFoundError => e
+        rescue Exception => e
           a = klass.where(['updated_at > ?', d])
         end
         puts "Analyzing #{Feature.model_name.human(count: :many)} for #{a.count} #{klass.model_name.human(count: :many)}."

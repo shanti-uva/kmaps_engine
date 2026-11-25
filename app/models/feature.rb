@@ -282,7 +282,10 @@ class Feature < ActiveRecord::Base
   # This is distinct from acts_as_family_tree's relations method, which only finds hierarchical child and parent relations.
   #
   def all_relations
-    FeatureRelation.where(['child_node_id = ? OR parent_node_id = ?', id, id])
+    #FeatureRelation.where(['child_node_id = ? OR parent_node_id = ?', id, id])
+    parent_relations = FeatureRelation.includes(:child_node).where(child_node_id: id).order('features.position')
+    child_relations = FeatureRelation.includes(:parent_node).where(parent_node_id: id).order('features.position')
+    parent_relations + child_relations
   end
       
   #
